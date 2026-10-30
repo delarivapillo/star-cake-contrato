@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contrato y Registro de Pedido | Star Cake</title>
+  <style>
+    :root {
+      --primary: #d946ef;
+      --primary-hover: #c026d3;
+      --bg-color: #fdf4ff;
+      --card-bg: #ffffff;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --border: #f3e8ff;
+      --input-border: #d1d5db;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .header-card {
+      border-top: 8px solid var(--primary);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #86198f;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #a21caf;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 6px;
+    }
+
+    .instructions {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .warning-box {
+      background-color: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: #92400e;
+    }
+
+    .warning-box ul {
+      margin-left: 18px;
+      margin-top: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .hint {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+      background: #fafafa;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      background: #fff;
+    }
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .radio-item, .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .tier-box {
+      background-color: #faf5ff;
+      border: 1px solid #e9d5ff;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tier-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #701a75;
+      margin-bottom: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: #e5e7eb;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background-color: #d1d5db;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .card { box-shadow: none; border: none; padding: 0; }
+      .actions, button { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Encabezado -->
+    <div class="card header-card">
+      <h1>CONTRATO STAR CAKE</h1>
+      <p class="instructions">Agradecemos tu depósito. Llena los siguientes datos para formalizar y agendar tu pedido.</p>
+      <p class="instructions" style="color: #be185d; font-weight: 600;">
+        * Recuerda que tu pastel debe estar liquidado una semana antes de tu evento.
+      </p>
+    </div>
+
+    <form id="contractForm">
+      <!-- Datos de contacto -->
+      <div class="card">
+        <h2>1. Datos de Contacto</h2>
+
+        <div class="form-group">
+          <label for="contactChannel">Medio por el que nos contactas: *</label>
+          <select id="contactChannel" required>
+            <option value="">Selecciona una opción...</option>
+            <option value="Facebook Star Cake / Instagram">Facebook Star Cake / Instagram</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Lala Land">Lala Land</option>
+            <option value="Yolanda Villa">Yolanda Villa</option>
+            <option value="Zaguán">Zaguán</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="socialProfileGroup">
+          <label for="profileName">Nombre como apareces en tu perfil de FB/Instagram:</label>
+          <input type="text" id="profileName" placeholder="Ej. Ana Pérez">
+          <div class="hint">Importante para rastrear tu historial de mensajes.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="eventDate">Fecha de tu evento: *</label>
+          <input type="date" id="eventDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Número de teléfono: *</label>
+          <input type="tel" id="phone" placeholder="Ej. 656 123 4567" required>
+        </div>
+
+        <div class="form-group">
+          <label>¿Qué deseas contratar? *</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="product" value="Pastel Boda o XV"> Pastel Boda o XV</label>
+            <label class="checkbox-item"><input type="checkbox" name="product" value="Pastel"> Pastel</label>
+            <label class="checkbox-item"><input type="checkbox" name="product" value="Cupcakes"> Cupcakes</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="coverage">Cobertura del pastel: *</label>
+          <select id="coverage" required>
+            <option value="">Selecciona cobertura...</option>
+            <option value="Buttercream">Buttercream</option>
+            <option value="Chantilly">Chantilly</option>
+            <option value="Fondant">Fondant</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Políticas de temporada de calor -->
+      <div class="card" id="weatherNoticeCard">
+        <h2>2. Condiciones y Políticas del Pastel</h2>
+        <div class="warning-box">
+          <strong>Riesgos en temporada de calor (Buttercream o Chantilly):</strong>
+          <ul>
+            <li>Las decoraciones de fondant son más pesadas y se pueden deslizar hacia abajo.</li>
+            <li>Se puede formar una pequeña lonjita donde se unen los panes y el relleno.</li>
+            <li>Pueden lucir ligeramente desnivelados por el asentamiento natural de la crema.</li>
+            <li>Son altamente sensibles al calor y al tacto durante el transporte.</li>
+          </ul>
+          <p style="margin-top: 8px;"><em>Trabajamos en disminuir riesgos, pero es indispensable que como cliente los conozcas y aceptes.</em></p>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" id="termsAccepted" required>
+            <span><strong>Acepto y conozco los términos y riesgos del clima</strong> *</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Tamaño del pastel -->
+      <div class="card">
+        <h2>3. Tamaño del Pastel</h2>
+        <div class="form-group">
+          <label for="cakeCapacity">Cantidad de personas: *</label>
+          <select id="cakeCapacity" required>
+            <option value="">Selecciona cantidad...</option>
+            <option value="25-30">25 - 30 personas (1 piso)</option>
+            <option value="40">40 personas (2 pisos pequeños)</option>
+            <option value="50-60">50 - 60 personas (2 pisos grandes)</option>
+            <option value="80-100">80 - 100 personas (3 pisos grandes)</option>
+            <option value="120-150">120 - 150 personas (3 pisos grandes)</option>
+            <option value="mayor-150">Mayor a 150 personas</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Bloque 1 Piso (25 - 30 personas) -->
+      <div class="card hidden" id="section1Floor">
+        <h2>Detalles: 1 Piso (25 - 30 personas)</h2>
+        <div class="warning-box" style="background:#f3f4f6; border-color:#9ca3af; color:#374151;">
+          <strong>Recolección en tienda:</strong> Av. Manuel J. Clouthier 7131. Horario: 9:30 AM a 4:30 PM.
+        </div>
+        <div class="form-group">
+          <label for="pickupTime1">Hora estimada de recolección:</label>
+          <input type="text" id="pickupTime1" placeholder="Ej. 1:00 PM">
+        </div>
+        <div class="form-group">
+          <label for="flavorFloor1_single">Sabor del pan:</label>
+          <select id="flavorFloor1_single" class="flavor-select"></select>
+        </div>
+        <div class="form-group">
+          <label for="fillingFloor1_single">Relleno:</label>
+          <select id="fillingFloor1_single" class="filling-select"></select>
+        </div>
+      </div>
+
+      <!-- Bloque 2 Pisos (40 / 50 - 60 personas) -->
+      <div class="card hidden" id="section2Floors">
+        <h2>Detalles: 2 Pisos (40 a 60 personas)</h2>
+        <div class="warning-box" style="background:#f3f4f6; border-color:#9ca3af; color:#374151;">
+          <strong>Recolección en tienda:</strong> Av. Manuel J. Clouthier 7131. Horario: 9:30 AM a 4:30 PM.
+        </div>
+        <div class="form-group">
+          <label for="pickupTime2">Hora estimada de recolección:</label>
+          <input type="text" id="pickupTime2" placeholder="Ej. 2:30 PM">
+        </div>
+
+        <div class="tier-box">
+          <div class="tier-title">Primer piso (Base / Abajo):</div>
+          <div class="form-group">
+            <label>Sabor del pan:</label>
+            <select id="flavor2_1" class="flavor-select"></select>
+          </div>
+          <div class="form-group">
+            <label>Relleno:</label>
+            <select id="filling2_1" class="filling-select"></select>
+          </div>
+        </div>
+
+        <div class="tier-box">
+          <div class="tier-title">Segundo piso (Arriba):</div>
+          <div class="form-group">
+            <label>Sabor del pan:</label>
+            <select id="flavor2_2" class="flavor-select"></select>
+          </div>
+          <div class="form-group">
+            <label>Relleno:</label>
+            <select id="filling2_2" class="filling-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloque 3 Pisos (80 a 150+ personas) -->
+      <div class="card hidden" id="section3Floors">
+        <h2>Detalles: 3 Pisos (80 a 150+ personas)</h2>
+        <div class="form-group">
+          <label for="eventLocation">Lugar o Salón de tu evento:</label>
+          <input type="text" id="eventLocation" placeholder="Nombre del salón y dirección completa">
+        </div>
+        <div class="form-group">
+          <label for="deliveryTime">Hora en que debemos llevar el pastel al lugar:</label>
+          <input type="text" id="deliveryTime" placeholder="Ej. 4:00 PM">
+          <div class="hint">Si habrá montaje especial, programar para estar al menos 15 minutos antes.</div>
+        </div>
+
+        <div class="tier-box">
+          <div class="tier-title">Primer piso (Base):</div>
+          <div class="form-group">
+            <label>Sabor del pan:</label>
+            <select id="flavor3_1" class="flavor-select"></select>
+          </div>
+          <div class="form-group">
+            <label>Relleno:</label>
+            <select id="filling3_1" class="filling-select"></select>
+          </div>
+        </div>
+
+        <div class="tier-box">
+          <div class="tier-title">Segundo piso (En medio):</div>
+          <div class="form-group">
+            <label>Sabor del pan:</label>
+            <select id="flavor3_2" class="flavor-select"></select>
+          </div>
+          <div class="form-group">
+            <label>Relleno:</label>
+            <select id="filling3_2" class="filling-select"></select>
+          </div>
+        </div>
+
+        <div class="tier-box">
+          <div class="tier-title">Tercer piso (Arriba):</div>
+          <div class="form-group">
+            <label>Sabor del pan:</label>
+            <select id="flavor3_3" class="flavor-select"></select>
+          </div>
+          <div class="form-group">
+            <label>Relleno:</label>
+            <select id="filling3_3" class="filling-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="actions">
+        <button type="button" class="btn-secondary" onclick="window.print()">Imprimir / Guardar PDF</button>
+        <button type="submit" class="btn-submit">Generar Contrato por WhatsApp</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Catálogos extraídos del formulario original
+    const flavors = [
+      "Fresa", "Vainilla", "Chocolate", "Vainilla- fresa", "Vainilla-choco",
+      "Fresa- choco", "coco", "Nuez", "Almendra", "Cereza", "Blue berrie",
+      "Piña colada", "Limon", "Naranja", "Banana- Nuez"
+    ];
+
+    const fillings = [
+      "Butter cream",
+      "Italiano de bodas (a base de queso crema, durazno y almendras)",
+      "Italiano (a base de queso crema)",
+      "Blue berrie",
+      "Fresas con crema",
+      "Piña- nuez"
+    ];
+
+    // Llenar selectores automáticamente
+    function populateDropdowns() {
+      const flavorSelects = document.querySelectorAll('.flavor-select');
+      const fillingSelects = document.querySelectorAll('.filling-select');
+
+      flavorSelects.forEach(select => {
+        select.innerHTML = '<option value="">Selecciona sabor...</option>' + 
+          flavors.map(f => `<option value="${f}">${f}</option>`).join('');
+      });
+
+      fillingSelects.forEach(select => {
+        select.innerHTML = '<option value="">Selecciona relleno...</option>' + 
+          fillings.map(f => `<option value="${f}">${f}</option>`).join('');
+      });
+    }
+
+    // Control de visualización por pisos
+    const capacitySelect = document.getElementById('cakeCapacity');
+    const sec1 = document.getElementById('section1Floor');
+    const sec2 = document.getElementById('section2Floors');
+    const sec3 = document.getElementById('section3Floors');
+
+    capacitySelect.addEventListener('change', (e) => {
+      const val = e.target.value;
+      sec1.classList.add('hidden');
+      sec2.classList.add('hidden');
+      sec3.classList.add('hidden');
+
+      if (val === '25-30') {
+        sec1.classList.remove('hidden');
+      } else if (val === '40' || val === '50-60') {
+        sec2.classList.remove('hidden');
+      } else if (val === '80-100' || val === '120-150' || val === 'mayor-150') {
+        sec3.classList.remove('hidden');
+      }
+    });
+
+    // Enviar datos formateados por WhatsApp
+    document.getElementById('contractForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const phoneStarCake = "526561234567"; // Reemplazar con el número de Star Cake
+      const clientPhone = document.getElementById('phone').value;
+      const contactChannel = document.getElementById('contactChannel').value;
+      const profileName = document.getElementById('profileName').value || 'N/A';
+      const eventDate = document.getElementById('eventDate').value;
+      const coverage = document.getElementById('coverage').value;
+      const capacity = capacitySelect.options[capacitySelect.selectedIndex].text;
+
+      let summary = `*CONTRATO STAR CAKE*%0A`;
+      summary += `------------------------------%0A`;
+      summary += `*Fecha Evento:* ${eventDate}\%0A`; summary += `*Teléfono:* ${clientPhone}%0A`;
+      summary += `*Medio de Contacto:* ${contactChannel}\%0A`; summary += `*Perfil:* ${profileName}%0A`;
+      summary += `*Cobertura:* ${coverage}\%0A`; summary += `*Capacidad:* ${capacity}%0A`;
+
+      if (capacitySelect.value === '25-30') {
+        summary += `*Recolección en Tienda:* ${document.getElementById('pickupTime1').value || 'Por definir'}%0A`;
+        summary += `*Pan:* ${document.getElementById('flavorFloor1_single').value}\%0A`; summary += `*Relleno:* ${document.getElementById('fillingFloor1_single').value}%0A`;
+      } else if (capacitySelect.value === '40' || capacitySelect.value === '50-60') {
+        summary += `*Recolección en Tienda:* ${document.getElementById('pickupTime2').value || 'Por definir'}%0A`;
+        summary += `*Piso 1 (Base):* ${document.getElementById('flavor2_1').value} /${document.getElementById('filling2_1').value}%0A`;
+        summary += `*Piso 2 (Arriba):* ${document.getElementById('flavor2_2').value} /${document.getElementById('filling2_2').value}%0A`;
+      } else if (capacitySelect.value) {
+        summary += `*Lugar del Evento:* ${document.getElementById('eventLocation').value || 'Por definir'}%0A`;
+        summary += `*Hora de Entrega:* ${document.getElementById('deliveryTime').value || 'Por definir'}%0A`;
+        summary += `*Piso 1:* ${document.getElementById('flavor3_1').value} /${document.getElementById('filling3_1').value}%0A`;
+        summary += `*Piso 2:* ${document.getElementById('flavor3_2').value} /${document.getElementById('filling3_2').value}%0A`;
+        summary += `*Piso 3:* ${document.getElementById('flavor3_3').value} /${document.getElementById('filling3_3').value}%0A`;
+      }
+
+      summary += `------------------------------%0A`;
+      summary += `_Aceptó términos de calor y liquidación 1 semana antes._`;
+
+      const whatsappURL = `https://wa.me/${phoneStarCake}?text=${summary}`;
+      window.open(whatsappURL, '_blank');
+    });
+
+    populateDropdowns();
+  </script>
+</body>
+</html>
