@@ -3,430 +3,407 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contrato y Registro de Pedido | Star Cake</title>
+  <title>Contrato y Registro de Pedido - Star Cake</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts & Phosphor Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fdf2f8',
+              100: '#fce7f3',
+              200: '#fbcfe8',
+              300: '#f9a8d4',
+              400: '#f472b6',
+              500: '#ec4899',
+              600: '#db2777',
+              700: '#be185d',
+              800: '#9d174d',
+              900: '#831843',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --primary: #d946ef;
-      --primary-hover: #c026d3;
-      --bg-color: #fdf4ff;
-      --card-bg: #ffffff;
-      --text: #1f2937;
-      --text-muted: #6b7280;
-      --border: #f3e8ff;
-      --input-border: #d1d5db;
-      --radius: 12px;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    /* Estilos personalizados para transiciones suaves y modo de impresión */
+    .fade-in {
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 24px 16px;
-    }
-
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 28px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
-    }
-
-    .header-card {
-      border-top: 8px solid var(--primary);
-    }
-
-    h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #86198f;
-    }
-
-    h2 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: #a21caf;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 6px;
-    }
-
-    .instructions {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .warning-box {
-      background-color: #fffbeb;
-      border-left: 4px solid #f59e0b;
-      padding: 14px 16px;
-      border-radius: 6px;
-      margin: 16px 0;
-      font-size: 0.9rem;
-      color: #92400e;
-    }
-
-    .warning-box ul {
-      margin-left: 18px;
-      margin-top: 8px;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      font-weight: 500;
-      font-size: 0.95rem;
-      margin-bottom: 6px;
-    }
-
-    .hint {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    input[type="text"],
-    input[type="tel"],
-    input[type="date"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--input-border);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.15s ease;
-      background: #fafafa;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--primary);
-      background: #fff;
-    }
-
-    .radio-group, .checkbox-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    .radio-item, .checkbox-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-
-    .tier-box {
-      background-color: #faf5ff;
-      border: 1px solid #e9d5ff;
-      padding: 16px;
-      border-radius: 8px;
-      margin-bottom: 14px;
-    }
-
-    .tier-title {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #701a75;
-      margin-bottom: 10px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    button {
-      flex: 1;
-      padding: 12px 20px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      border: none;
-      transition: background 0.2s;
-    }
-
-    .btn-submit {
-      background-color: var(--primary);
-      color: white;
-    }
-
-    .btn-submit:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .btn-secondary {
-      background-color: #e5e7eb;
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background-color: #d1d5db;
-    }
-
     @media print {
-      body { background: #fff; padding: 0; }
-      .card { box-shadow: none; border: none; padding: 0; }
-      .actions, button { display: none; }
+      body { background: white !important; padding: 0 !important; }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .contract-container { box-shadow: none !important; max-width: 100% !important; border: none !important; padding: 0 !important; }
     }
   </style>
 </head>
-<body>
 
-  <div class="container">
-    <!-- Encabezado -->
-    <div class="card header-card">
-      <h1>CONTRATO STAR CAKE</h1>
-      <p class="instructions">Agradecemos tu depósito. Llena los siguientes datos para formalizar y agendar tu pedido.</p>
-      <p class="instructions" style="color: #be185d; font-weight: 600;">
-        * Recuerda que tu pastel debe estar liquidado una semana antes de tu evento.
-      </p>
-    </div>
+<body class="bg-[#faf5f9] text-stone-800 min-h-screen py-6 px-3 sm:px-6 antialiased font-sans">
+  
+  <!-- Contenedor Principal -->
+  <div class="max-w-4xl mx-auto space-y-6">
 
-    <form id="contractForm">
-      <!-- Datos de contacto -->
-      <div class="card">
-        <h2>1. Datos de Contacto</h2>
+    <!-- Encabezado de Marca -->
+    <header class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-100/80 relative overflow-hidden text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-brand-100 to-pink-50 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-semibold mb-3">
+          <i class="ph-bold ph-sparkle text-brand-500"></i>
+          <span>Pastelería & Diseño Exclusivo</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight">Star Cake</h1>
+        <p class="text-stone-500 text-sm sm:text-base mt-1 font-medium">Contrato formal y especificaciones de pedido</p>
+      </div>
 
-        <div class="form-group">
-          <label for="contactChannel">Medio por el que nos contactas: *</label>
-          <select id="contactChannel" required>
-            <option value="">Selecciona una opción...</option>
-            <option value="Facebook Star Cake / Instagram">Facebook Star Cake / Instagram</option>
-            <option value="WhatsApp">WhatsApp</option>
-            <option value="Lala Land">Lala Land</option>
-            <option value="Yolanda Villa">Yolanda Villa</option>
-            <option value="Zaguán">Zaguán</option>
+      <div class="relative z-10 w-full sm:w-auto bg-gradient-to-br from-brand-500 to-brand-600 text-white p-4 rounded-2xl shadow-sm text-center sm:text-right">
+        <p class="text-xs uppercase tracking-wider font-semibold text-brand-100">Recordatorio Importante</p>
+        <p class="text-sm font-bold mt-0.5">Liquidación requerida</p>
+        <p class="text-xs text-brand-100 mt-1">1 semana antes de tu evento</p>
+      </div>
+    </header>
+
+    <!-- Formulario Principal -->
+    <form id="cakeContractForm" class="space-y-6">
+
+      <!-- Sección 1: Datos de Contacto y Evento -->
+      <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-100/80">
+        <div class="flex items-center gap-3 border-b border-stone-100 pb-4 mb-6">
+          <span class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">1</span>
+          <div>
+            <h2 class="text-lg font-bold text-stone-900 font-serif">Datos Generales & Contacto</h2>
+            <p class="text-xs text-stone-400">Información para seguimiento y localización de tu orden</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <!-- Medio de contacto -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Medio por el que nos contactas <span class="text-brand-600">*</span></label>
+            <select id="contactMethod" required class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-stone-800 text-sm bg-stone-50/50 transition">
+              <option value="" disabled selected>Selecciona una opción...</option>
+              <option value="Facebook Star Cake / Instagram">Facebook Star Cake / Instagram</option>
+              <option value="WhatsApp">WhatsApp</option>
+              <option value="Lala Land">Lala Land</option>
+              <option value="Yolanda Villa">Yolanda Villa</option>
+              <option value="Zaguán">Zaguán</option>
+              <option value="Recomendación / Otro">Otro medio</option>
+            </select>
+          </div>
+
+          <!-- Nombre de perfil en redes -->
+          <div id="socialProfileWrapper" class="transition-all duration-300">
+            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Nombre de perfil (FB / Instagram)</label>
+            <div class="relative">
+              <input type="text" id="profileName" placeholder="Ej. Mariana González" class="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-stone-800 text-sm bg-stone-50/50 transition">
+              <i class="ph ph-user absolute left-3.5 top-3.5 text-stone-400 text-base"></i>
+            </div>
+            <p class="text-[11px] text-stone-400 mt-1.5">Permite rastrear rápidamente tu historial de cotización.</p>
+          </div>
+
+          <!-- Fecha del Evento -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Fecha del Evento <span class="text-brand-600">*</span></label>
+            <div class="relative">
+              <input type="date" id="eventDate" required class="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-stone-800 text-sm bg-stone-50/50 transition">
+              <i class="ph ph-calendar-blank absolute left-3.5 top-3.5 text-stone-400 text-base"></i>
+            </div>
+          </div>
+
+          <!-- Teléfono -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Teléfono de contacto (WhatsApp) <span class="text-brand-600">*</span></label>
+            <div class="relative">
+              <input type="tel" id="clientPhone" required placeholder="Ej. 656 123 4567" class="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-stone-800 text-sm bg-stone-50/50 transition">
+              <i class="ph ph-phone absolute left-3.5 top-3.5 text-stone-400 text-base"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tipo de Pedido -->
+        <div class="mt-6 pt-5 border-t border-stone-100">
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-3">¿Qué deseas contratar? <span class="text-brand-600">*</span></label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/40 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
+              <input type="radio" name="services" value="Pastel Boda o XV" required class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
+              <span class="text-sm font-medium text-stone-700">Pastel Boda o XV</span>
+            </label>
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/40 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
+              <input type="radio" name="services" value="Pastel" required class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
+              <span class="text-sm font-medium text-stone-700">Pastel</span>
+            </label>
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/40 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
+              <input type="radio" name="services" value="Cupcakes" required class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
+              <span class="text-sm font-medium text-stone-700">Cupcakes</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Cobertura y Cláusula de Temperatura -->
+      <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-100/80">
+        <div class="flex items-center gap-3 border-b border-stone-100 pb-4 mb-6">
+          <span class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">2</span>
+          <div>
+            <h2 class="text-lg font-bold text-stone-900 font-serif">Cobertura & Condiciones</h2>
+            <p class="text-xs text-stone-400">Selecciona el acabado exterior de tu pastel</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Cobertura del pastel <span class="text-brand-600">*</span></label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="relative flex flex-col p-4 rounded-2xl border-2 border-stone-200 hover:border-brand-300 cursor-pointer transition has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50/30">
+              <input type="radio" name="cakeCoverage" value="Buttercream" required class="sr-only">
+              <span class="font-bold text-stone-900 text-sm">Buttercream</span>
+              <span class="text-xs text-stone-500 mt-1">Textura cremosa y suave a base de mantequilla</span>
+            </label>
+
+            <label class="relative flex flex-col p-4 rounded-2xl border-2 border-stone-200 hover:border-brand-300 cursor-pointer transition has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50/30">
+              <input type="radio" name="cakeCoverage" value="Chantilly" required class="sr-only">
+              <span class="font-bold text-stone-900 text-sm">Chantilly</span>
+              <span class="text-xs text-stone-500 mt-1">Crema ligera y aireada tradicional</span>
+            </label>
+
+            <label class="relative flex flex-col p-4 rounded-2xl border-2 border-stone-200 hover:border-brand-300 cursor-pointer transition has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50/30">
+              <input type="radio" name="cakeCoverage" value="Fondant" required class="sr-only">
+              <span class="font-bold text-stone-900 text-sm">Fondant</span>
+              <span class="text-xs text-stone-500 mt-1">Acabado liso satinado de pasta de azúcar</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- ADVERTENCIA CLIMÁTICA DINÁMICA: Solo visible si es Buttercream o Chantilly -->
+        <div id="weatherWarningCard" class="hidden mt-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-5 fade-in">
+          <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+              <i class="ph-fill ph-sun text-2xl"></i>
+            </div>
+            <div class="space-y-3">
+              <div>
+                <h4 class="font-bold text-amber-950 text-sm sm:text-base">Términos y Riesgos en Temporada de Calor</h4>
+                <p class="text-xs text-amber-800 leading-relaxed mt-0.5">
+                  Debido a la naturaleza delicada de la cobertura en <span id="coverageSelectedName" class="font-semibold underline">crema</span> y las altas temperaturas, es imprescindible contemplar los siguientes factores naturales:
+                </p>
+              </div>
+
+              <ul class="text-xs text-amber-900/90 space-y-1.5 list-disc pl-4 leading-normal">
+                <li>Las decoraciones en fondant son más pesadas y pueden deslizarse levemente hacia abajo con el calor.</li>
+                <li>Puede formarse una pequeña línea o "lonjita" donde se unen los panes y el relleno.</li>
+                <li>Pueden lucir ligeramente desnivelados por el asentamiento natural de la crema.</li>
+                <li>Son altamente sensibles al calor y al tacto durante el transporte y manipulación.</li>
+              </ul>
+
+              <div class="pt-2 border-t border-amber-200/60">
+                <label class="flex items-center gap-3 cursor-pointer select-none">
+                  <input type="checkbox" id="acceptWeatherPolicy" class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 border-amber-300">
+                  <span class="text-xs font-bold text-amber-950">Acepto y conozco los términos y riesgos del clima para este tipo de cobertura <span class="text-brand-700">*</span></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN: Tipo de Estructura / Modalidad (Solo para Pastel Boda o XV) -->
+      <section id="structureSection" class="hidden bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-100/80 fade-in">
+        <div class="flex items-center gap-3 border-b border-stone-100 pb-4 mb-6">
+          <span class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">3</span>
+          <div>
+            <h2 class="text-lg font-bold text-stone-900 font-serif">Tipo de Estructura & Montaje (Boda o XV)</h2>
+            <p class="text-xs text-stone-400">Define si tu pastel será comestible o con maqueta decorativa</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Modalidad del pastel <span class="text-brand-600">*</span></label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="relative flex flex-col p-4 rounded-2xl border-2 border-stone-200 hover:border-brand-300 cursor-pointer transition has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50/30">
+              <input type="radio" name="cakeStructure" value="Pastel real" class="sr-only">
+              <span class="font-bold text-stone-900 text-sm">Pastel Real</span>
+              <span class="text-xs text-stone-500 mt-1">Todos los pisos son de pan y relleno 100% comestible</span>
+            </label>
+
+            <label class="relative flex flex-col p-4 rounded-2xl border-2 border-stone-200 hover:border-brand-300 cursor-pointer transition has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50/30">
+              <input type="radio" name="cakeStructure" value="Maqueta" class="sr-only">
+              <span class="font-bold text-stone-900 text-sm">Maqueta</span>
+              <span class="text-xs text-stone-500 mt-1">Estructura decorativa para exhibición visual</span>
+            </label>
+
+            <label class="relative flex flex-col p-4 rounded-2xl border-2 border-stone-200 hover:border-brand-300 cursor-pointer transition has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50/30">
+              <input type="radio" name="cakeStructure" value="Maqueta y planchas" class="sr-only">
+              <span class="font-bold text-stone-900 text-sm">Maqueta y Planchas</span>
+              <span class="text-xs text-stone-500 mt-1">Maqueta para montaje + planchas de pastel para servir</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Selector de Planchas (Visible solo para Maqueta y planchas) -->
+        <div id="sheetCakesQtyContainer" class="hidden mt-6 bg-pink-50/50 p-5 rounded-2xl border border-pink-200/80 fade-in">
+          <div class="flex items-center gap-2 text-brand-800 text-xs font-semibold">
+            <i class="ph-bold ph-info text-base"></i>
+            <span>La selección y configuración de planchas se realiza en la Sección 4 según la cantidad de invitados.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 4: Capacidad y Configuración de Pisos / Planchas -->
+      <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-100/80">
+        <div class="flex items-center gap-3 border-b border-stone-100 pb-4 mb-6">
+          <span class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">4</span>
+          <div>
+            <h2 id="section4Title" class="text-lg font-bold text-stone-900 font-serif">Tamaño & Especificaciones de Pisos</h2>
+            <p id="section4Subtitle" class="text-xs text-stone-400">Selecciona el número de invitados y define los sabores mediante el diagrama interactivo</p>
+          </div>
+        </div>
+
+        <div>
+          <label id="capacityLabel" class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Cantidad de personas <span class="text-brand-600">*</span></label>
+          <select id="cakeCapacitySelect" required class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-stone-800 text-sm bg-stone-50/50 transition">
+            <!-- Rellenado dinámico según si es Boda/XV, Maqueta y planchas o regular -->
           </select>
+          <div id="sheetsEquivalenceBadge" class="hidden mt-2.5 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-brand-50 border border-brand-200 text-brand-800 text-xs font-semibold"></div>
         </div>
 
-        <div class="form-group" id="socialProfileGroup">
-          <label for="profileName">Nombre como apareces en tu perfil de FB/Instagram:</label>
-          <input type="text" id="profileName" placeholder="Ej. Ana Pérez">
-          <div class="hint">Importante para rastrear tu historial de mensajes.</div>
-        </div>
+        <!-- Logística de Entrega o Recolección -->
+        <div id="logisticsContainer" class="hidden mt-6"></div>
 
-        <div class="form-group">
-          <label for="eventDate">Fecha de tu evento: *</label>
-          <input type="date" id="eventDate" required>
-        </div>
+        <!-- DIAGRAMA VISUAL INTERACTIVO (Pisos o Planchas) -->
+        <div id="tiersInteractiveContainer" class="hidden mt-8 pt-6 border-t border-stone-100 fade-in">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 id="diagramHeaderTitle" class="font-serif font-bold text-stone-900 text-base">Diagrama Interactivo de Pisos</h3>
+              <p id="diagramHeaderSubtitle" class="text-xs text-stone-400">Haz clic en cualquier piso del diagrama para configurarlo</p>
+            </div>
+            <span id="tierCounterBadge" class="px-3 py-1 bg-brand-100 text-brand-700 text-xs font-bold rounded-full"></span>
+          </div>
 
-        <div class="form-group">
-          <label for="phone">Número de teléfono: *</label>
-          <input type="tel" id="phone" placeholder="Ej. 656 123 4567" required>
-        </div>
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <!-- Columna Diagrama Visual de Pastel / Planchas -->
+            <div class="md:col-span-5 flex flex-col items-center justify-center bg-stone-50/70 p-6 rounded-2xl border border-stone-200/80 min-h-[300px]">
+              <div class="text-[11px] font-bold text-stone-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                <i class="ph-bold ph-cursor-click"></i> <span id="diagramClickHint">Toca un piso para editar</span>
+              </div>
+              
+              <!-- Stack visual generado por JS -->
+              <div id="cakeStackVisual" class="w-full max-w-[240px] flex flex-col items-center justify-center gap-1.5 pb-2">
+              </div>
 
-        <div class="form-group">
-          <label>¿Qué deseas contratar? *</label>
-          <div class="checkbox-group">
-            <label class="checkbox-item"><input type="checkbox" name="product" value="Pastel Boda o XV"> Pastel Boda o XV</label>
-            <label class="checkbox-item"><input type="checkbox" name="product" value="Pastel"> Pastel</label>
-            <label class="checkbox-item"><input type="checkbox" name="product" value="Cupcakes"> Cupcakes</label>
+              <!-- Base / Plato (solo se muestra en pastel de pisos) -->
+              <div id="cakePlateBase" class="w-56 h-3 bg-gradient-to-r from-stone-300 via-stone-200 to-stone-300 rounded-full shadow-inner mt-1"></div>
+            </div>
+
+            <!-- Columna Formulario del Elemento Seleccionado -->
+            <div class="md:col-span-7 bg-white p-5 rounded-2xl border-2 border-brand-200 shadow-sm space-y-4">
+              <div class="flex items-center justify-between border-b border-brand-100 pb-3">
+                <div class="flex items-center gap-2">
+                  <span id="activeFloorBadge" class="w-7 h-7 rounded-lg bg-brand-600 text-white font-bold text-xs flex items-center justify-center">1</span>
+                  <h4 id="activeFloorTitle" class="font-bold text-stone-900 text-sm">Configurando Piso 1</h4>
+                </div>
+                <span id="activeBadgeTag" class="text-[11px] text-brand-600 font-semibold bg-brand-50 px-2 py-0.5 rounded-full">Piso Activo</span>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">Sabor del Pan</label>
+                <select id="activeFloorFlavor" class="flavor-dropdown w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-sm bg-stone-50/40 transition"></select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">Relleno</label>
+                <select id="activeFloorFilling" class="filling-dropdown w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-sm bg-stone-50/40 transition"></select>
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <button type="button" id="prevTierBtn" class="px-3 py-1.5 rounded-lg border border-stone-200 text-xs font-semibold text-stone-600 hover:bg-stone-50">
+                  ← Anterior
+                </button>
+                <button type="button" id="nextTierBtn" class="px-3 py-1.5 rounded-lg bg-stone-800 text-xs font-semibold text-white hover:bg-stone-700">
+                  Siguiente →
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="form-group">
-          <label for="coverage">Cobertura del pastel: *</label>
-          <select id="coverage" required>
-            <option value="">Selecciona cobertura...</option>
-            <option value="Buttercream">Buttercream</option>
-            <option value="Chantilly">Chantilly</option>
-            <option value="Fondant">Fondant</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Políticas de temporada de calor -->
-      <div class="card" id="weatherNoticeCard">
-        <h2>2. Condiciones y Políticas del Pastel</h2>
-        <div class="warning-box">
-          <strong>Riesgos en temporada de calor (Buttercream o Chantilly):</strong>
-          <ul>
-            <li>Las decoraciones de fondant son más pesadas y se pueden deslizar hacia abajo.</li>
-            <li>Se puede formar una pequeña lonjita donde se unen los panes y el relleno.</li>
-            <li>Pueden lucir ligeramente desnivelados por el asentamiento natural de la crema.</li>
-            <li>Son altamente sensibles al calor y al tacto durante el transporte.</li>
-          </ul>
-          <p style="margin-top: 8px;"><em>Trabajamos en disminuir riesgos, pero es indispensable que como cliente los conozcas y aceptes.</em></p>
-        </div>
-
-        <div class="checkbox-group">
-          <label class="checkbox-item">
-            <input type="checkbox" id="termsAccepted" required>
-            <span><strong>Acepto y conozco los términos y riesgos del clima</strong> *</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Tamaño del pastel -->
-      <div class="card">
-        <h2>3. Tamaño del Pastel</h2>
-        <div class="form-group">
-          <label for="cakeCapacity">Cantidad de personas: *</label>
-          <select id="cakeCapacity" required>
-            <option value="">Selecciona cantidad...</option>
-            <option value="25-30">25 - 30 personas (1 piso)</option>
-            <option value="40">40 personas (2 pisos pequeños)</option>
-            <option value="50-60">50 - 60 personas (2 pisos grandes)</option>
-            <option value="80-100">80 - 100 personas (3 pisos grandes)</option>
-            <option value="120-150">120 - 150 personas (3 pisos grandes)</option>
-            <option value="mayor-150">Mayor a 150 personas</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Bloque 1 Piso (25 - 30 personas) -->
-      <div class="card hidden" id="section1Floor">
-        <h2>Detalles: 1 Piso (25 - 30 personas)</h2>
-        <div class="warning-box" style="background:#f3f4f6; border-color:#9ca3af; color:#374151;">
-          <strong>Recolección en tienda:</strong> Av. Manuel J. Clouthier 7131. Horario: 9:30 AM a 4:30 PM.
-        </div>
-        <div class="form-group">
-          <label for="pickupTime1">Hora estimada de recolección:</label>
-          <input type="text" id="pickupTime1" placeholder="Ej. 1:00 PM">
-        </div>
-        <div class="form-group">
-          <label for="flavorFloor1_single">Sabor del pan:</label>
-          <select id="flavorFloor1_single" class="flavor-select"></select>
-        </div>
-        <div class="form-group">
-          <label for="fillingFloor1_single">Relleno:</label>
-          <select id="fillingFloor1_single" class="filling-select"></select>
-        </div>
-      </div>
-
-      <!-- Bloque 2 Pisos (40 / 50 - 60 personas) -->
-      <div class="card hidden" id="section2Floors">
-        <h2>Detalles: 2 Pisos (40 a 60 personas)</h2>
-        <div class="warning-box" style="background:#f3f4f6; border-color:#9ca3af; color:#374151;">
-          <strong>Recolección en tienda:</strong> Av. Manuel J. Clouthier 7131. Horario: 9:30 AM a 4:30 PM.
-        </div>
-        <div class="form-group">
-          <label for="pickupTime2">Hora estimada de recolección:</label>
-          <input type="text" id="pickupTime2" placeholder="Ej. 2:30 PM">
-        </div>
-
-        <div class="tier-box">
-          <div class="tier-title">Primer piso (Base / Abajo):</div>
-          <div class="form-group">
-            <label>Sabor del pan:</label>
-            <select id="flavor2_1" class="flavor-select"></select>
-          </div>
-          <div class="form-group">
-            <label>Relleno:</label>
-            <select id="filling2_1" class="filling-select"></select>
-          </div>
-        </div>
-
-        <div class="tier-box">
-          <div class="tier-title">Segundo piso (Arriba):</div>
-          <div class="form-group">
-            <label>Sabor del pan:</label>
-            <select id="flavor2_2" class="flavor-select"></select>
-          </div>
-          <div class="form-group">
-            <label>Relleno:</label>
-            <select id="filling2_2" class="filling-select"></select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bloque 3 Pisos (80 a 150+ personas) -->
-      <div class="card hidden" id="section3Floors">
-        <h2>Detalles: 3 Pisos (80 a 150+ personas)</h2>
-        <div class="form-group">
-          <label for="eventLocation">Lugar o Salón de tu evento:</label>
-          <input type="text" id="eventLocation" placeholder="Nombre del salón y dirección completa">
-        </div>
-        <div class="form-group">
-          <label for="deliveryTime">Hora en que debemos llevar el pastel al lugar:</label>
-          <input type="text" id="deliveryTime" placeholder="Ej. 4:00 PM">
-          <div class="hint">Si habrá montaje especial, programar para estar al menos 15 minutos antes.</div>
-        </div>
-
-        <div class="tier-box">
-          <div class="tier-title">Primer piso (Base):</div>
-          <div class="form-group">
-            <label>Sabor del pan:</label>
-            <select id="flavor3_1" class="flavor-select"></select>
-          </div>
-          <div class="form-group">
-            <label>Relleno:</label>
-            <select id="filling3_1" class="filling-select"></select>
-          </div>
-        </div>
-
-        <div class="tier-box">
-          <div class="tier-title">Segundo piso (En medio):</div>
-          <div class="form-group">
-            <label>Sabor del pan:</label>
-            <select id="flavor3_2" class="flavor-select"></select>
-          </div>
-          <div class="form-group">
-            <label>Relleno:</label>
-            <select id="filling3_2" class="filling-select"></select>
-          </div>
-        </div>
-
-        <div class="tier-box">
-          <div class="tier-title">Tercer piso (Arriba):</div>
-          <div class="form-group">
-            <label>Sabor del pan:</label>
-            <select id="flavor3_3" class="flavor-select"></select>
-          </div>
-          <div class="form-group">
-            <label>Relleno:</label>
-            <select id="filling3_3" class="filling-select"></select>
-          </div>
-        </div>
-      </div>
+      </section>
 
       <!-- Botones de Acción -->
-      <div class="actions">
-        <button type="button" class="btn-secondary" onclick="window.print()">Imprimir / Guardar PDF</button>
-        <button type="submit" class="btn-submit">Generar Contrato por WhatsApp</button>
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button type="button" onclick="openPreviewModal()" class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white border border-brand-200 hover:bg-brand-50/50 text-brand-800 font-bold text-sm shadow-sm transition">
+          <i class="ph-bold ph-eye text-lg"></i>
+          <span>Ver Resumen & Vista Previa</span>
+        </button>
+
+        <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-700 hover:to-brand-600 text-white font-bold text-sm shadow-sm hover:shadow-brand-500/20 transition">
+          <i class="ph-bold ph-whatsapp-logo text-xl"></i>
+          <span>Enviar Contrato por WhatsApp</span>
+        </button>
       </div>
+
     </form>
   </div>
 
+  <!-- MODAL DE RESUMEN Y VISTA PREVIA (Para impresión o confirmación) -->
+  <div id="previewModal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-stone-100 my-8">
+      
+      <div class="flex items-center justify-between border-b border-stone-100 pb-4 mb-5">
+        <div class="flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center">
+            <i class="ph-bold ph-file-text text-base"></i>
+          </span>
+          <h3 class="font-serif font-bold text-lg text-stone-900">Resumen del Contrato</h3>
+        </div>
+        <button onclick="closePreviewModal()" class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-400 hover:text-stone-700 transition">
+          <i class="ph-bold ph-x text-base"></i>
+        </button>
+      </div>
+
+      <div id="modalSummaryContent" class="space-y-4 text-xs sm:text-sm text-stone-700 max-h-[60vh] overflow-y-auto pr-1">
+        <!-- Rellenado dinámicamente con JavaScript -->
+      </div>
+
+      <div class="mt-6 pt-5 border-t border-stone-100 flex flex-col sm:flex-row gap-2.5">
+        <button onclick="window.print()" class="flex-1 py-3 px-4 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 font-bold text-xs flex items-center justify-center gap-2 transition">
+          <i class="ph-bold ph-printer text-base"></i>
+          <span>Imprimir / Guardar PDF</span>
+        </button>
+        <button onclick="submitToWhatsApp()" class="flex-1 py-3 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition">
+          <i class="ph-bold ph-paper-plane-tilt text-base"></i>
+          <span>Confirmar y Enviar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT DE LOGICA -->
   <script>
-    // Catálogos extraídos del formulario original
-    const flavors = [
+    // Catálogos oficiales
+    const FLAVORS = [
       "Fresa", "Vainilla", "Chocolate", "Vainilla- fresa", "Vainilla-choco",
       "Fresa- choco", "coco", "Nuez", "Almendra", "Cereza", "Blue berrie",
       "Piña colada", "Limon", "Naranja", "Banana- Nuez"
     ];
 
-    const fillings = [
+    const FILLINGS = [
       "Butter cream",
       "Italiano de bodas (a base de queso crema, durazno y almendras)",
       "Italiano (a base de queso crema)",
@@ -435,84 +412,647 @@
       "Piña- nuez"
     ];
 
-    // Llenar selectores automáticamente
-    function populateDropdowns() {
-      const flavorSelects = document.querySelectorAll('.flavor-select');
-      const fillingSelects = document.querySelectorAll('.filling-select');
+    // Opciones de capacidad regulares
+    const REGULAR_CAPACITIES = [
+      { id: "reg-25-30", label: "25 a 30 personas (1 piso)", floors: 1, pickup: true },
+      { id: "reg-40", label: "40 personas (2 pisos)", floors: 2, pickup: true },
+      { id: "reg-50", label: "50 personas (2 pisos)", floors: 2, pickup: true },
+      { id: "reg-100", label: "100 personas (3 pisos)", floors: 3, pickup: false },
+      { id: "reg-150", label: "150 personas (3 pisos)", floors: 3, pickup: false }
+    ];
 
-      flavorSelects.forEach(select => {
-        select.innerHTML = '<option value="">Selecciona sabor...</option>' + 
-          flavors.map(f => `<option value="${f}">${f}</option>`).join('');
-      });
+    // Opciones Boda o XV tradicional (Pastel real o Maqueta sola)
+    const WEDDING_XV_CAPACITIES = [
+      { id: "wx-50-2p", label: "50 personas (2 pisos)", floors: 2, pickup: true },
+      { id: "wx-100-3p", label: "100 personas (3 pisos)", floors: 3, pickup: false },
+      { id: "wx-150-3p", label: "150 personas (3 pisos)", floors: 3, pickup: false },
+      { id: "wx-200-4p", label: "200 personas (4 pisos)", floors: 4, pickup: false },
+      { id: "wx-250-5p", label: "250 personas (5 pisos)", floors: 5, pickup: false },
+      { id: "wx-300-5p", label: "300 personas (5 pisos)", floors: 5, pickup: false },
+      { id: "wx-350-6p", label: "350 personas (6 pisos)", floors: 6, pickup: false }
+    ];
 
-      fillingSelects.forEach(select => {
-        select.innerHTML = '<option value="">Selecciona relleno...</option>' + 
-          fillings.map(f => `<option value="${f}">${f}</option>`).join('');
+    // Opciones para Maqueta y planchas (50 a 500 personas, cada 50 = media plancha, 100 = 1 plancha)
+    const SHEET_CAKE_CAPACITIES = [];
+    for (let p = 50; p <= 500; p += 50) {
+      const fullCount = Math.floor(p / 100);
+      const hasHalf = (p % 100) !== 0;
+      
+      let desc = '';
+      if (fullCount > 0 && hasHalf) {
+        desc = `${fullCount} ${fullCount === 1 ? 'plancha completa' : 'planchas completas'} + 1 media plancha`;
+      } else if (fullCount > 0 && !hasHalf) {
+        desc = `${fullCount} ${fullCount === 1 ? 'plancha completa' : 'planchas completas'}`;
+      } else {
+        desc = `1 media plancha`;
+      }
+
+      // Desglose de unidades para configuración (priorizando planchas completas de 100 pax)
+      const unitsList = [];
+      for (let i = 1; i <= fullCount; i++) {
+        unitsList.push({ type: 'full', label: `Plancha Completa #${i} (100 pax)` });
+      }
+      if (hasHalf) {
+        unitsList.push({ type: 'half', label: `Media Plancha (50 pax)` });
+      }
+
+      SHEET_CAKE_CAPACITIES.push({
+        id: `sheet-${p}`,
+        persons: p,
+        unitsList: unitsList,
+        equivalenceText: desc,
+        label: `${p} personas (${desc})`,
+        pickup: false
       });
     }
 
-    // Control de visualización por pisos
-    const capacitySelect = document.getElementById('cakeCapacity');
-    const sec1 = document.getElementById('section1Floor');
-    const sec2 = document.getElementById('section2Floors');
-    const sec3 = document.getElementById('section3Floors');
+    // Estado del modelo
+    let isMockupOnlyMode = false;
+    let isSheetMode = false;
+    let currentUnitsCount = 0; // Pisos en modo tradicional o unidades de plancha en modo planchas
+    let selectedUnitIndex = 0;
+    let unitsData = []; // [{pan: '', relleno: '', label: ''}]
 
-    capacitySelect.addEventListener('change', (e) => {
-      const val = e.target.value;
-      sec1.classList.add('hidden');
-      sec2.classList.add('hidden');
-      sec3.classList.add('hidden');
+    function getFlavorOptionsHtml() {
+      return '<option value="" disabled selected>Selecciona sabor...</option>' +
+        FLAVORS.map(f => `<option value="${f}">${f}</option>`).join('');
+    }
 
-      if (val === '25-30') {
-        sec1.classList.remove('hidden');
-      } else if (val === '40' || val === '50-60') {
-        sec2.classList.remove('hidden');
-      } else if (val === '80-100' || val === '120-150' || val === 'mayor-150') {
-        sec3.classList.remove('hidden');
+    function getFillingOptionsHtml() {
+      return '<option value="" disabled selected>Selecciona relleno...</option>' +
+        FILLINGS.map(f => `<option value="${f}">${f}</option>`).join('');
+    }
+
+    // Monitoreo de Cobertura
+    const coverageInputs = document.querySelectorAll('input[name="cakeCoverage"]');
+    const weatherWarningCard = document.getElementById('weatherWarningCard');
+    const acceptWeatherPolicy = document.getElementById('acceptWeatherPolicy');
+    const coverageSelectedName = document.getElementById('coverageSelectedName');
+
+    coverageInputs.forEach(input => {
+      input.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (val === 'Buttercream' || val === 'Chantilly') {
+          weatherWarningCard.classList.remove('hidden');
+          acceptWeatherPolicy.required = true;
+          coverageSelectedName.textContent = val;
+        } else {
+          weatherWarningCard.classList.add('hidden');
+          acceptWeatherPolicy.required = false;
+          acceptWeatherPolicy.checked = false;
+        }
+      });
+    });
+
+    // Control de servicios y estructura
+    const serviceRadios = document.querySelectorAll('input[name="services"]');
+    const structureSection = document.getElementById('structureSection');
+    const structureRadios = document.querySelectorAll('input[name="cakeStructure"]');
+    const capacitySelect = document.getElementById('cakeCapacitySelect');
+    const sheetsBadge = document.getElementById('sheetsEquivalenceBadge');
+
+    function updateFormModes() {
+      const selectedService = document.querySelector('input[name="services"]:checked')?.value;
+      const selectedStructure = document.querySelector('input[name="cakeStructure"]:checked')?.value;
+
+      const isWedding = selectedService === 'Pastel Boda o XV';
+      isMockupOnlyMode = isWedding && (selectedStructure === 'Maqueta');
+      isSheetMode = isWedding && (selectedStructure === 'Maqueta y planchas');
+
+      const capacityContainer = document.getElementById('cakeCapacitySelect').parentElement;
+      const interactiveContainer = document.getElementById('tiersInteractiveContainer');
+
+      if (isMockupOnlyMode) {
+        // En maqueta sola se elimina tamaño, especificaciones y diagrama; solo se requiere ubicación y entrega
+        document.getElementById('section4Title').textContent = "Ubicación & Entrega de Maqueta";
+        document.getElementById('section4Subtitle').textContent = "Especifica el salón y horario donde entregaremos y montaremos la maqueta decorativa";
+        capacityContainer.classList.add('hidden');
+        interactiveContainer.classList.add('hidden');
+        sheetsBadge.classList.add('hidden');
+        renderLogistics(false);
+        return;
+      }
+
+      capacityContainer.classList.remove('hidden');
+
+      // Títulos de sección
+      if (isSheetMode) {
+        document.getElementById('section4Title').textContent = "Especificaciones de Maqueta & Planchas";
+        document.getElementById('section4Subtitle').textContent = "Selecciona de 50 a 500 personas y configura cada plancha de pastel";
+        document.getElementById('diagramHeaderTitle').textContent = "Diagrama de Planchas para Reparto";
+        document.getElementById('diagramHeaderSubtitle').textContent = "Haz clic en cada plancha para configurar su sabor y relleno";
+        document.getElementById('diagramClickHint').textContent = "Toca una plancha para editar";
+        document.getElementById('activeBadgeTag').textContent = "Plancha Activa";
+        document.getElementById('cakePlateBase').classList.add('hidden');
+      } else {
+        document.getElementById('section4Title').textContent = "Tamaño & Especificaciones de Pisos";
+        document.getElementById('section4Subtitle').textContent = "Selecciona el número de invitados y define los sabores mediante el diagrama interactivo";
+        document.getElementById('diagramHeaderTitle').textContent = "Diagrama Interactivo de Pisos";
+        document.getElementById('diagramHeaderSubtitle').textContent = "Haz clic en cualquier piso del diagrama para configurarlo";
+        document.getElementById('diagramClickHint').textContent = "Toca un piso para editar";
+        document.getElementById('activeBadgeTag').textContent = "Piso Activo";
+        document.getElementById('cakePlateBase').classList.remove('hidden');
+      }
+
+      // Llenar select de capacidad
+      sheetsBadge.classList.add('hidden');
+      if (isSheetMode) {
+        capacitySelect.innerHTML = '<option value="" disabled selected>Selecciona cantidad de personas (50 a 500)...</option>' +
+          SHEET_CAKE_CAPACITIES.map(c => `<option value="${c.id}" data-equiv="${c.equivalenceText}">${c.label}</option>`).join('');
+      } else if (isWedding) {
+        capacitySelect.innerHTML = '<option value="" disabled selected>Selecciona cantidad de personas...</option>' +
+          WEDDING_XV_CAPACITIES.map(c => `<option value="${c.id}" data-floors="${c.floors}" data-pickup="${c.pickup}">${c.label}</option>`).join('');
+      } else {
+        capacitySelect.innerHTML = '<option value="" disabled selected>Selecciona cantidad de personas...</option>' +
+          REGULAR_CAPACITIES.map(c => `<option value="${c.id}" data-floors="${c.floors}" data-pickup="${c.pickup}">${c.label}</option>`).join('');
+      }
+
+      resetTiers();
+    }
+
+    serviceRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        const isWedding = radio.value === 'Pastel Boda o XV';
+        if (isWedding) {
+          structureSection.classList.remove('hidden');
+        } else {
+          structureSection.classList.add('hidden');
+          structureRadios.forEach(r => r.checked = false);
+        }
+        updateFormModes();
+      });
+    });
+
+    structureRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        updateFormModes();
+      });
+    });
+
+    // Manejo de capacidad seleccionada
+    capacitySelect.addEventListener('change', () => {
+      const selectedOption = capacitySelect.options[capacitySelect.selectedIndex];
+
+      if (isSheetMode) {
+        const item = SHEET_CAKE_CAPACITIES.find(c => c.id === selectedOption.value);
+        const equiv = item ? item.equivalenceText : '';
+        sheetsBadge.innerHTML = `<i class="ph-bold ph-cake text-brand-600"></i><span>Distribución: <strong>${equiv}</strong></span>`;
+        sheetsBadge.classList.remove('hidden');
+
+        // Para eventos con maqueta y planchas, siempre entrega en salón
+        renderLogistics(false);
+        setupUnits(item ? item.unitsList : [], true);
+      } else {
+        sheetsBadge.classList.add('hidden');
+        const floors = parseInt(selectedOption.getAttribute('data-floors') || "0", 10);
+        const isPickup = selectedOption.getAttribute('data-pickup') === "true";
+        renderLogistics(isPickup);
+        setupUnits(floors, false);
       }
     });
 
-    // Enviar datos formateados por WhatsApp
-    document.getElementById('contractForm').addEventListener('submit', (e) => {
-      e.preventDefault();
+    function renderLogistics(isPickup) {
+      const logContainer = document.getElementById('logisticsContainer');
+      logContainer.classList.remove('hidden');
 
-      const phoneStarCake = "526561234567"; // Reemplazar con el número de Star Cake
-      const clientPhone = document.getElementById('phone').value;
-      const contactChannel = document.getElementById('contactChannel').value;
-      const profileName = document.getElementById('profileName').value || 'N/A';
+      if (isPickup) {
+        logContainer.innerHTML = `
+          <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-stone-200 text-stone-700 flex items-center justify-center shrink-0">
+                <i class="ph-bold ph-storefront text-xl"></i>
+              </div>
+              <div class="text-xs">
+                <p class="font-bold text-stone-800 text-sm">Recolección en Tienda Star Cake</p>
+                <p class="text-stone-500">Av. Manuel J. Clouthier 7131 • 9:30 AM a 4:30 PM</p>
+              </div>
+            </div>
+            <div class="w-full sm:w-auto">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-600 mb-1">Hora de Recogida</label>
+              <input type="text" id="pickupHourInput" placeholder="Ej. 2:00 PM" class="w-full sm:w-44 px-3 py-2 rounded-xl border border-stone-300 text-xs bg-white">
+            </div>
+          </div>
+        `;
+      } else {
+        logContainer.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-brand-50/40 p-4 rounded-2xl border border-brand-100">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">Lugar / Salón del Evento <span class="text-brand-600">*</span></label>
+              <input type="text" id="venueInput" placeholder="Nombre de salón y dirección completa" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs bg-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">Hora de Entrega en Salón <span class="text-brand-600">*</span></label>
+              <input type="text" id="deliveryHourInput" placeholder="Ej. 4:30 PM" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs bg-white">
+              <p class="text-[10px] text-stone-500 mt-1">Estar al menos 15 min antes si hay montaje de decoración.</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function resetTiers() {
+      currentUnitsCount = 0;
+      unitsData = [];
+      document.getElementById('tiersInteractiveContainer').classList.add('hidden');
+      document.getElementById('logisticsContainer').classList.add('hidden');
+      sheetsBadge.classList.add('hidden');
+    }
+
+    function setupUnits(config, sheetMode) {
+      if (sheetMode) {
+        // config es unitsList
+        currentUnitsCount = config.length;
+        selectedUnitIndex = 0;
+        unitsData = config.map(u => ({
+          pan: '',
+          relleno: '',
+          label: u.label,
+          type: u.type
+        }));
+      } else {
+        // config es count (floors)
+        currentUnitsCount = config;
+        selectedUnitIndex = 0;
+        unitsData = Array.from({ length: config }, (_, i) => ({
+          pan: '',
+          relleno: '',
+          label: `Piso ${i + 1}`
+        }));
+      }
+
+      document.getElementById('tiersInteractiveContainer').classList.remove('hidden');
+
+      if (sheetMode) {
+        document.getElementById('tierCounterBadge').textContent = `${currentUnitsCount} ${currentUnitsCount === 1 ? 'Plancha' : 'Planchas'}`;
+      } else {
+        document.getElementById('tierCounterBadge').textContent = `${currentUnitsCount} ${currentUnitsCount === 1 ? 'Piso' : 'Pisos'}`;
+      }
+
+      document.getElementById('activeFloorFlavor').innerHTML = getFlavorOptionsHtml();
+      document.getElementById('activeFloorFilling').innerHTML = getFillingOptionsHtml();
+
+      renderDiagram();
+      updateActiveUnitForm();
+    }
+
+    // Renderizado del Diagrama interactivo
+    function renderDiagram() {
+      const container = document.getElementById('cakeStackVisual');
+      container.innerHTML = '';
+
+      if (isSheetMode) {
+        // Diagrama con prioridad a planchas completas
+        container.className = 'w-full grid grid-cols-2 gap-2.5 py-2';
+        for (let i = 0; i < currentUnitsCount; i++) {
+          const item = unitsData[i];
+          const isSelected = selectedUnitIndex === i;
+          const isConfigured = item.pan && item.relleno;
+          const isFull = item.type === 'full';
+
+          const planchaCard = document.createElement('div');
+          planchaCard.className = `cursor-pointer transition-all duration-200 rounded-xl p-3 flex flex-col justify-between border-2 min-h-[74px] ${
+            isFull ? 'col-span-2' : 'col-span-2 sm:col-span-1'
+          } ${
+            isSelected 
+              ? 'bg-brand-500 text-white border-brand-700 scale-[1.02] z-10 shadow-md' 
+              : isConfigured 
+                ? 'bg-pink-100 text-pink-950 border-pink-300 hover:border-brand-400' 
+                : 'bg-white text-stone-700 border-stone-200 hover:border-brand-300'
+          }`;
+
+          planchaCard.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded-md ${isSelected ? 'bg-white text-brand-700' : 'bg-brand-100 text-brand-800'} text-[10px] font-bold">
+                ${isFull ? 'Plancha Completa' : 'Media Plancha'} #${i + 1}
+              </span>
+              <span class="text-[10px]">
+                ${isConfigured 
+                  ? (isSelected ? '<i class="ph-bold ph-check-circle text-base"></i>' : '<span class="text-brand-600 font-bold">✓ Listo</span>') 
+                  : '<span class="text-stone-400 italic">Sin configurar</span>'}
+              </span>
+            </div>
+            <p class="text-xs font-bold mt-1.5 truncate">${item.label}</p>
+            <p class="text-[10px] ${isSelected ? 'text-pink-100' : 'text-stone-400'}">${isFull ? '100 porciones' : '50 porciones'}</p>
+          `;
+
+          planchaCard.addEventListener('click', () => {
+            selectedUnitIndex = i;
+            renderDiagram();
+            updateActiveUnitForm();
+          });
+
+          container.appendChild(planchaCard);
+        }
+      } else {
+        // DIAGRAMA DE PASTEL: Piso 1 arriba (el más pequeño) y Piso N abajo (el más grande)
+        container.className = 'w-full max-w-[240px] flex flex-col items-center justify-end gap-1.5 pb-2';
+
+        // Iteración de i = 0 (Piso 1, arriba, más pequeño) a i = currentUnitsCount - 1 (Piso N, abajo, más grande)
+        for (let i = 0; i < currentUnitsCount; i++) {
+          const floorNumber = i + 1;
+          // Piso 1 (i=0) -> 45% de ancho. Piso N (i=count-1) -> 100% de ancho.
+          const factor = currentUnitsCount > 1 ? (i / (currentUnitsCount - 1)) : 1;
+          const widthPercent = 45 + (factor * 55);
+
+          const isSelected = selectedUnitIndex === i;
+          const isConfigured = unitsData[i].pan && unitsData[i].relleno;
+
+          const floorEl = document.createElement('div');
+          floorEl.style.width = `${Math.min(100, Math.round(widthPercent))}%`;
+          floorEl.className = `cursor-pointer transition-all duration-200 rounded-lg p-2 flex items-center justify-between shadow-sm border-2 ${
+            isSelected 
+              ? 'bg-brand-500 text-white border-brand-700 scale-105 z-10' 
+              : isConfigured 
+                ? 'bg-brand-100 text-brand-900 border-brand-300 hover:border-brand-400' 
+                : 'bg-white text-stone-700 border-stone-300 hover:border-brand-300'
+          }`;
+
+          floorEl.innerHTML = `
+            <div class="flex items-center gap-1.5 truncate">
+              <span class="w-5 h-5 rounded-md ${isSelected ? 'bg-white text-brand-700' : 'bg-stone-200 text-stone-700'} text-[10px] font-bold flex items-center justify-center shrink-0">
+                ${floorNumber}
+              </span>
+              <span class="text-[11px] font-bold truncate">Piso ${floorNumber}</span>
+            </div>
+            <div class="text-[10px] shrink-0">
+              ${isConfigured 
+                ? (isSelected ? '<i class="ph-bold ph-check-circle"></i>' : '<span class="text-brand-600 font-bold">✓</span>') 
+                : '<span class="text-stone-400 italic">Pendiente</span>'}
+            </div>
+          `;
+
+          floorEl.addEventListener('click', () => {
+            selectedUnitIndex = i;
+            renderDiagram();
+            updateActiveUnitForm();
+          });
+
+          container.appendChild(floorEl);
+        }
+      }
+    }
+
+    function updateActiveUnitForm() {
+      const unitNumber = selectedUnitIndex + 1;
+      let title = '';
+
+      if (isSheetMode) {
+        title = `Configurando ${unitsData[selectedUnitIndex]?.label || `Plancha #${unitNumber}`}`;
+      } else {
+        if (selectedUnitIndex === 0) {
+          title = `Configurando Piso 1 (Cúpula / Nivel Superior)`;
+        } else if (selectedUnitIndex === currentUnitsCount - 1) {
+          title = `Configurando Piso ${unitNumber} (Base Inferior)`;
+        } else {
+          title = `Configurando Piso ${unitNumber} (Nivel Intermedio)`;
+        }
+      }
+
+      document.getElementById('activeFloorBadge').textContent = unitNumber;
+      document.getElementById('activeFloorTitle').textContent = title;
+
+      const flavorSelect = document.getElementById('activeFloorFlavor');
+      const fillingSelect = document.getElementById('activeFloorFilling');
+
+      flavorSelect.value = unitsData[selectedUnitIndex]?.pan || '';
+      fillingSelect.value = unitsData[selectedUnitIndex]?.relleno || '';
+
+      document.getElementById('prevTierBtn').disabled = selectedUnitIndex === 0;
+      document.getElementById('prevTierBtn').classList.toggle('opacity-40', selectedUnitIndex === 0);
+
+      document.getElementById('nextTierBtn').disabled = selectedUnitIndex === currentUnitsCount - 1;
+      document.getElementById('nextTierBtn').classList.toggle('opacity-40', selectedUnitIndex === currentUnitsCount - 1);
+    }
+
+    // Listeners del formulario de elemento activo
+    document.getElementById('activeFloorFlavor').addEventListener('change', (e) => {
+      if (unitsData[selectedUnitIndex]) {
+        unitsData[selectedUnitIndex].pan = e.target.value;
+      }
+      renderDiagram();
+    });
+
+    document.getElementById('activeFloorFilling').addEventListener('change', (e) => {
+      if (unitsData[selectedUnitIndex]) {
+        unitsData[selectedUnitIndex].relleno = e.target.value;
+      }
+      renderDiagram();
+    });
+
+    document.getElementById('prevTierBtn').addEventListener('click', () => {
+      if (selectedUnitIndex > 0) {
+        selectedUnitIndex--;
+        renderDiagram();
+        updateActiveUnitForm();
+      }
+    });
+
+    document.getElementById('nextTierBtn').addEventListener('click', () => {
+      if (selectedUnitIndex < currentUnitsCount - 1) {
+        selectedUnitIndex++;
+        renderDiagram();
+        updateActiveUnitForm();
+      }
+    });
+
+    // Obtener valores consolidados
+    function getFormData() {
+      const contactMethod = document.getElementById('contactMethod').value;
+      const profileName = document.getElementById('profileName').value.trim() || 'No especificado';
       const eventDate = document.getElementById('eventDate').value;
-      const coverage = document.getElementById('coverage').value;
-      const capacity = capacitySelect.options[capacitySelect.selectedIndex].text;
+      const clientPhone = document.getElementById('clientPhone').value.trim();
+      
+      const service = document.querySelector('input[name="services"]:checked')?.value || 'No especificado';
+      const coverage = document.querySelector('input[name="cakeCoverage"]:checked')?.value || 'No seleccionada';
+      const structure = document.querySelector('input[name="cakeStructure"]:checked')?.value || 'N/A';
+      const capacityText = isMockupOnlyMode ? 'Solo Maqueta (Sin comensales de pan)' : (capacitySelect.options[capacitySelect.selectedIndex]?.text || 'No especificada');
+      const weatherAccepted = acceptWeatherPolicy.checked;
 
-      let summary = `*CONTRATO STAR CAKE*%0A`;
-      summary += `------------------------------%0A`;
-      summary += `*Fecha Evento:* ${eventDate}\%0A`; summary += `*Teléfono:* ${clientPhone}%0A`;
-      summary += `*Medio de Contacto:* ${contactChannel}\%0A`; summary += `*Perfil:* ${profileName}%0A`;
-      summary += `*Cobertura:* ${coverage}\%0A`; summary += `*Capacidad:* ${capacity}%0A`;
+      const pickupHour = document.getElementById('pickupHourInput')?.value || '';
+      const venue = document.getElementById('venueInput')?.value || '';
+      const deliveryHour = document.getElementById('deliveryHourInput')?.value || '';
 
-      if (capacitySelect.value === '25-30') {
-        summary += `*Recolección en Tienda:* ${document.getElementById('pickupTime1').value || 'Por definir'}%0A`;
-        summary += `*Pan:* ${document.getElementById('flavorFloor1_single').value}\%0A`; summary += `*Relleno:* ${document.getElementById('fillingFloor1_single').value}%0A`;
-      } else if (capacitySelect.value === '40' || capacitySelect.value === '50-60') {
-        summary += `*Recolección en Tienda:* ${document.getElementById('pickupTime2').value || 'Por definir'}%0A`;
-        summary += `*Piso 1 (Base):* ${document.getElementById('flavor2_1').value} /${document.getElementById('filling2_1').value}%0A`;
-        summary += `*Piso 2 (Arriba):* ${document.getElementById('flavor2_2').value} /${document.getElementById('filling2_2').value}%0A`;
-      } else if (capacitySelect.value) {
-        summary += `*Lugar del Evento:* ${document.getElementById('eventLocation').value || 'Por definir'}%0A`;
-        summary += `*Hora de Entrega:* ${document.getElementById('deliveryTime').value || 'Por definir'}%0A`;
-        summary += `*Piso 1:* ${document.getElementById('flavor3_1').value} /${document.getElementById('filling3_1').value}%0A`;
-        summary += `*Piso 2:* ${document.getElementById('flavor3_2').value} /${document.getElementById('filling3_2').value}%0A`;
-        summary += `*Piso 3:* ${document.getElementById('flavor3_3').value} /${document.getElementById('filling3_3').value}%0A`;
+      return {
+        contactMethod,
+        profileName,
+        eventDate,
+        clientPhone,
+        service,
+        coverage,
+        structure,
+        capacityText,
+        isMockupOnlyMode,
+        isSheetMode,
+        currentUnitsCount,
+        pickupHour,
+        venue,
+        deliveryHour,
+        weatherAccepted,
+        unitsData
+      };
+    }
+
+    function showNotification(message) {
+      let toast = document.getElementById('toastNotice');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toastNotice';
+        toast.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-stone-900 text-white px-5 py-3 rounded-2xl shadow-xl text-xs sm:text-sm font-medium flex items-center gap-2 transition duration-300';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<i class="ph-bold ph-warning-circle text-brand-400 text-lg"></i><span>${message}</span>`;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 3500);
+    }
+
+    // Modal de previsualización
+    function openPreviewModal() {
+      const data = getFormData();
+      const content = document.getElementById('modalSummaryContent');
+
+      let html = `
+        <div class="bg-stone-50 p-3.5 rounded-xl border border-stone-200/80 space-y-1">
+          <p><strong class="text-stone-900">Fecha del Evento:</strong> ${data.eventDate || '<span class="text-red-500">Sin definir</span>'}</p>
+          <p><strong class="text-stone-900">Teléfono:</strong> ${data.clientPhone || '<span class="text-red-500">Sin especificar</span>'}</p>
+          <p><strong class="text-stone-900">Contacto:</strong> ${data.contactMethod || 'N/A'} (${data.profileName})</p>
+          <p><strong class="text-stone-900">Servicio:</strong> ${data.service}</p>
+          <p><strong class="text-stone-900">Cobertura:</strong> <span class="text-brand-700 font-semibold">${data.coverage}</span></p>
+          <p><strong class="text-stone-900">Capacidad:</strong> ${data.capacityText}</p>
+      `;
+
+      if (data.service === 'Pastel Boda o XV' && data.structure !== 'N/A') {
+        html += `<p><strong class="text-stone-900">Estructura:</strong> <span class="font-semibold text-stone-800">${data.structure}</span></p>`;
       }
 
-      summary += `------------------------------%0A`;
-      summary += `_Aceptó términos de calor y liquidación 1 semana antes._`;
+      if (!data.isMockupOnlyMode) {
+        html += `<p><strong class="text-stone-900">Capacidad:</strong> ${data.capacityText}</p>`;
+      }
 
-      const whatsappURL = `https://wa.me/${phoneStarCake}?text=${summary}`;
-      window.open(whatsappURL, '_blank');
+      html += `</div>`;
+
+      // Logística
+      if (data.pickupHour) {
+        html += `<div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs"><strong>Recolección en Tienda:</strong> Av. Manuel J. Clouthier 7131 a las ${data.pickupHour}</div>`;
+      } else if (data.venue || data.deliveryHour) {
+        html += `<div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs"><strong>Entrega en Salón:</strong> ${data.venue || 'Por definir'} (${data.deliveryHour || 'Horario por definir'})</div>`;
+      }
+
+      // Especificaciones configuradas (solo si no es maqueta sola)
+      if (!data.isMockupOnlyMode && data.currentUnitsCount > 0) {
+        const itemHeader = data.isSheetMode 
+          ? `Especificación de Planchas (${data.currentUnitsCount} unidades)` 
+          : `Especificación de Pisos (${data.currentUnitsCount} Niveles)`;
+
+        html += `
+          <div class="bg-stone-50 p-3.5 rounded-xl border border-stone-200/80 space-y-2">
+            <p class="font-bold text-stone-900 text-xs uppercase tracking-wider text-brand-700">${itemHeader}</p>
+            <div class="space-y-1.5">
+              ${data.unitsData.map((u, idx) => `
+                <div class="text-xs bg-white p-2 rounded-lg border border-stone-200 flex justify-between">
+                  <span class="font-semibold text-stone-800">${u.label}:</span>
+                  <span>Pan: <strong>${u.pan || '(Sin elegir)'}</strong> | Relleno: <strong>${u.relleno || '(Sin elegir)'}</strong></span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      content.innerHTML = html;
+      const modal = document.getElementById('previewModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closePreviewModal() {
+      const modal = document.getElementById('previewModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Envío por WhatsApp
+    function submitToWhatsApp() {
+      const data = getFormData();
+      const phoneStarCake = "526561234567";
+
+      if (!data.eventDate || !data.clientPhone || !data.contactMethod || data.service === 'No especificado') {
+        showNotification("Por favor completa los campos obligatorios (*).");
+        return;
+      }
+
+      if ((data.coverage === 'Buttercream' || data.coverage === 'Chantilly') && !data.weatherAccepted) {
+        showNotification("Para Buttercream o Chantilly es necesario aceptar los términos y riesgos del clima.");
+        return;
+      }
+
+      if (data.service === 'Pastel Boda o XV' && data.structure === 'N/A') {
+        showNotification("Selecciona la modalidad para Pastel de Boda o XV.");
+        return;
+      }
+
+      let msg = `✨ *CONTRATO STAR CAKE* ✨%0A`;
+      msg += `-----------------------------------%0A`;
+      msg += `📅 *Fecha Evento:* ${data.eventDate}%0A`;
+      msg += `📱 *Teléfono:* ${data.clientPhone}%0A`;
+      msg += `💬 *Contacto:* ${data.contactMethod} (${data.profileName})%0A`;
+      msg += `🎂 *Servicio:* ${data.service}%0A`;
+      msg += `🧁 *Cobertura:* ${data.coverage}%0A`;
+
+      if (data.service === 'Pastel Boda o XV' && data.structure !== 'N/A') {
+        msg += `🏛️ *Estructura:* ${data.structure}%0A`;
+      }
+
+      if (!data.isMockupOnlyMode) {
+        msg += `👥 *Capacidad:* ${data.capacityText}%0A`;
+      }
+      msg += `-----------------------------------%0A`;
+
+      if (data.pickupHour) {
+        msg += `📍 *Recolección en Tienda:* Av. Manuel J. Clouthier 7131 a las ${data.pickupHour}%0A`;
+      } else if (data.venue || data.deliveryHour) {
+        msg += `📍 *Lugar Entrega:* ${data.venue || 'N/E'} | Hora: ${data.deliveryHour || 'N/E'}%0A`;
+      }
+
+      if (!data.isMockupOnlyMode && data.currentUnitsCount > 0) {
+        if (data.isSheetMode) {
+          msg += `%0A🥧 *DETALLE DE PLANCHAS (${data.currentUnitsCount} unidades):*%0A`;
+          data.unitsData.forEach((u) => {
+            msg += `• *${u.label}:* Pan ${u.pan || 'N/E'} con relleno de ${u.relleno || 'N/E'}%0A`;
+          });
+        } else {
+          msg += `%0A🍰 *DETALLE DE PISOS (${data.currentUnitsCount} niveles):*%0A`;
+          data.unitsData.forEach((u, i) => {
+            msg += `• *${u.label}:* Pan ${u.pan || 'N/E'} con relleno de ${u.relleno || 'N/E'}%0A`;
+          });
+        }
+      }
+
+      if (data.weatherAccepted) {
+        msg += `%0A☀️ _Aceptó términos de calor para cobertura de crema._%0A`;
+      }
+      msg += `💰 _Liquidación formal requerida 1 semana antes del evento._%0A`;
+      msg += `-----------------------------------%0A`;
+
+      const url = `https://wa.me/${phoneStarCake}?text=${msg}`;
+      window.open(url, '_blank');
+    }
+
+    document.getElementById('cakeContractForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitToWhatsApp();
     });
 
-    populateDropdowns();
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('previewModal');
+      if (e.target === modal) {
+        closePreviewModal();
+      }
+    });
+
+    // Iniciar con capacidades regulares por defecto
+    updateFormModes();
   </script>
 </body>
 </html>
