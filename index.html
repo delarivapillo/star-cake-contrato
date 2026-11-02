@@ -786,9 +786,12 @@
 
       MAQUETAS_CATALOG.forEach(mq => {
         // Verificar si la maqueta está ocupada en CUALQUIER día de ese fin de semana completo
-        const isOccupied = eventDateVal && BOOKED_MAQUETAS.some(b => 
+        const isBooked = eventDateVal && BOOKED_MAQUETAS.some(b => 
           currentWeekendDays.includes(b.date) && b.info.includes(mq.id)
         );
+        // Si el administrador la deshabilitó en Google Sheets (columna Disponible = "NO")
+        const isDisabledByAdmin = mq.enabled === false;
+        const isOccupied = isBooked || isDisabledByAdmin;
         const isSelected = selectedId === mq.id;
 
         const card = document.createElement('div');
@@ -814,7 +817,9 @@
 
               ${isOccupied ? `
                 <div class="absolute inset-0 bg-stone-900/40 backdrop-blur-[1px] flex items-center justify-center p-2 text-center">
-                  <span class="text-white text-[11px] font-bold bg-stone-800/90 px-2.5 py-1 rounded-lg shadow">No disponible</span>
+                  <span class="text-white text-[11px] font-bold bg-stone-800/90 px-2.5 py-1 rounded-lg shadow">
+                    ${isDisabledByAdmin ? 'Mantenimiento / No disponible' : 'No disponible'}
+                  </span>
                 </div>
               ` : ''}
 
