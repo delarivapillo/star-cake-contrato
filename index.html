@@ -5,15 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contrato y Registro de Pedido | Star Cake</title>
   
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Phosphor Icons -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <!-- Google Fonts: Inter & Playfair Display -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-
   <script>
     tailwind.config = {
       theme: {
@@ -33,7 +26,7 @@
             }
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             serif: ['"Playfair Display"', 'serif'],
           }
         }
@@ -41,373 +34,502 @@
     }
   </script>
 
+  <!-- Google Fonts & Phosphor Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
   <style>
-    .tier-hover {
+    /* Estilos personalizados para animaciones y diagramas */
+    .cake-tier-active {
+      box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.45);
+      border-color: #db2777 !important;
+      background-color: #fdf2f8 !important;
+      transform: scale(1.02);
+    }
+    .sheet-tier-active {
+      box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.45);
+      border-color: #db2777 !important;
+      background-color: #fdf2f8 !important;
+    }
+    input[type="radio"]:checked + div {
+      border-color: #db2777;
+      background-color: #fdf2f8;
+    }
+    /* Suavizado en transiciones */
+    .smooth-transition {
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .tier-hover:hover {
-      transform: translateY(-2px) scale(1.01);
-    }
-    .fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media print {
-      body { background: white !important; padding: 0 !important; }
-      .no-print { display: none !important; }
-      .print-shadow-none { box-shadow: none !important; border: 1px solid #ccc !important; }
     }
   </style>
 </head>
-<body class="bg-[#faf7f5] text-stone-800 antialiased font-sans min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+<body class="bg-[#faf7f5] text-stone-800 font-sans antialiased min-h-screen py-6 sm:py-10 px-3 sm:px-6">
 
+  <!-- Contenedor Principal -->
   <div class="max-w-2xl mx-auto space-y-6">
 
-    <!-- Tarjeta Principal / Header -->
-    <header class="bg-white rounded-3xl shadow-sm border border-stone-200/80 overflow-hidden relative">
-      <div class="h-3 bg-gradient-to-r from-brand-400 via-brand-600 to-pink-500"></div>
-      <div class="p-6 sm:p-8">
-        <div class="flex items-center gap-3 text-brand-600 mb-2">
-          <div class="w-10 h-10 rounded-2xl bg-brand-50 flex items-center justify-center text-xl shadow-inner">
-            🎂
-          </div>
-          <span class="text-xs font-bold uppercase tracking-widest text-brand-700">Pastelería Boutique & Diseño</span>
-        </div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-stone-900 font-serif tracking-tight">CONTRATO STAR CAKE</h1>
-        <p class="mt-2 text-stone-600 text-sm leading-relaxed">
-          ¡Agradecemos tu depósito! Por favor completa la siguiente información para agendar y formalizar tu pedido de manera oficial.
+    <!-- Encabezado / Branding -->
+    <header class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm relative overflow-hidden">
+      <div class="absolute -top-12 -right-12 w-40 h-40 bg-brand-100/50 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-brand-100 text-brand-600">
+          <i class="ph-bold ph-cake text-lg"></i>
+        </span>
+        <span class="text-xs uppercase tracking-widest font-bold text-brand-700">Pastelería Boutique</span>
+      </div>
+      <h1 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900 leading-tight">
+        Contrato y Agenda de Pedido
+      </h1>
+      <p class="text-stone-500 text-xs sm:text-sm mt-1.5 leading-relaxed">
+        Agradecemos tu depósito. Completa los detalles de tu evento para agendar y formalizar tu pastel de manera oficial.
+      </p>
+      <div class="mt-4 p-3 rounded-2xl bg-amber-50 border border-amber-200/80 flex items-start gap-2.5">
+        <i class="ph-bold ph-warning-circle text-amber-700 text-base mt-0.5 flex-shrink-0"></i>
+        <p class="text-xs text-amber-900 leading-normal">
+          <strong>Aviso importante:</strong> Tu pastel debe estar <u>liquidado a más tardar una semana antes</u> de la fecha de tu evento.
         </p>
-        <div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50 text-rose-700 text-xs font-semibold border border-rose-100">
-          <i class="ph-bold ph-calendar-check text-sm"></i>
-          <span>Recuerda que tu pastel debe estar liquidado una semana antes de tu evento.</span>
-        </div>
       </div>
     </header>
 
-    <form id="cakeContractForm" class="space-y-6" onsubmit="return false;">
+    <!-- Formulario Dinámico -->
+    <form id="contractForm" onsubmit="event.preventDefault(); openPreviewModal();" class="space-y-6">
 
-      <!-- SECCIÓN 1: Contacto y Evento -->
-      <section class="bg-white rounded-3xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-5">
-        <div class="flex items-center gap-2 pb-3 border-b border-stone-100">
-          <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 text-xs font-bold flex items-center justify-center">1</span>
-          <h2 class="text-base font-bold text-stone-900">Datos de Contacto y Evento</h2>
+      <!-- PASO 1: Datos de Contacto y Tipo de Servicio -->
+      <section class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-5">
+        <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">1</span>
+          <h2 class="font-bold text-sm sm:text-base text-stone-900">Datos de Contacto y Evento</h2>
         </div>
 
+        <!-- Medio de Contacto -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+            Medio por el que nos contactas <span class="text-brand-600">*</span>
+          </label>
+          <select id="contactChannel" required onchange="handleContactChannelChange()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-stone-50/50">
+            <option value="">Selecciona una opción...</option>
+            <option value="Facebook Star Cake / Instagram">Facebook Star Cake / Instagram</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Lala Land">Lala Land</option>
+            <option value="Yolanda Villa">Yolanda Villa</option>
+            <option value="Zaguán">Zaguán</option>
+          </select>
+        </div>
+
+        <!-- Nombre de Perfil / Titular -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+            Nombre de perfil / Titular <span class="text-brand-600">*</span>
+          </label>
+          <input type="text" id="profileName" required placeholder="Tal cual apareces en redes o WhatsApp (ej. Mariana González)" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-white">
+          <p class="text-[11px] text-stone-500">Esencial para sincronizar con tu cotización y comprobante previo.</p>
+        </div>
+
+        <!-- Teléfono y Fecha -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- Canal de contacto -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">Medio de Contacto <span class="text-brand-600">*</span></label>
-            <select id="contactMethod" required class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-stone-800 text-xs sm:text-sm bg-stone-50/50 focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
-              <option value="" disabled selected>Selecciona una opción...</option>
-              <option value="Facebook Star Cake / Instagram">Facebook Star Cake / Instagram</option>
-              <option value="WhatsApp">WhatsApp</option>
-              <option value="Lala Land">Lala Land</option>
-              <option value="Yolanda Villa">Yolanda Villa</option>
-              <option value="Zaguán">Zaguán</option>
-              <option value="Otro">Otro medio</option>
-            </select>
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+              Número de Teléfono <span class="text-brand-600">*</span>
+            </label>
+            <input type="tel" id="clientPhone" required placeholder="Ej. 656 123 4567" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-white">
           </div>
 
-          <!-- Perfil en redes -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">Nombre en tu perfil <span class="text-brand-600">*</span></label>
-            <input type="text" id="profileName" required placeholder="Ej. Mariana González" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-stone-800 text-xs sm:text-sm bg-stone-50/50 focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
-            <p class="text-[11px] text-stone-400 mt-1">Nombre tal cual apareces en el chat para localizar tu cotización.</p>
-          </div>
-
-          <!-- Fecha del Evento -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">Fecha del Evento <span class="text-brand-600">*</span></label>
-            <input type="date" id="eventDate" required class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-stone-800 text-xs sm:text-sm bg-stone-50/50 focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
-          </div>
-
-          <!-- Teléfono -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">Teléfono / WhatsApp <span class="text-brand-600">*</span></label>
-            <input type="tel" id="clientPhone" required placeholder="Ej. 656 123 4567" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-stone-800 text-xs sm:text-sm bg-stone-50/50 focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+              Fecha de tu Evento <span class="text-brand-600">*</span>
+            </label>
+            <input type="date" id="eventDate" required onchange="handleEventDateChange()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-white">
+            <p class="text-[10px] text-stone-500">Eventos a futuro (máximo 1 año).</p>
           </div>
         </div>
 
-        <!-- Servicio solicitado -->
-        <div class="pt-2">
-          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">¿Qué deseas contratar? <span class="text-brand-600">*</span></label>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 has-[:checked]:shadow-sm">
-              <input type="radio" name="services" value="Pastel Boda o XV" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <div class="text-xs">
-                <p class="font-bold text-stone-800">Pastel Boda o XV</p>
-                <p class="text-[11px] text-stone-500">Diseños nupciales y XV</p>
+        <!-- ¿Qué deseas contratar? -->
+        <div class="space-y-2 pt-2 border-t border-stone-100">
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+            ¿Qué deseas contratar? <span class="text-brand-600">*</span>
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <label class="relative cursor-pointer">
+              <input type="radio" name="productType" value="Pastel Boda o XV" required onchange="handleProductTypeChange()" class="sr-only peer">
+              <div class="p-3.5 rounded-2xl border border-stone-200 peer-checked:border-brand-600 peer-checked:bg-brand-50/60 peer-checked:text-brand-800 text-stone-700 text-xs sm:text-sm font-semibold flex items-center justify-between transition">
+                <span>Pastel Boda o XV</span>
+                <i class="ph-bold ph-heart text-base text-brand-600"></i>
               </div>
             </label>
 
-            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 has-[:checked]:shadow-sm">
-              <input type="radio" name="services" value="Pastel" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <div class="text-xs">
-                <p class="font-bold text-stone-800">Pastel Regular</p>
-                <p class="text-[11px] text-stone-500">Cumpleaños y ocasiones</p>
+            <label class="relative cursor-pointer">
+              <input type="radio" name="productType" value="Pastel" onchange="handleProductTypeChange()" class="sr-only peer">
+              <div class="p-3.5 rounded-2xl border border-stone-200 peer-checked:border-brand-600 peer-checked:bg-brand-50/60 peer-checked:text-brand-800 text-stone-700 text-xs sm:text-sm font-semibold flex items-center justify-between transition">
+                <span>Pastel Social</span>
+                <i class="ph-bold ph-cake text-base text-brand-600"></i>
               </div>
             </label>
 
-            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 has-[:checked]:shadow-sm">
-              <input type="radio" name="services" value="Cupcakes" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <div class="text-xs">
-                <p class="font-bold text-stone-800">Cupcakes</p>
-                <p class="text-[11px] text-stone-500">Complementos y cajas</p>
+            <label class="relative cursor-pointer">
+              <input type="radio" name="productType" value="Cupcakes" onchange="handleProductTypeChange()" class="sr-only peer">
+              <div class="p-3.5 rounded-2xl border border-stone-200 peer-checked:border-brand-600 peer-checked:bg-brand-50/60 peer-checked:text-brand-800 text-stone-700 text-xs sm:text-sm font-semibold flex items-center justify-between transition">
+                <span>Cupcakes</span>
+                <i class="ph-bold ph-cookie text-base text-brand-600"></i>
               </div>
             </label>
           </div>
         </div>
       </section>
 
-      <!-- SECCIÓN 2: Coberturas y Riesgo de Calor (Oculta para Boda/XV) -->
-      <section id="coverageSection" class="hidden bg-white rounded-3xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-5 fade-in">
-        <div class="flex items-center gap-2 pb-3 border-b border-stone-100">
-          <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 text-xs font-bold flex items-center justify-center">2</span>
-          <h2 class="text-base font-bold text-stone-900">Cobertura del Pastel</h2>
+      <!-- PASO 2: Cobertura y Riesgos por Calor (SOLO para Pastel y Cupcakes) -->
+      <section id="coverageSection" class="hidden bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-5">
+        <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+          <h2 class="font-bold text-sm sm:text-base text-stone-900">Cobertura del Pastel</h2>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Selecciona la cobertura <span class="text-brand-600">*</span></label>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <label class="flex items-center gap-3 p-3 rounded-xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
-              <input type="radio" name="cakeCoverage" value="Buttercream" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <span class="text-xs font-bold text-stone-800">Buttercream</span>
-            </label>
-
-            <label class="flex items-center gap-3 p-3 rounded-xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
-              <input type="radio" name="cakeCoverage" value="Chantilly" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <span class="text-xs font-bold text-stone-800">Chantilly</span>
-            </label>
-
-            <label class="flex items-center gap-3 p-3 rounded-xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
-              <input type="radio" name="cakeCoverage" value="Fondant" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <span class="text-xs font-bold text-stone-800">Fondant</span>
-            </label>
-          </div>
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+            Tipo de Cobertura <span class="text-brand-600">*</span>
+          </label>
+          <select id="coverageSelect" onchange="handleCoverageChange()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-stone-50/50">
+            <option value="">Selecciona una cobertura...</option>
+            <option value="Buttercream">Buttercream</option>
+            <option value="Chantilly">Chantilly</option>
+            <option value="Fondant">Fondant</option>
+          </select>
         </div>
 
-        <!-- Condiciones por temporada de calor (Solo Buttercream / Chantilly) -->
-        <div id="weatherNoticeBox" class="hidden bg-amber-50/70 border border-amber-200 rounded-2xl p-4 sm:p-5 space-y-3 fade-in">
-          <div class="flex items-start gap-3">
-            <div class="p-2 bg-amber-100 text-amber-800 rounded-xl shrink-0 mt-0.5">
-              <i class="ph-bold ph-sun text-base"></i>
-            </div>
-            <div class="space-y-1.5 text-xs text-amber-900 leading-relaxed">
-              <p class="font-bold text-amber-950">Aviso importante por temporada de calor (Buttercream o Chantilly):</p>
-              <ul class="list-disc pl-4 space-y-1 text-amber-900/90">
-                <li>Las decoraciones de fondant son pesadas y pueden deslizarse hacia abajo.</li>
-                <li>Puede formarse una pequeña lonjita donde se unen los panes y el relleno.</li>
-                <li>Pueden verse ligeramente desnivelados al asentarse la crema.</li>
-                <li>Son muy sensibles al tacto y calor; al transportarlos pueden sufrir daños no reparables de forma perfecta.</li>
-              </ul>
-              <p class="pt-1 italic font-medium text-amber-950">Nosotros trabajamos para minimizar los riesgos, pero es indispensable que como cliente los conozcas y aceptes.</p>
-            </div>
+        <!-- Advertencia de calor condicional para Buttercream o Chantilly -->
+        <div id="weatherNotice" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-2.5">
+          <div class="flex items-center gap-2 text-amber-900 font-bold text-xs">
+            <i class="ph-bold ph-sun-dim text-base text-amber-600"></i>
+            <span>Riesgos en temporada de calor (Buttercream o Chantilly)</span>
           </div>
+          <ul class="text-xs text-amber-800 list-disc list-inside space-y-1 pl-1 leading-relaxed">
+            <li>Las decoraciones de fondant son más pesadas y pueden deslizarse.</li>
+            <li>Puede formarse una pequeña lonjita donde se unen los panes y el relleno.</li>
+            <li>Pueden verse ligeramente desnivelados por el asentamiento térmico de la crema.</li>
+            <li>Son altamente sensibles al tacto y traslados con calor.</li>
+          </ul>
+          <p class="text-[11px] text-amber-700 italic">Nosotros trabajamos en disminuir los riesgos, más como cliente es indispensable que los conozcas y aceptes.</p>
 
-          <label class="flex items-start gap-3 pt-2 border-t border-amber-200/80 cursor-pointer">
-            <input type="checkbox" id="acceptWeatherPolicy" class="mt-0.5 w-4 h-4 text-amber-600 focus:ring-amber-500 rounded border-amber-300">
-            <span class="text-xs font-bold text-amber-950">He leído y acepto los riesgos y condiciones de la cobertura en clima cálido <span class="text-brand-600">*</span></span>
+          <label class="mt-2 pt-2 border-t border-amber-200/80 flex items-start gap-2.5 cursor-pointer">
+            <input type="checkbox" id="weatherAccepted" onchange="validateStepCompletion()" class="mt-0.5 rounded text-brand-600 focus:ring-brand-500 h-4 w-4">
+            <span class="text-xs font-bold text-amber-950">Acepto y conozco los riesgos de la cobertura en temporada de calor *</span>
           </label>
         </div>
       </section>
 
-      <!-- SECCIÓN 3: Estructura & Degustación (Exclusiva Boda y XV) -->
-      <section id="weddingStructureSection" class="hidden bg-white rounded-3xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-5 fade-in">
-        <div class="flex items-center gap-2 pb-3 border-b border-stone-100">
-          <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 text-xs font-bold flex items-center justify-center">2</span>
-          <h2 class="text-base font-bold text-stone-900">Modalidad para Boda / XV</h2>
+      <!-- PASO 3: Modalidad y Estructura (SOLO para Boda o XV) -->
+      <section id="weddingStructureSection" class="hidden bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-5">
+        <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+          <h2 class="font-bold text-sm sm:text-base text-stone-900">Modalidad del Pastel de Boda / XV</h2>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-2">Estructura del Pastel <span class="text-brand-600">*</span></label>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
-              <input type="radio" name="cakeStructure" value="Pastel Real" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <div class="text-xs">
-                <p class="font-bold text-stone-800">Pastel Real</p>
-                <p class="text-[11px] text-stone-500">Todos los pisos comestibles</p>
+        <div class="space-y-2">
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+            Estructura deseada <span class="text-brand-600">*</span>
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <label class="relative cursor-pointer">
+              <input type="radio" name="weddingStructure" value="Pastel real" onchange="handleWeddingStructureChange()" class="sr-only peer">
+              <div class="p-3.5 rounded-2xl border border-stone-200 peer-checked:border-brand-600 peer-checked:bg-brand-50/60 peer-checked:text-brand-800 text-stone-700 text-xs sm:text-sm font-semibold flex flex-col justify-between h-full transition">
+                <div class="flex items-center justify-between mb-1">
+                  <span>Pastel Real</span>
+                  <i class="ph-bold ph-cake text-brand-600"></i>
+                </div>
+                <span class="text-[11px] text-stone-500 font-normal">Todos los pisos son comestibles.</span>
               </div>
             </label>
 
-            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
-              <input type="radio" name="cakeStructure" value="Maqueta" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <div class="text-xs">
-                <p class="font-bold text-stone-800">Maqueta</p>
-                <p class="text-[11px] text-stone-500">Estructura de exhibición</p>
+            <label class="relative cursor-pointer">
+              <input type="radio" name="weddingStructure" value="Maqueta" onchange="handleWeddingStructureChange()" class="sr-only peer">
+              <div class="p-3.5 rounded-2xl border border-stone-200 peer-checked:border-brand-600 peer-checked:bg-brand-50/60 peer-checked:text-brand-800 text-stone-700 text-xs sm:text-sm font-semibold flex flex-col justify-between h-full transition">
+                <div class="flex items-center justify-between mb-1">
+                  <span>Solo Maqueta</span>
+                  <i class="ph-bold ph-sparkle text-brand-600"></i>
+                </div>
+                <span class="text-[11px] text-stone-500 font-normal">Estructura decorativa (no comestible).</span>
               </div>
             </label>
 
-            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
-              <input type="radio" name="cakeStructure" value="Maqueta y planchas" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <div class="text-xs">
-                <p class="font-bold text-stone-800">Maqueta + Planchas</p>
-                <p class="text-[11px] text-stone-500">Exhibición y planchas en cocina</p>
+            <label class="relative cursor-pointer">
+              <input type="radio" name="weddingStructure" value="Maqueta y planchas" onchange="handleWeddingStructureChange()" class="sr-only peer">
+              <div class="p-3.5 rounded-2xl border border-stone-200 peer-checked:border-brand-600 peer-checked:bg-brand-50/60 peer-checked:text-brand-800 text-stone-700 text-xs sm:text-sm font-semibold flex flex-col justify-between h-full transition">
+                <div class="flex items-center justify-between mb-1">
+                  <span>Maqueta + Planchas</span>
+                  <i class="ph-bold ph-rows text-brand-600"></i>
+                </div>
+                <span class="text-[11px] text-stone-500 font-normal">Maqueta lucidora + planchas de cocina.</span>
               </div>
             </label>
-          </div>
-        </div>
-
-        <!-- Módulo de Degustación: Miércoles o Jueves -->
-        <div class="pt-4 border-t border-stone-100 space-y-3">
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">¿Deseas agendar degustación de sabores? <span class="text-brand-600">*</span></label>
-            <p class="text-[11px] text-stone-500">Las sesiones de degustación se programan exclusivamente en días <strong>miércoles o jueves</strong>.</p>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3 max-w-sm">
-            <label class="flex items-center gap-2.5 p-3 rounded-xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
-              <input type="radio" name="wantsTasting" value="Sí" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <span class="text-xs font-bold text-stone-800">Sí, agendar</span>
-            </label>
-            <label class="flex items-center gap-2.5 p-3 rounded-xl border border-stone-200 hover:border-brand-300 bg-stone-50/30 cursor-pointer transition select-none has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
-              <input type="radio" name="wantsTasting" value="No" class="w-4 h-4 text-brand-600 focus:ring-brand-400 border-stone-300">
-              <span class="text-xs font-bold text-stone-800">No por el momento</span>
-            </label>
-          </div>
-
-          <!-- Campos de Degustación -->
-          <div id="tastingFieldsBox" class="hidden p-4 rounded-2xl bg-brand-50/60 border border-brand-200 space-y-3 fade-in">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">Fecha de degustación (Mié o Jue) <span class="text-brand-600">*</span></label>
-                <input type="date" id="tastingDate" class="w-full px-3 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-800 focus:border-brand-500 outline-none">
-                <p id="tastingDateError" class="hidden text-[11px] text-rose-600 font-semibold mt-1">Solo se permiten fechas en día miércoles o jueves.</p>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">Turno de degustación <span class="text-brand-600">*</span></label>
-                <select id="tastingTime" class="w-full px-3 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-800 focus:border-brand-500 outline-none">
-                  <option value="" disabled selected>Selecciona turno...</option>
-                  <option value="11:00 AM">11:00 AM</option>
-                  <option value="12:00 PM">12:00 PM</option>
-                  <option value="1:00 PM">1:00 PM</option>
-                  <option value="2:00 PM">2:00 PM</option>
-                  <option value="3:00 PM">3:00 PM</option>
-                  <option value="4:00 PM">4:00 PM</option>
-                </select>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      <!-- SECCIÓN 4: Capacidad & Diagrama Interactivo de Pisos / Planchas -->
-      <section id="capacityAndDiagramSection" class="hidden bg-white rounded-3xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-6 fade-in">
-        <div class="flex items-center gap-2 pb-3 border-b border-stone-100">
-          <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 text-xs font-bold flex items-center justify-center">3</span>
-          <h2 id="sectionCapacityTitle" class="text-base font-bold text-stone-900">Tamaño y Especificaciones</h2>
+      <!-- PASO 4: Tamaño, Pisos / Planchas y Sabores -->
+      <section id="sizeAndFlavorsSection" class="hidden bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-6">
+        <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">3</span>
+          <h2 id="sizeSectionTitle" class="font-bold text-sm sm:text-base text-stone-900">Tamaño y Configuración de Sabores</h2>
         </div>
 
-        <!-- Selector de Capacidad / Invitados -->
-        <div id="capacitySelectWrapper">
-          <label id="capacityLabel" class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">Cantidad de Personas <span class="text-brand-600">*</span></label>
-          <select id="cakeCapacity" required class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-stone-800 text-xs sm:text-sm bg-stone-50/50 focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
-            <option value="" disabled selected>Selecciona cantidad de personas...</option>
+        <!-- Selector de Capacidad / Personas -->
+        <div class="space-y-1.5" id="capacityGroup">
+          <label id="capacityLabel" class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+            Cantidad de Personas <span class="text-brand-600">*</span>
+          </label>
+          <select id="capacitySelect" onchange="handleCapacityChange()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-stone-50/50">
+            <option value="">Selecciona cantidad de invitados...</option>
           </select>
+          <p id="capacityHelperText" class="text-[11px] text-stone-500"></p>
         </div>
 
-        <!-- Logística Dinámica (Recogida o Entrega en salón) -->
-        <div id="logisticsContainer" class="hidden"></div>
+        <!-- Logística Dinámica (Recolección en Tienda vs Entrega en Salón) -->
+        <div id="logisticsContainer" class="pt-2"></div>
 
-        <!-- Diagrama Visual Interactivo y Configuración de Sabores -->
-        <div id="interactiveConfigBox" class="hidden space-y-6 pt-2">
-          
-          <div class="text-center">
-            <p id="diagramTitle" class="text-xs font-extrabold uppercase tracking-widest text-brand-700">Diagrama Interactivo de Pisos</p>
-            <p class="text-[11px] text-stone-500 mt-0.5">Haz clic en cada nivel o plancha para configurar el pan y su relleno</p>
+        <!-- Contenedor del Diagrama Interactivo y Configuración de Pisos -->
+        <div id="cakeStackSection" class="hidden space-y-5 pt-3 border-t border-stone-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Configuración Piso por Piso</span>
+            <p class="text-xs text-stone-500 mt-0.5">Toca el piso que deseas configurar para personalizar su pan y relleno de uno por uno.</p>
           </div>
 
-          <!-- Contenedor del Diagrama Visual -->
-          <div class="p-6 rounded-2xl bg-[#fdfbfa] border border-stone-200 flex flex-col items-center justify-center min-h-[180px] shadow-inner">
-            <div id="visualDiagram" class="w-full max-w-sm flex flex-col items-center gap-2"></div>
-            <!-- Plato de base (solo para pasteles redondos) -->
-            <div id="cakePlate" class="w-64 h-3 bg-stone-200 rounded-full mt-1.5 shadow-sm"></div>
+          <!-- Diagrama Visual de Capas (Piso 1 más pequeño arriba hasta Piso N base) -->
+          <div class="p-6 rounded-2xl bg-gradient-to-b from-stone-50 to-brand-50/30 border border-stone-200 flex flex-col items-center justify-center">
+            <div id="cakeDiagramVisual" class="w-full max-w-sm flex flex-col items-center gap-2 py-2"></div>
+            <!-- Base o Plato de Presentación -->
+            <div class="w-64 sm:w-80 h-3 rounded-full bg-stone-300/80 shadow-inner mt-2"></div>
           </div>
 
-          <!-- Panel de selección del piso/plancha activo -->
-          <div id="activeUnitConfigPanel" class="p-5 rounded-2xl bg-brand-50/40 border border-brand-200 space-y-4 fade-in">
-            <div class="flex items-center justify-between">
-              <span id="activeUnitLabel" class="text-xs font-bold uppercase tracking-wider text-brand-900 bg-brand-100/80 px-2.5 py-1 rounded-lg">Configurando Piso 1</span>
-              <span class="text-[11px] text-stone-500 font-medium">Requerido</span>
-            </div>
+          <!-- Editor Enfocado del Piso Activo (Uno por uno) -->
+          <div id="activeTierEditor" class="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-4"></div>
+        </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-bold text-stone-700 mb-1.5">Sabor del Pan: <span class="text-brand-600">*</span></label>
-                <select id="unitBreadSelect" required class="w-full px-3 py-2 rounded-xl border border-stone-200 text-xs bg-white text-stone-800 focus:border-brand-500 outline-none">
-                  <option value="" disabled selected>Selecciona sabor del pan...</option>
-                </select>
-              </div>
+        <!-- Contenedor de Planchas para Cocina (Maqueta + Planchas) -->
+        <div id="sheetCakesSection" class="hidden space-y-5 pt-3 border-t border-stone-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Configuración de Planchas</span>
+            <p class="text-xs text-stone-500 mt-0.5">Toca cada bandeja para configurar sus sabores de uno por uno.</p>
+          </div>
 
-              <div>
-                <label class="block text-xs font-bold text-stone-700 mb-1.5">Sabor del Relleno: <span class="text-brand-600">*</span></label>
-                <select id="unitFillingSelect" required class="w-full px-3 py-2 rounded-xl border border-stone-200 text-xs bg-white text-stone-800 focus:border-brand-500 outline-none">
-                  <option value="" disabled selected>Selecciona relleno...</option>
-                </select>
-              </div>
-            </div>
+          <!-- Diagrama de Planchas -->
+          <div id="sheetCakesDiagram" class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl bg-stone-50 border border-stone-200"></div>
+
+          <!-- Editor Enfocado de la Plancha Activa (Uno por uno) -->
+          <div id="activeSheetEditor" class="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-4"></div>
+        </div>
+      </section>
+
+      <!-- PASO 5: Degustación (Solo Boda/XV con Pastel Real o Planchas) -->
+      <section id="tastingSection" class="hidden bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-5">
+        <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">4</span>
+          <h2 class="font-bold text-sm sm:text-base text-stone-900">Agenda de Degustación</h2>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+            ¿Deseas agendar degustación de sabores previa a tu evento? <span class="text-brand-600">*</span>
+          </label>
+          <div class="flex gap-4">
+            <label class="flex items-center gap-2 cursor-pointer text-xs sm:text-sm font-semibold">
+              <input type="radio" name="tastingOption" value="Si" onchange="handleTastingOptionChange()" class="text-brand-600 focus:ring-brand-500 h-4 w-4">
+              <span>Sí, deseo agendar degustación</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer text-xs sm:text-sm font-semibold">
+              <input type="radio" name="tastingOption" value="No" onchange="handleTastingOptionChange()" class="text-brand-600 focus:ring-brand-500 h-4 w-4">
+              <span>No por ahora</span>
+            </label>
           </div>
         </div>
 
+        <!-- Campos de fecha de degustación (Miércoles o Jueves) -->
+        <div id="tastingDateGroup" class="hidden p-4 rounded-2xl bg-brand-50/50 border border-brand-100 space-y-4">
+          <div class="flex items-center gap-2 text-xs font-bold text-brand-900">
+            <i class="ph-bold ph-calendar-check text-brand-600 text-base"></i>
+            <span>Horarios de Degustación: Únicamente Miércoles o Jueves</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 flex items-start gap-2">
+            <i class="ph-bold ph-clock-countdown text-sm text-amber-700 mt-0.5 flex-shrink-0"></i>
+            <span><strong>Regla de agenda:</strong> La degustación debe programarse con un <u>mínimo de 2 semanas de anticipación</u> respecto a la fecha de tu evento.</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                Fecha de Degustación <span class="text-brand-600">*</span>
+              </label>
+              <input type="date" id="tastingDate" onchange="handleTastingDateValidation()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs sm:text-sm bg-white">
+              <p id="tastingDayNotice" class="text-[11px] text-brand-700 font-semibold"></p>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                Horario de Cita <span class="text-brand-600">*</span>
+              </label>
+              <select id="tastingTime" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs sm:text-sm bg-white">
+                <option value="">Selecciona horario...</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- Botones de Acción -->
-      <div class="flex flex-col sm:flex-row gap-3 pt-2">
-        <button type="button" onclick="openPreviewModal()" class="w-full sm:w-1/3 py-3.5 px-4 rounded-2xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs uppercase tracking-wider transition shadow-sm flex items-center justify-center gap-2">
-          <i class="ph-bold ph-eye text-base"></i>
+      <div class="pt-4 flex flex-col sm:flex-row gap-3">
+        <button type="button" onclick="openPreviewModal()" class="w-full sm:w-1/2 py-3.5 px-5 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition">
+          <i class="ph-bold ph-file-text text-base"></i>
           <span>Revisar Resumen</span>
         </button>
-        <button type="button" onclick="submitToWhatsApp()" class="w-full sm:w-2/3 py-3.5 px-6 rounded-2xl bg-brand-600 hover:bg-brand-700 active:scale-[0.99] text-white font-bold text-xs uppercase tracking-wider transition shadow-md shadow-brand-200 flex items-center justify-center gap-2">
-          <i class="ph-bold ph-whatsapp-logo text-lg"></i>
-          <span>Confirmar y Enviar por WhatsApp</span>
+
+        <button type="submit" class="w-full sm:w-1/2 py-3.5 px-5 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 transition">
+          <i class="ph-bold ph-whatsapp-logo text-base"></i>
+          <span>Finalizar y Enviar a WhatsApp</span>
         </button>
       </div>
 
     </form>
 
-    <footer class="text-center text-[11px] text-stone-400 py-4">
-      Av. Manuel J. Clouthier 7131 • Ciudad Juárez, Chihuahua • Star Cake
-    </footer>
   </div>
 
-  <!-- MODAL DE PREVISUALIZACIÓN -->
-  <div id="previewModal" class="hidden fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-5 shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-stone-100">
-        <div class="flex items-center gap-2 text-brand-600">
-          <i class="ph-bold ph-receipt text-xl"></i>
-          <h3 class="font-bold text-stone-900 text-base">Resumen de Contrato Star Cake</h3>
+  <!-- MODAL: Búsqueda y Selección en Google Maps -->
+  <div id="mapModal" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white w-full max-w-xl rounded-3xl overflow-hidden shadow-2xl border border-stone-200 flex flex-col max-h-[90vh]">
+      
+      <!-- Cabecera del modal -->
+      <div class="p-5 border-b border-stone-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-7 h-7 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-sm font-bold">
+            <i class="ph-bold ph-map-pin"></i>
+          </span>
+          <h3 class="font-bold text-sm sm:text-base text-stone-900">Ubicar Salón del Evento en Google Maps</h3>
         </div>
-        <button onclick="closePreviewModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center text-sm">
-          ✕
+        <button type="button" onclick="closeMapModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center">
+          <i class="ph-bold ph-x text-sm"></i>
         </button>
       </div>
 
-      <div id="modalSummaryContent" class="space-y-3 text-xs leading-relaxed text-stone-700"></div>
+      <!-- Buscador y botones -->
+      <div class="p-5 space-y-3">
+        <div class="flex gap-2">
+          <input type="text" id="mapSearchInput" placeholder="Nombre de salón o dirección (ej. Terraza Rubí)" class="flex-1 px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs sm:text-sm">
+          <button type="button" onclick="searchLocationOnMap()" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center gap-1.5 transition">
+            <i class="ph-bold ph-magnifying-glass"></i>
+            <span>Buscar</span>
+          </button>
+        </div>
 
-      <div class="pt-4 border-t border-stone-100 flex gap-3">
-        <button onclick="window.print()" class="flex-1 py-2.5 rounded-xl border border-stone-200 hover:bg-stone-50 font-bold text-xs text-stone-700 flex items-center justify-center gap-1.5">
-          <i class="ph-bold ph-printer"></i> Imprimir / PDF
+        <p class="text-[11px] text-stone-500">
+          Si el salón no se localiza automáticamente en el mapa, puedes hacer clic en <strong>"Usar solo como texto"</strong> o escribir <em>"Por confirmar"</em>.
+        </p>
+
+        <!-- Visor Iframe de Google Maps -->
+        <div class="rounded-2xl overflow-hidden border border-stone-200 h-64 sm:h-72 bg-stone-100">
+          <iframe id="googleMapIframe" class="w-full h-full border-0" loading="lazy" src="https://maps.google.com/maps?q=Ciudad%20Juarez%20Chihuahua&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+        </div>
+      </div>
+
+      <!-- Footer del modal de mapas -->
+      <div class="p-4 bg-stone-50 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-end gap-2.5">
+        <button type="button" onclick="confirmManualAddressFromModal()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs transition">
+          Usar solo como texto
         </button>
-        <button onclick="submitToWhatsApp()" class="flex-1 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 font-bold text-xs text-white flex items-center justify-center gap-1.5 shadow-sm">
-          <i class="ph-bold ph-whatsapp-logo"></i> Enviar Pedido
+        <button type="button" onclick="confirmGoogleMapsLocation()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm">
+          <i class="ph-bold ph-check"></i>
+          <span>Confirmar Ubicación con Maps</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: Resumen y Confirmación Previa -->
+  <div id="previewModal" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl border border-stone-200 flex flex-col max-h-[90vh]">
+      
+      <div class="p-5 border-b border-stone-100 flex items-center justify-between">
+        <h3 class="font-bold text-sm sm:text-base text-stone-900 flex items-center gap-2">
+          <i class="ph-bold ph-file-text text-brand-600 text-lg"></i>
+          <span>Resumen de tu Contrato</span>
+        </h3>
+        <button type="button" onclick="closePreviewModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center">
+          <i class="ph-bold ph-x text-sm"></i>
+        </button>
+      </div>
+
+      <div id="previewContent" class="p-5 overflow-y-auto space-y-4 text-xs text-stone-700"></div>
+
+      <div class="p-4 bg-stone-50 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-end gap-2.5">
+        <button type="button" onclick="downloadContractCopy()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <i class="ph-bold ph-download-simple"></i>
+          <span>Descargar Copia (.txt)</span>
+        </button>
+        <button type="button" onclick="window.print()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <i class="ph-bold ph-printer"></i>
+          <span>Imprimir / PDF</span>
+        </button>
+        <button type="button" onclick="submitToWhatsApp()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm">
+          <i class="ph-bold ph-whatsapp-logo text-base"></i>
+          <span>Confirmar y Enviar a WhatsApp</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: Confirmación Posterior al Envío -->
+  <div id="confirmationSuccessModal" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border border-stone-200 p-6 text-center space-y-4">
+      <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+        <i class="ph-bold ph-check-circle"></i>
+      </div>
+      <div>
+        <h3 class="font-serif text-lg font-bold text-stone-900">¡Pedido Enviado a WhatsApp!</h3>
+        <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+          Tu mensaje de contrato se ha transferido al chat de WhatsApp con <strong>Star Cake (656 302 9797)</strong>. Asegúrate de presionar "Enviar" en la aplicación de WhatsApp.
+        </p>
+      </div>
+      <div class="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 text-left text-xs text-stone-700 space-y-1.5">
+        <p class="font-bold text-stone-800 flex items-center gap-1.5">
+          <i class="ph-bold ph-shield-check text-brand-600"></i>
+          <span>Copia de Respaldo</span>
+        </p>
+        <p class="text-[11px] text-stone-500">
+          Puedes descargar una copia digital del contrato para guardarla en tu dispositivo o imprimirla.
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-2 pt-1">
+        <button type="button" onclick="downloadContractCopy()" class="flex-1 py-2.5 px-4 rounded-xl border border-stone-300 hover:bg-stone-50 font-bold text-xs text-stone-800 flex items-center justify-center gap-1.5 transition">
+          <i class="ph-bold ph-download-simple text-sm"></i>
+          <span>Descargar Copia</span>
+        </button>
+        <button type="button" onclick="closeConfirmationModal()" class="flex-1 py-2.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 font-bold text-xs text-white transition shadow-sm">
+          Entendido
         </button>
       </div>
     </div>
   </div>
 
+  <!-- NOTIFICACIÓN TOAST FLOTANTE -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 bg-stone-900 text-white text-xs font-medium py-3 px-4 rounded-2xl shadow-xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <i class="ph-bold ph-info text-brand-400 text-base"></i>
+    <span id="toastMessage">Notificación</span>
+  </div>
+
+  <!-- JAVASCRIPT DEL CONTRATO INTERACTIVO -->
   <script>
     // Catálogos Oficiales de Star Cake
-    const flavorOptions = [
+    const CAKE_FLAVORS = [
       "Fresa", "Vainilla", "Chocolate", "Vainilla- fresa", "Vainilla-choco",
       "Fresa- choco", "coco", "Nuez", "Almendra", "Cereza", "Blue berrie",
       "Piña colada", "Limon", "Naranja", "Banana- Nuez"
     ];
 
-    const fillingOptions = [
+    const CAKE_FILLINGS = [
       "Butter cream",
       "Italiano de bodas (a base de queso crema, durazno y almendras)",
       "Italiano (a base de queso crema)",
@@ -416,383 +538,243 @@
       "Piña- nuez"
     ];
 
-    // Opciones para Pastel Regular
-    const regularPastelOptions = [
-      { id: "reg-25", text: "25 personas (1 piso)", floors: 1, isPickup: true },
-      { id: "reg-30", text: "30 personas (1 piso)", floors: 1, isPickup: true },
-      { id: "reg-40", text: "40 personas (2 pisos)", floors: 2, isPickup: true },
-      { id: "reg-50-60", text: "50 - 60 personas (2 pisos)", floors: 2, isPickup: true },
-      { id: "reg-80-100", text: "80 - 100 personas (3 pisos)", floors: 3, isPickup: false },
-      { id: "reg-120", text: "120 personas (3 pisos)", floors: 3, isPickup: false },
-      { id: "reg-200", text: "200 personas (4 pisos)", floors: 4, isPickup: false },
+    // Opciones de Personas / Pisos
+    const SOCIAL_CAKE_CAPACITIES = [
+      { text: "25 personas (1 piso)", pax: 25, floors: 1, type: "store" },
+      { text: "30 personas (1 piso)", pax: 30, floors: 1, type: "store" },
+      { text: "40 personas (2 pisos)", pax: 40, floors: 2, type: "store" },
+      { text: "50 - 60 personas (2 pisos)", pax: 55, floors: 2, type: "store" },
+      { text: "80 - 100 personas (3 pisos)", pax: 90, floors: 3, type: "delivery" },
+      { text: "120 personas (3 pisos)", pax: 120, floors: 3, type: "delivery" },
+      { text: "200 personas (4 pisos)", pax: 200, floors: 4, type: "delivery" }
     ];
 
-    // Opciones para Boda o XV - Pastel Real
-    const weddingRealCakeOptions = [
-      { id: "wed-50", text: "50 personas (2 pisos)", floors: 2, isPickup: false },
-      { id: "wed-100", text: "100 personas (3 pisos)", floors: 3, isPickup: false },
-      { id: "wed-150", text: "150 personas (3 pisos)", floors: 3, isPickup: false },
-      { id: "wed-200", text: "200 personas (4 pisos)", floors: 4, isPickup: false },
-      { id: "wed-250", text: "250 personas (5 pisos)", floors: 5, isPickup: false },
-      { id: "wed-300", text: "300 personas (5 pisos)", floors: 5, isPickup: false },
-      { id: "wed-350", text: "350 personas (6 pisos)", floors: 6, isPickup: false },
+    const WEDDING_REAL_CAPACITIES = [
+      { text: "50 personas (2 pisos)", pax: 50, floors: 2, type: "store" },
+      { text: "100 personas (3 pisos)", pax: 100, floors: 3, type: "delivery" },
+      { text: "150 personas (3 pisos)", pax: 150, floors: 3, type: "delivery" },
+      { text: "200 personas (4 pisos)", pax: 200, floors: 4, type: "delivery" },
+      { text: "250 personas (5 pisos)", pax: 250, floors: 5, type: "delivery" },
+      { text: "300 personas (5 pisos)", pax: 300, floors: 5, type: "delivery" },
+      { text: "350 personas (6 pisos)", pax: 350, floors: 6, type: "delivery" }
     ];
 
-    // Opciones para Planchas (de 50 a 500 personas en intervalos de 50)
-    // Regla: 100 personas = 1 plancha completa, remanente de 50 = media plancha
-    function getSheetCakesOptions() {
-      const opts = [];
-      for (let p = 50; p <= 500; p += 50) {
-        const fullPlates = Math.floor(p / 100);
-        const hasHalf = (p % 100) === 50;
-        let desc = `${p} personas: `;
-        if (fullPlates > 0 && hasHalf) {
-          desc += `${fullPlates} plancha${fullPlates > 1 ? 's' : ''} entera + 1 media plancha`;
-        } else if (fullPlates > 0) {
-          desc += `${fullPlates} plancha${fullPlates > 1 ? 's' : ''} entera${fullPlates > 1 ? 's' : ''}`;
-        } else {
-          desc += `1 media plancha`;
-        }
-        opts.push({ id: `sheet-${p}`, text: desc, people: p, fullPlates, hasHalf, isPickup: false });
+    // Variables de Estado
+    let selectedMapData = {
+      name: "",
+      address: "",
+      mapsUrl: ""
+    };
+    let currentActiveTier = 1;
+    let totalActiveTiers = 0;
+    let tierSelections = {}; // { 1: { flavor: '', filling: '' } }
+
+    let currentActiveSheet = 1;
+    let totalActiveSheets = 0;
+    let sheetSelections = {}; // { 1: { flavor: '', filling: '' } }
+
+    // Inicialización al cargar la página
+    window.onload = function() {
+      setupDateRestrictions();
+    };
+
+    // Restricciones de fecha (mínimo mañana, máximo 1 año al futuro)
+    function setupDateRestrictions() {
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const nextYear = new Date(today);
+      nextYear.setFullYear(nextYear.getFullYear() + 1);
+
+      const eventDateInput = document.getElementById('eventDate');
+      if (eventDateInput) {
+        eventDateInput.min = tomorrow.toISOString().split('T')[0];
+        eventDateInput.max = nextYear.toISOString().split('T')[0];
       }
-      return opts;
     }
-    const sheetOptions = getSheetCakesOptions();
 
-    // Estado de la aplicación
-    let activeUnits = []; // [{ id, label, pan, relleno, sizePercent, isHalf }]
-    let selectedUnitIndex = 0;
-    let isSheetMode = false;
-    let isMockupOnly = false;
-
-    // Elementos del DOM
-    const coverageSection = document.getElementById('coverageSection');
-    const weatherNoticeBox = document.getElementById('weatherNoticeBox');
-    const acceptWeatherPolicy = document.getElementById('acceptWeatherPolicy');
-    const weddingStructureSection = document.getElementById('weddingStructureSection');
-    const tastingFieldsBox = document.getElementById('tastingFieldsBox');
-    const tastingDateInput = document.getElementById('tastingDate');
-    const tastingTimeSelect = document.getElementById('tastingTime');
-    const tastingDateError = document.getElementById('tastingDateError');
-    const capacityAndDiagramSection = document.getElementById('capacityAndDiagramSection');
-    const capacitySelectWrapper = document.getElementById('capacitySelectWrapper');
-    const capacitySelect = document.getElementById('cakeCapacity');
-    const capacityLabel = document.getElementById('capacityLabel');
-    const logisticsContainer = document.getElementById('logisticsContainer');
-    const interactiveConfigBox = document.getElementById('interactiveConfigBox');
-    const visualDiagram = document.getElementById('visualDiagram');
-    const cakePlate = document.getElementById('cakePlate');
-    const activeUnitLabel = document.getElementById('activeUnitLabel');
-    const unitBreadSelect = document.getElementById('unitBreadSelect');
-    const unitFillingSelect = document.getElementById('unitFillingSelect');
-    const diagramTitle = document.getElementById('diagramTitle');
-
-    // Inicializar dropdowns de sabores
-    function initFlavors() {
-      unitBreadSelect.innerHTML = '<option value="" disabled selected>Selecciona sabor del pan...</option>' +
-        flavorOptions.map(f => `<option value="${f}">${f}</option>`).join('');
-      
-      unitFillingSelect.innerHTML = '<option value="" disabled selected>Selecciona relleno...</option>' +
-        fillingOptions.map(f => `<option value="${f}">${f}</option>`).join('');
-    }
-    initFlavors();
-
-    // Notificaciones Toast integradas
+    // Notificaciones Toast (reemplazo de alert)
     function showNotification(message) {
-      let toast = document.getElementById('toastNotice');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toastNotice';
-        toast.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-stone-900 text-white px-5 py-3 rounded-2xl shadow-2xl text-xs sm:text-sm font-medium flex items-center gap-2 transition-all duration-300';
-        document.body.appendChild(toast);
-      }
-      toast.innerHTML = `<i class="ph-bold ph-warning-circle text-rose-400 text-lg"></i><span>${message}</span>`;
-      toast.classList.remove('opacity-0', 'pointer-events-none');
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      if (!toast || !text) return;
+
+      text.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
       setTimeout(() => {
-        toast.classList.add('opacity-0', 'pointer-events-none');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
       }, 3500);
     }
 
-    // Navegación progresiva según Servicio
-    const serviceRadios = document.querySelectorAll('input[name="services"]');
-    serviceRadios.forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        const val = e.target.value;
-        if (val === 'Pastel Boda o XV') {
-          // Boda o XV: Sin sección de cobertura ni condiciones por calor
-          coverageSection.classList.add('hidden');
-          document.querySelectorAll('input[name="cakeCoverage"]').forEach(c => c.checked = false);
-          acceptWeatherPolicy.checked = false;
-          weatherNoticeBox.classList.add('hidden');
+    // 1. Manejo del tipo de producto
+    function handleProductTypeChange() {
+      const productType = document.querySelector('input[name="productType"]:checked')?.value;
+      const coverageSec = document.getElementById('coverageSection');
+      const weddingSec = document.getElementById('weddingStructureSection');
+      const sizeSec = document.getElementById('sizeAndFlavorsSection');
+      const tastingSec = document.getElementById('tastingSection');
 
-          // Mostrar Modalidad para Boda y XV
-          weddingStructureSection.classList.remove('hidden');
-          updateStructureFlow();
-        } else {
-          // Pastel o Cupcakes
-          weddingStructureSection.classList.add('hidden');
-          document.querySelectorAll('input[name="cakeStructure"]').forEach(s => s.checked = false);
-          document.querySelectorAll('input[name="wantsTasting"]').forEach(t => t.checked = false);
-          tastingFieldsBox.classList.add('hidden');
+      // Resetear visualización
+      coverageSec.classList.add('hidden');
+      weddingSec.classList.add('hidden');
+      sizeSec.classList.add('hidden');
+      tastingSec.classList.add('hidden');
 
-          coverageSection.classList.remove('hidden');
-          updateCoverageFlow();
-        }
-      });
-    });
-
-    // Control de Cobertura y Aviso de Calor
-    const coverageRadios = document.querySelectorAll('input[name="cakeCoverage"]');
-    coverageRadios.forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        updateCoverageFlow();
-      });
-    });
-
-    function updateCoverageFlow() {
-      const selectedCoverage = document.querySelector('input[name="cakeCoverage"]:checked')?.value;
-      if (selectedCoverage === 'Buttercream' || selectedCoverage === 'Chantilly') {
-        weatherNoticeBox.classList.remove('hidden');
-        acceptWeatherPolicy.required = true;
-      } else {
-        weatherNoticeBox.classList.add('hidden');
-        acceptWeatherPolicy.required = false;
-        acceptWeatherPolicy.checked = false;
-      }
-
-      if (selectedCoverage) {
-        setupCapacityForRegularPastel();
+      if (productType === "Pastel Boda o XV") {
+        weddingSec.classList.remove('hidden');
+      } else if (productType === "Pastel" || productType === "Cupcakes") {
+        coverageSec.classList.remove('hidden');
       }
     }
 
-    // Modalidad Boda o XV
-    const structureRadios = document.querySelectorAll('input[name="cakeStructure"]');
-    structureRadios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        updateStructureFlow();
-      });
-    });
+    // 2. Manejo de Cobertura
+    function handleCoverageChange() {
+      const coverage = document.getElementById('coverageSelect').value;
+      const weatherBox = document.getElementById('weatherNotice');
+      const weatherCheckbox = document.getElementById('weatherAccepted');
+      const sizeSec = document.getElementById('sizeAndFlavorsSection');
 
-    function updateStructureFlow() {
-      const selectedStructure = document.querySelector('input[name="cakeStructure"]:checked')?.value;
-      if (!selectedStructure) return;
-
-      if (selectedStructure === 'Maqueta') {
-        // Solo Maqueta: Eliminar tamaño, especificaciones y diagrama; solo pedir ubicación y entrega
-        isMockupOnly = true;
-        isSheetMode = false;
-        capacityAndDiagramSection.classList.remove('hidden');
-        capacitySelectWrapper.classList.add('hidden');
-        interactiveConfigBox.classList.add('hidden');
-        renderLogistics(false);
-      } else if (selectedStructure === 'Maqueta y planchas') {
-        // Maqueta + Planchas
-        isMockupOnly = false;
-        isSheetMode = true;
-        capacityAndDiagramSection.classList.remove('hidden');
-        capacitySelectWrapper.classList.remove('hidden');
-        capacityLabel.textContent = "Cantidad de Personas para Planchas (de 50 a 500) *";
-        populateCapacityDropdown(sheetOptions);
-        renderLogistics(false);
+      if (coverage === "Buttercream" || coverage === "Chantilly") {
+        weatherBox.classList.remove('hidden');
       } else {
-        // Pastel Real Boda y XV
-        isMockupOnly = false;
-        isSheetMode = false;
-        capacityAndDiagramSection.classList.remove('hidden');
-        capacitySelectWrapper.classList.remove('hidden');
-        capacityLabel.textContent = "Cantidad de Personas / Pisos de Boda o XV *";
-        populateCapacityDropdown(weddingRealCakeOptions);
-        renderLogistics(false);
+        weatherBox.classList.add('hidden');
+        if (weatherCheckbox) weatherCheckbox.checked = false;
+      }
+
+      if (coverage) {
+        setupCapacityDropdown("Pastel");
+        sizeSec.classList.remove('hidden');
+      } else {
+        sizeSec.classList.add('hidden');
       }
     }
 
-    function setupCapacityForRegularPastel() {
-      isMockupOnly = false;
-      isSheetMode = false;
-      capacityAndDiagramSection.classList.remove('hidden');
-      capacitySelectWrapper.classList.remove('hidden');
-      capacityLabel.textContent = "Cantidad de Personas / Pisos (Pastel Regular) *";
-      populateCapacityDropdown(regularPastelOptions);
+    // 3. Manejo de Estructura de Boda / XV
+    function handleWeddingStructureChange() {
+      const structure = document.querySelector('input[name="weddingStructure"]:checked')?.value;
+      const sizeSec = document.getElementById('sizeAndFlavorsSection');
+      const tastingSec = document.getElementById('tastingSection');
+      const cakeStackSec = document.getElementById('cakeStackSection');
+      const sheetCakesSec = document.getElementById('sheetCakesSection');
+
+      cakeStackSec.classList.add('hidden');
+      sheetCakesSec.classList.add('hidden');
+
+      if (structure === "Pastel real") {
+        setupCapacityDropdown("WeddingReal");
+        sizeSec.classList.remove('hidden');
+        tastingSec.classList.remove('hidden');
+      } else if (structure === "Maqueta y planchas") {
+        setupCapacityDropdown("Sheets");
+        sizeSec.classList.remove('hidden');
+        tastingSec.classList.remove('hidden');
+      } else if (structure === "Maqueta") {
+        // En solo maqueta no hay comida/tamaños
+        sizeSec.classList.remove('hidden');
+        document.getElementById('capacityGroup').classList.add('hidden');
+        renderLogisticsFields('delivery');
+        tastingSec.classList.add('hidden');
+      }
     }
 
-    // Llenar el Dropdown de Capacidad
-    function populateCapacityDropdown(optionsList) {
-      capacitySelect.innerHTML = '<option value="" disabled selected>Selecciona cantidad de personas...</option>' +
-        optionsList.map(opt => `<option value="${opt.id}">${opt.text}</option>`).join('');
-      interactiveConfigBox.classList.add('hidden');
-      logisticsContainer.classList.add('hidden');
-    }
+    // Configuración del dropdown de capacidades
+    function setupCapacityDropdown(mode) {
+      const select = document.getElementById('capacitySelect');
+      const group = document.getElementById('capacityGroup');
+      const title = document.getElementById('sizeSectionTitle');
+      const helper = document.getElementById('capacityHelperText');
 
-    // Selección de Capacidad
-    capacitySelect.addEventListener('change', (e) => {
-      const val = e.target.value;
-      if (isSheetMode) {
-        const item = sheetOptions.find(o => o.id === val);
-        if (item) {
-          buildSheetUnits(item);
-          renderLogistics(false);
-        }
-      } else {
-        const isWedding = document.querySelector('input[name="services"]:checked')?.value === 'Pastel Boda o XV';
-        const list = isWedding ? weddingRealCakeOptions : regularPastelOptions;
-        const item = list.find(o => o.id === val);
-        if (item) {
-          buildCakeUnits(item.floors);
-          renderLogistics(item.isPickup);
+      group.classList.remove('hidden');
+      select.innerHTML = '<option value="">Selecciona cantidad...</option>';
+
+      if (mode === "Pastel") {
+        title.textContent = "Tamaño y Sabores del Pastel";
+        helper.textContent = "Pasteles de hasta 60 personas se recogen en tienda. A partir de 80 personas se entregan en el evento.";
+        SOCIAL_CAKE_CAPACITIES.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = JSON.stringify(item);
+          opt.textContent = item.text;
+          select.appendChild(opt);
+        });
+      } else if (mode === "WeddingReal") {
+        title.textContent = "Tamaño y Sabores del Pastel de Boda / XV";
+        helper.textContent = "Pastel real montado en pisos comestibles.";
+        WEDDING_REAL_CAPACITIES.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = JSON.stringify(item);
+          opt.textContent = item.text;
+          select.appendChild(opt);
+        });
+      } else if (mode === "Sheets") {
+        title.textContent = "Invitados y Planchas de Pastel";
+        helper.textContent = "100 personas = 1 plancha completa. 50 personas = media plancha.";
+        for (let pax = 50; pax <= 500; pax += 50) {
+          const fullSheets = Math.floor(pax / 100);
+          const halfSheets = (pax % 100 === 50) ? 1 : 0;
+          let desc = `${pax} personas (`;
+          if (fullSheets > 0) desc += `${fullSheets} plancha${fullSheets > 1 ? 's' : ''} entera${fullSheets > 1 ? 's' : ''}`;
+          if (halfSheets > 0) desc += `${fullSheets > 0 ? ' + ' : ''}1 media plancha`;
+          desc += `)`;
+
+          const opt = document.createElement('option');
+          opt.value = JSON.stringify({ pax, fullSheets, halfSheets, type: 'delivery', mode: 'sheets' });
+          opt.textContent = desc;
+          select.appendChild(opt);
         }
       }
-    });
-
-    // Construcción de Pisos: El más pequeño arriba (Piso 1 en la cima, Piso N en la base)
-    function buildCakeUnits(numFloors) {
-      activeUnits = [];
-      for (let i = 1; i <= numFloors; i++) {
-        // Ancho progresivo de arriba (menor) a abajo (mayor)
-        // Ejemplo para 4 pisos: Piso 1 (45%), Piso 2 (60%), Piso 3 (75%), Piso 4 (90%)
-        const minW = 42;
-        const maxW = 92;
-        const width = numFloors === 1 ? 65 : Math.round(minW + ((i - 1) * (maxW - minW) / (numFloors - 1)));
-
-        activeUnits.push({
-          id: `floor-${i}`,
-          label: `Piso ${i} ${i === 1 ? '(Superior / Más Pequeño)' : (i === numFloors ? '(Base Inferior)' : '')}`,
-          pan: '',
-          relleno: '',
-          sizePercent: width,
-          isHalf: false
-        });
-      }
-      selectedUnitIndex = 0;
-      cakePlate.classList.remove('hidden');
-      diagramTitle.textContent = `Diagrama Interactivo de Pisos (${numFloors} Niveles)`;
-      interactiveConfigBox.classList.remove('hidden');
-      renderDiagram();
-      loadActiveUnitValues();
     }
 
-    // Construcción de Planchas: Prioridad a planchas enteras (100 pax) y media plancha solo si hay 50 remanentes
-    function buildSheetUnits(sheetOpt) {
-      activeUnits = [];
-      let unitNum = 1;
+    // 4. Manejo de Cambio de Capacidad
+    function handleCapacityChange() {
+      const select = document.getElementById('capacitySelect');
+      const val = select.value;
+      const cakeStackSec = document.getElementById('cakeStackSection');
+      const sheetCakesSec = document.getElementById('sheetCakesSection');
 
-      // Planchas enteras
-      for (let i = 1; i <= sheetOpt.fullPlates; i++) {
-        activeUnits.push({
-          id: `plate-full-${i}`,
-          label: `Plancha Entera #${i} (100 comensales)`,
-          pan: '',
-          relleno: '',
-          sizePercent: 100,
-          isHalf: false
-        });
-        unitNum++;
+      if (!val) {
+        cakeStackSec.classList.add('hidden');
+        sheetCakesSec.classList.add('hidden');
+        return;
       }
 
-      // Media plancha remanente
-      if (sheetOpt.hasHalf) {
-        activeUnits.push({
-          id: `plate-half`,
-          label: `Media Plancha (50 comensales)`,
-          pan: '',
-          relleno: '',
-          sizePercent: 50,
-          isHalf: true
-        });
+      const data = JSON.parse(val);
+      renderLogisticsFields(data.type);
+
+      if (data.mode === 'sheets') {
+        cakeStackSec.classList.add('hidden');
+        sheetCakesSec.classList.remove('hidden');
+        renderSheetCakes(data.fullSheets, data.halfSheets);
+      } else {
+        sheetCakesSec.classList.add('hidden');
+        cakeStackSec.classList.remove('hidden');
+        renderCakeTiers(data.floors);
       }
-
-      selectedUnitIndex = 0;
-      cakePlate.classList.add('hidden');
-      diagramTitle.textContent = `Bandejas de Planchas (${activeUnits.length} unidades)`;
-      interactiveConfigBox.classList.remove('hidden');
-      renderDiagram();
-      loadActiveUnitValues();
     }
 
-    // Renderizar Diagrama Visual Interactivo
-    function renderDiagram() {
-      visualDiagram.innerHTML = '';
-
-      activeUnits.forEach((u, idx) => {
-        const isSelected = idx === selectedUnitIndex;
-        const isComplete = u.pan && u.relleno;
-
-        const el = document.createElement('div');
-        el.className = `tier-hover cursor-pointer rounded-xl flex items-center justify-between px-3 py-2 text-xs font-semibold select-none border transition-all ${
-          isSelected 
-            ? 'border-brand-600 bg-brand-500 text-white shadow-md ring-2 ring-brand-300' 
-            : isComplete 
-              ? 'border-emerald-300 bg-emerald-50 text-emerald-900' 
-              : 'border-stone-300 bg-white text-stone-700 hover:border-brand-400'
-        }`;
-
-        el.style.width = isSheetMode ? `${u.sizePercent}%` : `${u.sizePercent}%`;
-        el.style.minHeight = '38px';
-
-        el.innerHTML = `
-          <div class="flex items-center gap-1.5 truncate">
-            <span class="text-[11px] ${isSelected ? 'text-white' : 'text-stone-500'}">${idx + 1}.</span>
-            <span class="truncate font-bold">${u.label}</span>
-          </div>
-          <div class="text-[10px] shrink-0 font-medium ${isSelected ? 'text-brand-100' : 'text-stone-500'}">
-            ${isComplete ? '✓ Configurado' : 'Pendiente'}
-          </div>
-        `;
-
-        el.onclick = () => {
-          saveCurrentUnitValues();
-          selectedUnitIndex = idx;
-          renderDiagram();
-          loadActiveUnitValues();
-        };
-
-        visualDiagram.appendChild(el);
-      });
-    }
-
-    function loadActiveUnitValues() {
-      if (!activeUnits[selectedUnitIndex]) return;
-      const current = activeUnits[selectedUnitIndex];
-      activeUnitLabel.textContent = `Configurando: ${current.label}`;
-      unitBreadSelect.value = current.pan || '';
-      unitFillingSelect.value = current.relleno || '';
-    }
-
-    function saveCurrentUnitValues() {
-      if (!activeUnits[selectedUnitIndex]) return;
-      activeUnits[selectedUnitIndex].pan = unitBreadSelect.value;
-      activeUnits[selectedUnitIndex].relleno = unitFillingSelect.value;
-    }
-
-    unitBreadSelect.addEventListener('change', () => {
-      saveCurrentUnitValues();
-      renderDiagram();
-    });
-
-    unitFillingSelect.addEventListener('change', () => {
-      saveCurrentUnitValues();
-      renderDiagram();
-    });
-
-    // Logística: Recolección en tienda (10 AM a 4:30 PM de Lunes a Sábado) o Entrega en salón
-    function renderLogistics(isPickup) {
-      logisticsContainer.classList.remove('hidden');
-
-      if (isPickup) {
-        logisticsContainer.innerHTML = `
-          <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm">
-                <i class="ph-bold ph-storefront text-xl"></i>
-              </div>
-              <div class="text-xs">
-                <p class="font-bold text-stone-900 text-sm">Recolección en Tienda Star Cake <span class="text-brand-600">*</span></p>
-                <p class="text-stone-600">Av. Manuel J. Clouthier 7131 • <strong>Lunes a Sábado: 10:00 AM a 4:30 PM</strong> (Domingos no hay recolección en tienda)</p>
-              </div>
+    // Renderizar campos de logística según entrega o recolección
+    function renderLogisticsFields(type) {
+      const container = document.getElementById('logisticsContainer');
+      if (type === 'store') {
+        container.innerHTML = `
+          <div class="p-4 rounded-2xl bg-brand-50/50 border border-brand-100 space-y-3">
+            <div class="flex items-center gap-2 text-brand-900 font-bold text-xs">
+              <i class="ph-bold ph-storefront text-base text-brand-600"></i>
+              <span>SE RECOGE EN TIENDA</span>
             </div>
-            <div class="w-full sm:w-auto">
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">Hora de Recogida (10:00 AM - 4:30 PM) <span class="text-brand-600">*</span></label>
-              <select id="pickupHourInput" required class="w-full sm:w-48 px-3 py-2 rounded-xl border border-stone-300 text-xs bg-white font-semibold">
-                <option value="" disabled selected>Selecciona horario...</option>
+            <p class="text-xs text-stone-600">
+              Dirección: <strong>Av. Manuel J. Clouthier 7131</strong>.<br>
+              Horario de entrega: <strong>Lunes a Sábado de 10:00 AM a 4:30 PM</strong>.
+            </p>
+            <div class="space-y-1.5 max-w-xs">
+              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                Hora de Recolección <span class="text-brand-600">*</span>
+              </label>
+              <select id="storePickupTime" required class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs bg-white">
+                <option value="">Selecciona horario en tienda...</option>
                 <option value="10:00 AM">10:00 AM</option>
                 <option value="10:30 AM">10:30 AM</option>
                 <option value="11:00 AM">11:00 AM</option>
@@ -812,157 +794,511 @@
           </div>
         `;
       } else {
-        logisticsContainer.innerHTML = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-brand-50/40 p-4 rounded-2xl border border-brand-100">
-            <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">Lugar / Salón del Evento <span class="text-brand-600">*</span></label>
-              <input type="text" id="venueInput" required placeholder="Nombre de salón y dirección completa" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs bg-white">
+        container.innerHTML = `
+          <div class="p-4 rounded-2xl bg-brand-50/50 border border-brand-100 space-y-4">
+            <div class="flex items-center gap-2 text-brand-900 font-bold text-xs">
+              <i class="ph-bold ph-truck text-base text-brand-600"></i>
+              <span>ENTREGA A DOMICILIO / SALÓN DE EVENTOS</span>
             </div>
-            <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">Hora de Entrega en Salón <span class="text-brand-600">*</span></label>
-              <input type="text" id="deliveryHourInput" required placeholder="Ej. 4:30 PM" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs bg-white">
-              <p class="text-[10px] text-stone-500 mt-1">Estar al menos 15 min antes si hay montaje de decoración.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                    Lugar / Salón <span class="text-brand-600">*</span>
+                  </label>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="setVenuePending()" class="text-[11px] text-amber-700 hover:text-amber-800 font-semibold underline">
+                      Por confirmar
+                    </button>
+                    <button type="button" onclick="openMapModal()" class="text-[11px] text-brand-600 hover:text-brand-700 font-bold flex items-center gap-1">
+                      <i class="ph-bold ph-map-pin"></i> Buscar Maps
+                    </button>
+                  </div>
+                </div>
+                <input type="text" id="venueInput" required oninput="handleManualVenueInput()" placeholder="Nombre de salón o 'Por confirmar'..." class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs bg-white">
+                <p class="text-[10px] text-stone-500">Puedes escribirlo directamente o presionar "Por confirmar".</p>
+                <div id="mapsPreviewBox" class="hidden text-[11px] text-brand-700 font-semibold">
+                  <a id="mapsPreviewAnchor" href="#" target="_blank" class="underline">Ver ubicación en Google Maps</a>
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                  Hora de Entrega en Salón <span class="text-brand-600">*</span>
+                </label>
+                <input type="text" id="deliveryTimeInput" required placeholder="Ej. 4:30 PM (o 'Por definir')" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs bg-white">
+                <p class="text-[10px] text-stone-500">Estar al menos 15 min antes si hay decoración.</p>
+              </div>
             </div>
           </div>
         `;
       }
     }
 
-    // Degustación: Mostrar campos y validar Miércoles (3) o Jueves (4)
-    const tastingRadios = document.querySelectorAll('input[name="wantsTasting"]');
-    tastingRadios.forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        if (e.target.value === 'Sí') {
-          tastingFieldsBox.classList.remove('hidden');
-          tastingDateInput.required = true;
-          tastingTimeSelect.required = true;
-        } else {
-          tastingFieldsBox.classList.add('hidden');
-          tastingDateInput.required = false;
-          tastingTimeSelect.required = false;
-          tastingDateInput.value = '';
-          tastingTimeSelect.value = '';
-          tastingDateError.classList.add('hidden');
-        }
-      });
-    });
-
-    tastingDateInput.addEventListener('change', () => {
-      if (!tastingDateInput.value) return;
-      const parts = tastingDateInput.value.split('-');
-      const d = new Date(parts[0], parts[1] - 1, parts[2]);
-      const day = d.getDay(); // 0 = Domingo, 3 = Miércoles, 4 = Jueves
-      if (day !== 3 && day !== 4) {
-        tastingDateError.classList.remove('hidden');
-        tastingDateInput.value = '';
-      } else {
-        tastingDateError.classList.add('hidden');
+    // Funciones de ubicación manual / por confirmar
+    function setVenuePending() {
+      const input = document.getElementById('venueInput');
+      if (input) {
+        input.value = "Por confirmar (Pendiente de definir)";
+        selectedMapData = {
+          name: "Por confirmar (Pendiente de definir)",
+          address: "Pendiente",
+          mapsUrl: ""
+        };
+        const box = document.getElementById('mapsPreviewBox');
+        if (box) box.classList.add('hidden');
+        showNotification("Lugar marcado como 'Por confirmar'");
       }
-    });
+    }
 
-    // Extraer datos del formulario
-    function getFormData() {
-      saveCurrentUnitValues();
+    function handleManualVenueInput() {
+      const input = document.getElementById('venueInput');
+      if (!input) return;
+      selectedMapData.name = input.value.trim();
+      selectedMapData.address = input.value.trim();
+      if (input.value.toLowerCase().includes("por confirmar")) {
+        selectedMapData.mapsUrl = "";
+        const box = document.getElementById('mapsPreviewBox');
+        if (box) box.classList.add('hidden');
+      }
+    }
 
-      const contactMethod = document.getElementById('contactMethod').value;
-      const profileName = document.getElementById('profileName').value.trim();
-      const eventDate = document.getElementById('eventDate').value;
-      const clientPhone = document.getElementById('clientPhone').value.trim();
-      const service = document.querySelector('input[name="services"]:checked')?.value || '';
+    // Renderizar Diagrama de Pisos (1 a N: de menor tamaño arriba a mayor abajo con selección de uno por uno)
+    function renderCakeTiers(numTiers) {
+      const visualContainer = document.getElementById('cakeDiagramVisual');
+      visualContainer.innerHTML = '';
+      
+      totalActiveTiers = numTiers;
+      tierSelections = {};
+      currentActiveTier = 1;
 
-      const isWedding = service === 'Pastel Boda o XV';
-      const coverage = isWedding ? 'No aplica (Boda/XV)' : (document.querySelector('input[name="cakeCoverage"]:checked')?.value || '');
-      const weatherAccepted = (!isWedding && (coverage === 'Buttercream' || coverage === 'Chantilly')) ? acceptWeatherPolicy.checked : true;
+      // Generar diagrama de arriba hacia abajo (Piso 1 es el más pequeño)
+      for (let i = 1; i <= numTiers; i++) {
+        tierSelections[i] = { flavor: '', filling: '' };
+        const widthPercent = Math.min(100, 35 + ((i - 1) * (65 / Math.max(1, numTiers - 1))));
 
-      const structure = isWedding ? (document.querySelector('input[name="cakeStructure"]:checked')?.value || '') : '';
-      const wantsTasting = isWedding ? (document.querySelector('input[name="wantsTasting"]:checked')?.value || '') : '';
-      const tastingDate = tastingDateInput.value;
-      const tastingTime = tastingTimeSelect.value;
+        const layer = document.createElement('div');
+        layer.id = `visualTier_${i}`;
+        layer.className = `h-10 sm:h-12 rounded-xl border-2 border-stone-200 bg-white flex items-center justify-between px-3 cursor-pointer shadow-sm smooth-transition hover:border-brand-500`;
+        layer.style.width = `${widthPercent}%`;
+        layer.onclick = () => selectActiveTier(i);
+        layer.innerHTML = `
+          <div class="flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-stone-100 text-[10px] font-bold text-stone-700 flex items-center justify-center">${i}</span>
+            <span class="text-[10px] sm:text-xs font-bold text-stone-700">Piso ${i} ${i === 1 ? '(Cima)' : i === numTiers ? '(Base)' : ''}</span>
+          </div>
+          <span id="visualTierLabel_${i}" class="text-[9px] sm:text-[10px] text-stone-400 italic">Tocar para editar</span>
+        `;
+        visualContainer.appendChild(layer);
+      }
 
-      const capacityText = isMockupOnly ? 'Solo Maqueta (Sin comensales de pan)' : (capacitySelect.options[capacitySelect.selectedIndex]?.text || '');
+      selectActiveTier(1);
+    }
 
-      const pickupHour = document.getElementById('pickupHourInput')?.value || '';
-      const venue = document.getElementById('venueInput')?.value || '';
-      const deliveryHour = document.getElementById('deliveryHourInput')?.value || '';
+    function selectActiveTier(tierIndex) {
+      currentActiveTier = tierIndex;
 
-      return {
-        contactMethod,
-        profileName,
-        eventDate,
-        clientPhone,
-        service,
-        coverage,
-        weatherAccepted,
-        isWedding,
-        structure,
-        wantsTasting,
-        tastingDate,
-        tastingTime,
-        isMockupOnly,
-        isSheetMode,
-        capacityText,
-        pickupHour,
-        venue,
-        deliveryHour,
-        units: activeUnits
+      // Actualizar estilos activos en el diagrama
+      for (let i = 1; i <= totalActiveTiers; i++) {
+        const visual = document.getElementById(`visualTier_${i}`);
+        if (visual) {
+          if (i === tierIndex) {
+            visual.classList.add('cake-tier-active');
+          } else {
+            visual.classList.remove('cake-tier-active');
+          }
+        }
+      }
+
+      // Renderizar el editor exclusivo para el piso seleccionado
+      const editor = document.getElementById('activeTierEditor');
+      const current = tierSelections[tierIndex] || { flavor: '', filling: '' };
+
+      editor.innerHTML = `
+        <div class="flex items-center justify-between border-b border-stone-200/80 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">${tierIndex}</span>
+            <span class="font-bold text-xs uppercase tracking-wider text-stone-800">
+              Editando Piso ${tierIndex} ${tierIndex === 1 ? '(Cima / Superior)' : tierIndex === totalActiveTiers ? '(Piso Base)' : ''}
+            </span>
+          </div>
+          <span class="text-[11px] text-brand-600 font-semibold">Piso ${tierIndex} de ${totalActiveTiers}</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-stone-600">SABOR DEL PAN *</label>
+            <select id="flavorTierInput" onchange="handleCurrentTierChange()" class="w-full px-3 py-2.5 rounded-xl border border-stone-200 text-xs bg-white outline-none focus:border-brand-500">
+              <option value="">Selecciona sabor de pan...</option>
+              ${CAKE_FLAVORS.map(f => `<option value="${f}" ${current.flavor === f ? 'selected' : ''}>${f}</option>`).join('')}
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-stone-600">RELLENO *</label>
+            <select id="fillingTierInput" onchange="handleCurrentTierChange()" class="w-full px-3 py-2.5 rounded-xl border border-stone-200 text-xs bg-white outline-none focus:border-brand-500">
+              <option value="">Selecciona relleno...</option>
+              ${CAKE_FILLINGS.map(f => `<option value="${f}" ${current.filling === f ? 'selected' : ''}>${f}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-stone-200/60">
+          <button type="button" onclick="selectActiveTier(${tierIndex - 1})" ${tierIndex === 1 ? 'disabled class="opacity-40 cursor-not-allowed text-xs text-stone-400 font-semibold px-3 py-1.5"' : 'class="text-xs text-stone-700 hover:text-stone-900 font-bold px-3 py-1.5 rounded-lg border border-stone-200 bg-white shadow-sm"'}>
+            ← Piso anterior
+          </button>
+          
+          <button type="button" onclick="${tierIndex < totalActiveTiers ? `selectActiveTier(${tierIndex + 1})` : `showNotification('¡Has completado todos los pisos!')`}" class="text-xs bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2 rounded-xl transition shadow-sm">
+            ${tierIndex < totalActiveTiers ? 'Siguiente piso →' : '✓ Pisos completos'}
+          </button>
+        </div>
+      `;
+    }
+
+    function handleCurrentTierChange() {
+      const flavor = document.getElementById('flavorTierInput')?.value || '';
+      const filling = document.getElementById('fillingTierInput')?.value || '';
+      tierSelections[currentActiveTier] = { flavor, filling };
+
+      const label = document.getElementById(`visualTierLabel_${currentActiveTier}`);
+      if (label) {
+        if (flavor && filling) {
+          label.textContent = `${flavor} / ${filling}`;
+          label.className = "text-[9px] sm:text-[10px] font-semibold text-brand-700 truncate max-w-[130px]";
+        } else if (flavor) {
+          label.textContent = flavor;
+          label.className = "text-[9px] sm:text-[10px] text-stone-600";
+        } else {
+          label.textContent = "Tocar para editar";
+          label.className = "text-[9px] sm:text-[10px] text-stone-400 italic";
+        }
+      }
+    }
+
+    // Renderizar Planchas de Pastel con Selección de una por una
+    function renderSheetCakes(fullSheets, halfSheets) {
+      const diagram = document.getElementById('sheetCakesDiagram');
+      diagram.innerHTML = '';
+
+      totalActiveSheets = fullSheets + halfSheets;
+      sheetSelections = {};
+      currentActiveSheet = 1;
+
+      let sheetCounter = 1;
+
+      // Renderizar planchas enteras
+      for (let i = 1; i <= fullSheets; i++) {
+        const id = sheetCounter;
+        sheetSelections[id] = { flavor: '', filling: '', name: `Plancha Entera #${i} (100 pax)` };
+
+        diagram.innerHTML += `
+          <div id="visualSheet_${id}" onclick="selectActiveSheet(${id})" class="p-3.5 rounded-2xl bg-white border border-stone-200 flex items-center justify-between cursor-pointer smooth-transition hover:border-brand-500">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-lg bg-brand-100 text-brand-700 font-bold text-xs flex items-center justify-center">#${id}</span>
+              <div>
+                <p class="font-bold text-xs text-stone-800">Plancha Entera #${i}</p>
+                <p class="text-[10px] text-stone-500">100 porciones</p>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-stone-400 italic" id="sheetStatus_${id}">Tocar para editar</span>
+          </div>
+        `;
+        sheetCounter++;
+      }
+
+      // Renderizar media plancha si aplica
+      if (halfSheets === 1) {
+        const id = sheetCounter;
+        sheetSelections[id] = { flavor: '', filling: '', name: 'Media Plancha (50 pax)' };
+
+        diagram.innerHTML += `
+          <div id="visualSheet_${id}" onclick="selectActiveSheet(${id})" class="p-3.5 rounded-2xl bg-white border border-dashed border-amber-300 flex items-center justify-between cursor-pointer smooth-transition hover:border-brand-500">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center">#${id}</span>
+              <div>
+                <p class="font-bold text-xs text-stone-800">Media Plancha</p>
+                <p class="text-[10px] text-stone-500">50 porciones</p>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-stone-400 italic" id="sheetStatus_${id}">Tocar para editar</span>
+          </div>
+        `;
+      }
+
+      selectActiveSheet(1);
+    }
+
+    function selectActiveSheet(sheetIndex) {
+      currentActiveSheet = sheetIndex;
+
+      for (let i = 1; i <= totalActiveSheets; i++) {
+        const visual = document.getElementById(`visualSheet_${i}`);
+        if (visual) {
+          if (i === sheetIndex) {
+            visual.classList.add('sheet-tier-active');
+          } else {
+            visual.classList.remove('sheet-tier-active');
+          }
+        }
+      }
+
+      const editor = document.getElementById('activeSheetEditor');
+      const current = sheetSelections[sheetIndex] || { flavor: '', filling: '', name: '' };
+
+      editor.innerHTML = `
+        <div class="flex items-center justify-between border-b border-stone-200/80 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">${sheetIndex}</span>
+            <span class="font-bold text-xs uppercase tracking-wider text-stone-800">
+              Editando: ${current.name}
+            </span>
+          </div>
+          <span class="text-[11px] text-brand-600 font-semibold">Bandeja ${sheetIndex} de ${totalActiveSheets}</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-stone-600">SABOR DEL PAN *</label>
+            <select id="sheetFlavorInput" onchange="handleCurrentSheetChange()" class="w-full px-3 py-2.5 rounded-xl border border-stone-200 text-xs bg-white outline-none focus:border-brand-500">
+              <option value="">Selecciona sabor de pan...</option>
+              ${CAKE_FLAVORS.map(f => `<option value="${f}" ${current.flavor === f ? 'selected' : ''}>${f}</option>`).join('')}
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-stone-600">RELLENO *</label>
+            <select id="sheetFillingInput" onchange="handleCurrentSheetChange()" class="w-full px-3 py-2.5 rounded-xl border border-stone-200 text-xs bg-white outline-none focus:border-brand-500">
+              <option value="">Selecciona relleno...</option>
+              ${CAKE_FILLINGS.map(f => `<option value="${f}" ${current.filling === f ? 'selected' : ''}>${f}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-stone-200/60">
+          <button type="button" onclick="selectActiveSheet(${sheetIndex - 1})" ${sheetIndex === 1 ? 'disabled class="opacity-40 cursor-not-allowed text-xs text-stone-400 font-semibold px-3 py-1.5"' : 'class="text-xs text-stone-700 hover:text-stone-900 font-bold px-3 py-1.5 rounded-lg border border-stone-200 bg-white shadow-sm"'}>
+            ← Plancha anterior
+          </button>
+          
+          <button type="button" onclick="${sheetIndex < totalActiveSheets ? `selectActiveSheet(${sheetIndex + 1})` : `showNotification('¡Has completado todas las planchas!')`}" class="text-xs bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2 rounded-xl transition shadow-sm">
+            ${sheetIndex < totalActiveSheets ? 'Siguiente plancha →' : '✓ Planchas completas'}
+          </button>
+        </div>
+      `;
+    }
+
+    function handleCurrentSheetChange() {
+      const flavor = document.getElementById('sheetFlavorInput')?.value || '';
+      const filling = document.getElementById('sheetFillingInput')?.value || '';
+      if (!sheetSelections[currentActiveSheet]) return;
+      sheetSelections[currentActiveSheet].flavor = flavor;
+      sheetSelections[currentActiveSheet].filling = filling;
+
+      const status = document.getElementById(`sheetStatus_${currentActiveSheet}`);
+      if (status) {
+        if (flavor && filling) {
+          status.textContent = `${flavor} / ${filling}`;
+          status.className = "text-[10px] font-bold text-brand-700 truncate max-w-[130px]";
+        } else {
+          status.textContent = "Tocar para editar";
+          status.className = "text-[10px] font-bold text-stone-400 italic";
+        }
+      }
+    }
+
+    // 5. Manejo de Degustación
+    function handleTastingOptionChange() {
+      const val = document.querySelector('input[name="tastingOption"]:checked')?.value;
+      const dateGroup = document.getElementById('tastingDateGroup');
+      if (val === 'Si') {
+        dateGroup.classList.remove('hidden');
+        setupTastingDateRestrictions();
+      } else {
+        dateGroup.classList.add('hidden');
+      }
+    }
+
+    function setupTastingDateRestrictions() {
+      const eventDateVal = document.getElementById('eventDate')?.value;
+      const tastingDateInput = document.getElementById('tastingDate');
+      if (!tastingDateInput) return;
+
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tastingDateInput.min = tomorrow.toISOString().split('T')[0];
+
+      if (eventDateVal) {
+        // Calcular fecha máxima permitida: exactamente 14 días (2 semanas) antes del evento
+        const eventDateObj = new Date(eventDateVal + 'T12:00:00');
+        const maxTastingDate = new Date(eventDateObj);
+        maxTastingDate.setDate(maxTastingDate.getDate() - 14);
+
+        if (maxTastingDate < tomorrow) {
+          showNotification("Tu evento es en menos de 2 semanas; no es posible agendar degustación con ese margen.");
+          tastingDateInput.value = "";
+          tastingDateInput.max = "";
+          const notice = document.getElementById('tastingDayNotice');
+          if (notice) {
+            notice.textContent = "Tu evento no cuenta con las 2 semanas mínimas previas requeridas para degustación.";
+            notice.className = "text-[11px] text-rose-600 font-semibold";
+          }
+          return;
+        }
+
+        tastingDateInput.max = maxTastingDate.toISOString().split('T')[0];
+      }
+    }
+
+    function handleEventDateChange() {
+      setupTastingDateRestrictions();
+      const tastingInput = document.getElementById('tastingDate');
+      if (tastingInput && tastingInput.value) {
+        handleTastingDateValidation();
+      }
+    }
+
+    function handleTastingDateValidation() {
+      const input = document.getElementById('tastingDate');
+      const notice = document.getElementById('tastingDayNotice');
+      const eventDateVal = document.getElementById('eventDate')?.value;
+      if (!input.value) return;
+
+      if (!eventDateVal) {
+        showNotification("Por favor ingresa primero la fecha de tu evento en el Paso 1.");
+        input.value = "";
+        return;
+      }
+
+      const tastingDateObj = new Date(input.value + 'T12:00:00');
+      const eventDateObj = new Date(eventDateVal + 'T12:00:00');
+
+      // Validar diferencia mínima de 14 días
+      const diffTime = eventDateObj.getTime() - tastingDateObj.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 14) {
+        showNotification("La degustación debe agendarse al menos 2 semanas (14 días) antes del evento.");
+        input.value = "";
+        notice.textContent = "La fecha seleccionada debe ser mínimo 2 semanas previas al evento.";
+        notice.className = "text-[11px] text-rose-600 font-semibold";
+        return;
+      }
+
+      const day = tastingDateObj.getDay(); // 0 Dom, 1 Lun, 2 Mar, 3 Mie, 4 Jue, 5 Vie, 6 Sab
+      if (day !== 3 && day !== 4) {
+        showNotification("Las degustaciones son únicamente en Miércoles o Jueves.");
+        input.value = "";
+        notice.textContent = "Por favor selecciona un día Miércoles o Jueves.";
+        notice.className = "text-[11px] text-rose-600 font-semibold";
+      } else {
+        const dayName = day === 3 ? "Miércoles" : "Jueves";
+        notice.textContent = `Válido: ${dayName} (${diffDays} días antes de tu evento).`;
+        notice.className = "text-[11px] text-emerald-700 font-semibold";
+      }
+    }
+
+    // Modal de Mapas
+    function openMapModal() {
+      document.getElementById('mapModal').classList.remove('hidden');
+    }
+
+    function closeMapModal() {
+      document.getElementById('mapModal').classList.add('hidden');
+    }
+
+    function searchLocationOnMap() {
+      const query = document.getElementById('mapSearchInput').value.trim();
+      if (!query) {
+        showNotification("Escribe un lugar para buscar en el mapa.");
+        return;
+      }
+      const fullQuery = `${query}, Ciudad Juárez, Chihuahua`;
+      const iframe = document.getElementById('googleMapIframe');
+      iframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(fullQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+      
+      selectedMapData = {
+        name: query,
+        address: fullQuery,
+        mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullQuery)}`
       };
     }
 
-    // Modal de Previsualización
-    function openPreviewModal() {
-      const data = getFormData();
-      const container = document.getElementById('modalSummaryContent');
+    function confirmGoogleMapsLocation() {
+      const searchVal = document.getElementById('mapSearchInput').value.trim();
+      if (!searchVal && !selectedMapData.name) {
+        showNotification("Por favor ingresa un nombre o dirección.");
+        return;
+      }
 
-      let html = `
-        <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200/80 space-y-1.5">
-          <p><strong>Fecha Evento:</strong> ${data.eventDate || '<span class="text-rose-500 font-bold">Sin definir</span>'}</p>
-          <p><strong>Teléfono:</strong> ${data.clientPhone || '<span class="text-rose-500 font-bold">Sin especificar</span>'}</p>
-          <p><strong>Contacto:</strong> ${data.contactMethod || 'N/A'} (Perfil: ${data.profileName || 'Sin especificar'})</p>
-          <p><strong>Servicio:</strong> ${data.service || '<span class="text-rose-500 font-bold">Sin seleccionar</span>'}</p>
+      const venueName = searchVal || selectedMapData.name;
+      selectedMapData.name = venueName;
+      selectedMapData.mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueName + ' Ciudad Juárez')}`;
+
+      const venueInput = document.getElementById('venueInput');
+      if (venueInput) venueInput.value = venueName;
+
+      const previewBox = document.getElementById('mapsPreviewBox');
+      const previewAnchor = document.getElementById('mapsPreviewAnchor');
+      if (previewBox && previewAnchor) {
+        previewAnchor.href = selectedMapData.mapsUrl;
+        previewBox.classList.remove('hidden');
+      }
+
+      closeMapModal();
+      showNotification("Ubicación guardada con enlace a Google Maps.");
+    }
+
+    function confirmManualAddressFromModal() {
+      const searchVal = document.getElementById('mapSearchInput').value.trim() || 'Por confirmar (Pendiente)';
+      selectedMapData = {
+        name: searchVal,
+        address: searchVal,
+        mapsUrl: ''
+      };
+
+      const venueInput = document.getElementById('venueInput');
+      if (venueInput) venueInput.value = searchVal;
+
+      const previewBox = document.getElementById('mapsPreviewBox');
+      if (previewBox) previewBox.classList.add('hidden');
+
+      closeMapModal();
+      showNotification("Ubicación guardada como texto manual.");
+    }
+
+    // Modal de Previsualización y Envío
+    function openPreviewModal() {
+      const data = collectFormData();
+      if (!data) return;
+
+      const content = document.getElementById('previewContent');
+      content.innerHTML = `
+        <div class="p-3 rounded-2xl bg-brand-50 border border-brand-100 space-y-1">
+          <p class="font-bold text-brand-900">${data.productType}</p>
+          <p class="text-stone-600">Titular: <strong>${data.profileName}</strong> (${data.phone})</p>
+          <p class="text-stone-600">Medio: ${data.contactChannel}</p>
+          <p class="text-stone-600">Fecha del evento: <strong>${data.eventDate}</strong></p>
+        </div>
+
+        ${data.coverage ? `<p><strong>Cobertura:</strong> ${data.coverage}</p>` : ''}
+        ${data.structure ? `<p><strong>Modalidad:</strong> ${data.structure}</p>` : ''}
+        ${data.capacityText ? `<p><strong>Tamaño / Personas:</strong> ${data.capacityText}</p>` : ''}
+
+        ${data.logisticsInfo}
+
+        <div class="p-3 rounded-2xl bg-stone-50 border border-stone-200 space-y-1">
+          <p class="font-bold text-stone-800">Sabores Configurados:</p>
+          ${data.flavorsSummary}
+        </div>
+
+        ${data.tastingInfo ? `
+          <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900">
+            <strong>Degustación:</strong> ${data.tastingInfo}
+          </div>
+        ` : ''}
       `;
 
-      if (!data.isWedding) {
-        html += `<p><strong>Cobertura:</strong> ${data.coverage || '<span class="text-rose-500">Sin seleccionar</span>'}</p>`;
-      } else {
-        html += `<p><strong>Modalidad:</strong> ${data.structure || '<span class="text-rose-500">Sin seleccionar</span>'}</p>`;
-        if (data.wantsTasting === 'Sí') {
-          html += `<p><strong>Degustación Agendada:</strong> ${data.tastingDate || 'Sin fecha'} a las ${data.tastingTime || 'Sin hora'} (Mié/Jue)</p>`;
-        } else if (data.wantsTasting === 'No') {
-          html += `<p><strong>Degustación:</strong> No requerida</p>`;
-        }
-      }
-
-      if (!data.isMockupOnly) {
-        html += `<p><strong>Capacidad:</strong> ${data.capacityText || '<span class="text-rose-500">Sin seleccionar</span>'}</p>`;
-      }
-
-      html += `</div>`;
-
-      // Logística
-      if (data.pickupHour) {
-        html += `<div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-950 font-medium">📍 <strong>Recogida en Tienda:</strong> Av. Manuel J. Clouthier 7131 a las ${data.pickupHour} (Lunes a Sábado: 10:00 AM - 4:30 PM)</div>`;
-      } else if (data.venue || data.deliveryHour) {
-        html += `<div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-stone-800 font-medium">📍 <strong>Entrega en Salón:</strong> ${data.venue || 'Lugar por definir'} • ${data.deliveryHour || 'Hora por definir'}</div>`;
-      }
-
-      // Pisos o Planchas
-      if (!data.isMockupOnly && data.units.length > 0) {
-        html += `
-          <div class="space-y-2 pt-2">
-            <p class="font-bold text-stone-900 uppercase tracking-wider text-[11px] text-brand-700">Detalle de Sabores y Rellenos:</p>
-            <div class="space-y-1.5">
-              ${data.units.map(u => `
-                <div class="bg-white p-2.5 rounded-xl border border-stone-200 flex justify-between text-xs">
-                  <span class="font-bold text-stone-800">${u.label}:</span>
-                  <span class="text-stone-600">Pan: <strong>${u.pan || '(Sin elegir)'}</strong> | Relleno: <strong>${u.relleno || '(Sin elegir)'}</strong></span>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      container.innerHTML = html;
       document.getElementById('previewModal').classList.remove('hidden');
     }
 
@@ -970,113 +1306,267 @@
       document.getElementById('previewModal').classList.add('hidden');
     }
 
-    // Envío oficial por WhatsApp con validación estricta
-    function submitToWhatsApp() {
-      const data = getFormData();
-      const phoneStarCake = "526561234567"; // Número comercial de Star Cake
+    // Recolectar datos y validar
+    function collectFormData() {
+      const contactChannel = document.getElementById('contactChannel').value;
+      const profileName = document.getElementById('profileName').value.trim();
+      const phone = document.getElementById('clientPhone').value.trim();
+      const eventDate = document.getElementById('eventDate').value;
+      const productType = document.querySelector('input[name="productType"]:checked')?.value;
 
-      // 1. Validar contacto
-      if (!data.contactMethod) return showNotification("Selecciona el medio de contacto.");
-      if (!data.profileName) return showNotification("Escribe tu nombre de perfil.");
-      if (!data.eventDate) return showNotification("Selecciona la fecha de tu evento.");
-      if (!data.clientPhone) return showNotification("Ingresa tu número de teléfono.");
-      if (!data.service) return showNotification("Selecciona qué deseas contratar.");
+      if (!contactChannel || !profileName || !phone || !eventDate || !productType) {
+        showNotification("Completa todos los campos obligatorios del Paso 1.");
+        return null;
+      }
 
-      // 2. Cobertura si no es boda
-      if (!data.isWedding) {
-        if (!data.coverage) return showNotification("Selecciona la cobertura del pastel.");
-        if ((data.coverage === 'Buttercream' || data.coverage === 'Chantilly') && !acceptWeatherPolicy.checked) {
-          return showNotification("Debes aceptar los términos y riesgos de la cobertura en temporada de calor.");
+      let coverage = "";
+      if (productType === "Pastel" || productType === "Cupcakes") {
+        coverage = document.getElementById('coverageSelect').value;
+        if (!coverage) {
+          showNotification("Selecciona el tipo de cobertura.");
+          return null;
+        }
+        if ((coverage === "Buttercream" || coverage === "Chantilly") && !document.getElementById('weatherAccepted').checked) {
+          showNotification("Debes aceptar los riesgos por calor para continuar.");
+          return null;
         }
       }
 
-      // 3. Estructura y degustación en Boda/XV
-      if (data.isWedding) {
-        if (!data.structure) return showNotification("Selecciona la estructura (Pastel real, Maqueta o Maqueta + Planchas).");
-        if (!data.wantsTasting) return showNotification("Indica si deseas agendar degustación de sabores.");
-        if (data.wantsTasting === 'Sí') {
-          if (!data.tastingDate || !data.tastingTime) return showNotification("Selecciona fecha (Mié o Jue) y turno para tu degustación.");
+      let structure = "";
+      if (productType === "Pastel Boda o XV") {
+        structure = document.querySelector('input[name="weddingStructure"]:checked')?.value;
+        if (!structure) {
+          showNotification("Selecciona la modalidad de tu pastel de boda o XV.");
+          return null;
         }
       }
 
-      // 4. Capacidad si no es maqueta sola
-      if (!data.isMockupOnly) {
-        if (!capacitySelect.value) return showNotification("Selecciona la cantidad de personas.");
-      }
+      // Logística
+      let logisticsInfo = "";
+      let logisticsTextWhatsApp = "";
+      const storePickup = document.getElementById('storePickupTime');
+      const venueInput = document.getElementById('venueInput');
+      const deliveryInput = document.getElementById('deliveryTimeInput');
 
-      // 5. Logística
-      const hasPickup = document.getElementById('pickupHourInput') !== null;
-      if (hasPickup) {
-        if (!data.pickupHour) return showNotification("Selecciona horario de recogida en tienda (10:00 AM a 4:30 PM).");
-        // Verificar que el evento no sea domingo
-        const p = data.eventDate.split('-');
-        const evtDay = new Date(p[0], p[1] - 1, p[2]).getDay();
-        if (evtDay === 0) {
-          return showNotification("Las recolecciones en tienda son exclusivamente de lunes a sábado.");
+      if (storePickup) {
+        if (!storePickup.value) {
+          showNotification("Selecciona el horario de recolección en tienda.");
+          return null;
         }
-      } else {
-        if (!data.venue) return showNotification("Escribe el lugar o salón del evento.");
-        if (!data.deliveryHour) return showNotification("Escribe la hora de entrega en el salón.");
+        logisticsInfo = `<p><strong>Recolección en Tienda:</strong> Av. Manuel J. Clouthier 7131 a las ${storePickup.value}</p>`;
+        logisticsTextWhatsApp = `*Recolección en Tienda:* Av. Manuel J. Clouthier 7131 a las ${storePickup.value}%0A`;
+      } else if (venueInput && deliveryInput) {
+        if (!venueInput.value || !deliveryInput.value) {
+          showNotification("Indica el lugar del evento y la hora estimada de entrega.");
+          return null;
+        }
+        logisticsInfo = `
+          <p><strong>Lugar del Evento:</strong> ${venueInput.value}</p>
+          <p><strong>Hora de Entrega:</strong> ${deliveryInput.value}</p>
+          ${selectedMapData.mapsUrl ? `<p><strong>Maps:</strong> <a href="${selectedMapData.mapsUrl}" target="_blank" class="underline text-brand-600">Ver punto</a></p>` : ''}
+        `;
+        logisticsTextWhatsApp = `*Lugar del Evento:* ${venueInput.value}%0A*Hora de Entrega:* ${deliveryInput.value}%0A`;
+        if (selectedMapData.mapsUrl) {
+          logisticsTextWhatsApp += `*Ubicación Maps:* ${selectedMapData.mapsUrl}%0A`;
+        }
       }
 
-      // 6. Sabores y Rellenos
-      if (!data.isMockupOnly && data.units.length > 0) {
-        for (let i = 0; i < data.units.length; i++) {
-          const u = data.units[i];
-          if (!u.pan || !u.relleno) {
-            selectedUnitIndex = i;
-            renderDiagram();
-            loadActiveUnitValues();
-            return showNotification(`Falta definir sabor de pan o relleno en ${u.label}.`);
+      // Sabores
+      let flavorsSummary = "";
+      let flavorsWhatsApp = "";
+      let capacityText = "";
+
+      const capSelect = document.getElementById('capacitySelect');
+      if (structure !== "Maqueta" && capSelect && capSelect.value) {
+        const capData = JSON.parse(capSelect.value);
+        capacityText = capSelect.options[capSelect.selectedIndex].text;
+
+        if (capData.mode === 'sheets') {
+          for (let i = 1; i <= totalActiveSheets; i++) {
+            const item = sheetSelections[i] || {};
+            const f = item.flavor;
+            const r = item.filling;
+            if (!f || !r) {
+              selectActiveSheet(i);
+              showNotification(`Selecciona sabor y relleno para la Plancha #${i}.`);
+              return null;
+            }
+            flavorsSummary += `<p>• ${item.name || `Plancha #${i}`}: Pan ${f} con Relleno de ${r}</p>`;
+            flavorsWhatsApp += `• ${item.name || `Plancha #${i}`}: Pan ${f} / Relleno ${r}%0A`;
+          }
+        } else {
+          for (let i = 1; i <= capData.floors; i++) {
+            const item = tierSelections[i] || {};
+            const f = item.flavor;
+            const r = item.filling;
+            if (!f || !r) {
+              selectActiveTier(i);
+              showNotification(`Selecciona sabor y relleno para el Piso #${i}.`);
+              return null;
+            }
+            flavorsSummary += `<p>• Piso #${i} ${i === 1 ? '(Arriba)' : ''}: Pan ${f} con Relleno de ${r}</p>`;
+            flavorsWhatsApp += `• Piso #${i} ${i === 1 ? '(Arriba)' : ''}: Pan ${f} / Relleno ${r}%0A`;
           }
         }
+      } else if (structure === "Maqueta") {
+        flavorsSummary = "<p>Estructura de Maqueta (Sin pisos comestibles).</p>";
+        flavorsWhatsApp = "Estructura de Maqueta (Sin pisos comestibles)%0A";
       }
 
-      // Mensaje de WhatsApp estructurado
-      let msg = `✨ *CONTRATO STAR CAKE* ✨%0A`;
-      msg += `-----------------------------------%0A`;
-      msg += `📅 *Fecha Evento:* ${data.eventDate}%0A`;
-      msg += `📱 *Teléfono:* ${data.clientPhone}%0A`;
-      msg += `💬 *Contacto:* ${data.contactMethod} (${data.profileName})%0A`;
-      msg += `🎂 *Servicio:* ${data.service}%0A`;
+      // Degustación
+      let tastingInfo = "";
+      let tastingWhatsApp = "";
+      if (productType === "Pastel Boda o XV" && structure !== "Maqueta") {
+        const tastingOpt = document.querySelector('input[name="tastingOption"]:checked')?.value;
+        if (!tastingOpt) {
+          showNotification("Por favor indica si deseas agendar degustación.");
+          return null;
+        }
+        if (tastingOpt === 'Si') {
+          const tDate = document.getElementById('tastingDate').value;
+          const tTime = document.getElementById('tastingTime').value;
+          if (!tDate || !tTime) {
+            showNotification("Completa la fecha y horario de tu degustación.");
+            return null;
+          }
 
-      if (!data.isWedding) {
-        msg += `🧁 *Cobertura:* ${data.coverage}%0A`;
-      } else {
-        msg += `🏛️ *Estructura:* ${data.structure}%0A`;
-        if (data.wantsTasting === 'Sí') {
-          msg += `☕ *Degustación:* ${data.tastingDate} a las ${data.tastingTime} (Miércoles/Jueves)%0A`;
+          // Validación estricta final de 2 semanas antes del evento
+          const tastingDateObj = new Date(tDate + 'T12:00:00');
+          const eventDateObj = new Date(eventDate + 'T12:00:00');
+          const diffDays = Math.ceil((eventDateObj.getTime() - tastingDateObj.getTime()) / (1000 * 60 * 60 * 24));
+          if (diffDays < 14) {
+            showNotification("La degustación debe ser al menos 2 semanas antes de tu evento.");
+            return null;
+          }
+
+          tastingInfo = `Agendada para el ${tDate} a las ${tTime}`;
+          tastingWhatsApp = `*Degustación Agendada:* ${tDate} a las ${tTime} (${diffDays} días antes del evento)%0A`;
         } else {
-          msg += `☕ *Degustación:* No requerida%0A`;
+          tastingInfo = "No agendada";
+          tastingWhatsApp = "*Degustación:* No solicitada por ahora%0A";
         }
       }
 
-      if (!data.isMockupOnly) {
-        msg += `👥 *Capacidad:* ${data.capacityText}%0A`;
-      }
-      msg += `-----------------------------------%0A`;
+      return {
+        contactChannel,
+        profileName,
+        phone,
+        eventDate,
+        productType,
+        coverage,
+        structure,
+        capacityText,
+        logisticsInfo,
+        logisticsTextWhatsApp,
+        flavorsSummary,
+        flavorsWhatsApp,
+        tastingInfo,
+        tastingWhatsApp
+      };
+    }
 
-      if (data.pickupHour) {
-        msg += `📍 *Recogida en Tienda:* Av. Manuel J. Clouthier 7131 a las ${data.pickupHour} (Lun a Sáb)%0A`;
-      } else if (data.venue || data.deliveryHour) {
-        msg += `📍 *Lugar Entrega:* ${data.venue} | Hora: ${data.deliveryHour}%0A`;
+    // Descargar copia digital del contrato
+    function downloadContractCopy() {
+      const data = collectFormData();
+      if (!data) return;
+
+      let plainText = `========================================================\n`;
+      plainText += `             CONTRATO Y REGISTRO STAR CAKE             \n`;
+      plainText += `           Pastelería Boutique - Ciudad Juárez         \n`;
+      plainText += `             WhatsApp Oficial: 656 302 9797            \n`;
+      plainText += `========================================================\n\n`;
+
+      plainText += `DATOS DEL CLIENTE Y EVENTO:\n`;
+      plainText += `--------------------------------------------------------\n`;
+      plainText += `Titular:            ${data.profileName}\n`;
+      plainText += `Teléfono:           ${data.phone}\n`;
+      plainText += `Medio de contacto:  ${data.contactChannel}\n`;
+      plainText += `Fecha del Evento:   ${data.eventDate}\n`;
+      plainText += `Servicio:           ${data.productType}\n`;
+      if (data.coverage) plainText += `Cobertura:          ${data.coverage}\n`;
+      if (data.structure) plainText += `Modalidad:          ${data.structure}\n`;
+      if (data.capacityText) plainText += `Capacidad:          ${data.capacityText}\n`;
+
+      plainText += `\nLOGÍSTICA DE ENTREGA:\n`;
+      plainText += `--------------------------------------------------------\n`;
+      const cleanLogistics = data.logisticsTextWhatsApp.replace(/%0A/g, '\n').replace(/\*/g, '');
+      plainText += cleanLogistics;
+
+      plainText += `\nCONFIGURACIÓN DE SABORES:\n`;
+      plainText += `--------------------------------------------------------\n`;
+      const cleanFlavors = data.flavorsWhatsApp.replace(/%0A/g, '\n').replace(/\*/g, '');
+      plainText += cleanFlavors;
+
+      if (data.tastingWhatsApp) {
+        plainText += `\nAGENDA DE DEGUSTACIÓN:\n`;
+        plainText += `--------------------------------------------------------\n`;
+        const cleanTasting = data.tastingWhatsApp.replace(/%0A/g, '\n').replace(/\*/g, '');
+        plainText += cleanTasting;
       }
 
-      if (!data.isMockupOnly && data.units.length > 0) {
-        msg += `%0A🍰 *DETALLE DE SABORES Y RELLENOS:*%0A`;
-        data.units.forEach(u => {
-          msg += `• *${u.label}:* Pan ${u.pan} | Relleno: ${u.relleno}%0A`;
-        });
+      plainText += `\n========================================================\n`;
+      plainText += `POLÍTICAS Y CONDICIONES:\n`;
+      plainText += `- El pastel debe estar liquidado a más tardar una semana antes del evento.\n`;
+      plainText += `- En pasteles de crema (Buttercream/Chantilly), el cliente reconoce y acepta\n`;
+      plainText += `  la sensibilidad y riesgos ante altas temperaturas.\n`;
+      plainText += `Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}\n`;
+      plainText += `========================================================\n`;
+
+      const blob = new Blob([plainText], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = `Contrato_Star_Cake_${data.profileName.replace(/\s+/g, '_')}_${data.eventDate}.txt`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      URL.revokeObjectURL(url);
+
+      showNotification("Copia del contrato descargada con éxito.");
+    }
+
+    function closeConfirmationModal() {
+      document.getElementById('confirmationSuccessModal').classList.add('hidden');
+    }
+
+    // Enviar a WhatsApp oficial
+    function submitToWhatsApp() {
+      const data = collectFormData();
+      if (!data) return;
+
+      const PHONE_STAR_CAKE = "526563029797"; // Número oficial de Star Cake
+
+      let msg = `*CONTRATO Y REGISTRO STAR CAKE*%0A`;
+      msg += `------------------------------------%0A`;
+      msg += `*Titular:* ${data.profileName}%0A`;
+      msg += `*Teléfono:* ${data.phone}%0A`;
+      msg += `*Medio:* ${data.contactChannel}%0A`;
+      msg += `*Fecha del Evento:* ${data.eventDate}%0A`;
+      msg += `*Servicio:* ${data.productType}%0A`;
+
+      if (data.coverage) msg += `*Cobertura:* ${data.coverage}%0A`;
+      if (data.structure) msg += `*Modalidad:* ${data.structure}%0A`;
+      if (data.capacityText) msg += `*Capacidad:* ${data.capacityText}%0A`;
+
+      msg += `------------------------------------%0A`;
+      msg += `*LOGÍSTICA:*%0A${data.logisticsTextWhatsApp}`;
+      msg += `------------------------------------%0A`;
+      msg += `*CONFIGURACIÓN DE SABORES:*%0A${data.flavorsWhatsApp}`;
+
+      if (data.tastingWhatsApp) {
+        msg += `------------------------------------%0A`;
+        msg += data.tastingWhatsApp;
       }
 
-      if (data.weatherAccepted && !data.isWedding) {
-        msg += `%0A☀️ _Aceptó términos de calor para crema/chantilly._%0A`;
-      }
-      msg += `💰 _Liquidación formal requerida 1 semana antes del evento._%0A`;
-      msg += `-----------------------------------%0A`;
+      msg += `------------------------------------%0A`;
+      msg += `_Entendido y aceptado: liquidación formal 1 semana antes del evento._`;
 
-      const url = `https://wa.me/${phoneStarCake}?text=${msg}`;
-      window.open(url, '_blank');
+      const whatsappURL = `https://wa.me/${PHONE_STAR_CAKE}?text=${msg}`;
+      window.open(whatsappURL, '_blank');
+      closePreviewModal();
+
+      // Abrir modal de confirmación con opción de descarga
+      document.getElementById('confirmationSuccessModal').classList.remove('hidden');
     }
   </script>
 </body>
