@@ -472,6 +472,26 @@
         </button>
       </div>
 
+      <div id="previewContent" class="p-5 overflow-y-auto space-y-4 text-xs text-stone-700"></div>
+
+      <div class="p-4 bg-stone-50 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-end gap-2.5">
+        <button type="button" onclick="downloadContractCopy()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <i class="ph-bold ph-download-simple"></i>
+          <span>Descargar Copia (.txt)</span>
+        </button>
+        <button type="button" onclick="window.print()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <i class="ph-bold ph-printer"></i>
+          <span>Imprimir / PDF</span>
+        </button>
+        <button type="button" onclick="submitToWhatsApp()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm">
+          <i class="ph-bold ph-whatsapp-logo text-base"></i>
+          <span>Confirmar y Enviar a WhatsApp</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- MODAL: Visor de Foto de Maqueta en Pantalla Completa (Zoom / Lightbox) -->
   <div id="imageLightboxModal" class="fixed inset-0 z-50 bg-stone-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6" onclick="closeImageLightbox(event)">
     <div class="relative max-w-2xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-stone-100 flex flex-col" onclick="event.stopPropagation()">
@@ -1496,26 +1516,26 @@
 
       const content = document.getElementById('previewContent');
       content.innerHTML = `
-        <div class="p-3 rounded-2xl bg-brand-50 border border-brand-100 space-y-1">
-          <p class="font-bold text-brand-900">${data.productType}</p>
-          <p class="text-stone-600">Titular: <strong>${data.profileName}</strong> (${data.phone})</p>
+        <div class="p-3.5 rounded-2xl bg-brand-50 border border-brand-100 space-y-1">
+          <p class="font-bold text-sm text-brand-900">${data.productType}</p>
+          <p class="text-stone-700">Titular: <strong>${data.profileName}</strong> (${data.phone})</p>
           <p class="text-stone-600">Medio: ${data.contactChannel}</p>
           <p class="text-stone-600">Fecha del evento: <strong>${data.eventDate}</strong></p>
         </div>
 
         ${data.coverage ? `<p><strong>Cobertura:</strong> ${data.coverage}</p>` : ''}
-        ${data.structure ? `<p><strong>Modalidad:</strong> ${data.structure}</p>` : ''}
+        ${data.structure ? `<p><strong>Modalidad:</strong> ${data.structure} ${data.maquetaName ? `(${data.maquetaName} - ${data.maquetaId})` : ''}</p>` : ''}
         ${data.capacityText ? `<p><strong>Tamaño / Personas:</strong> ${data.capacityText}</p>` : ''}
 
         ${data.logisticsInfo}
 
-        <div class="p-3 rounded-2xl bg-stone-50 border border-stone-200 space-y-1">
+        <div class="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 space-y-1.5">
           <p class="font-bold text-stone-800">Sabores Configurados:</p>
-          ${data.flavorsSummary}
+          <div class="space-y-1">${data.flavorsSummary}</div>
         </div>
 
         ${data.tastingInfo ? `
-          <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900">
+          <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900">
             <strong>Degustación:</strong> ${data.tastingInfo}
           </div>
         ` : ''}
@@ -1532,26 +1552,48 @@
     function collectFormData() {
       syncCurrentInputsToState();
 
-      const contactChannel = document.getElementById('contactChannel').value;
-      const profileName = document.getElementById('profileName').value.trim();
-      const phone = document.getElementById('clientPhone').value.trim();
-      const eventDate = document.getElementById('eventDate').value;
+      const contactChannel = document.getElementById('contactChannel')?.value;
+      const profileName = document.getElementById('profileName')?.value.trim();
+      const phone = document.getElementById('clientPhone')?.value.trim();
+      const eventDate = document.getElementById('eventDate')?.value;
       const productType = document.querySelector('input[name="productType"]:checked')?.value;
 
-      if (!contactChannel || !profileName || !phone || !eventDate || !productType) {
-        showNotification("Completa todos los campos obligatorios del Paso 1.");
+      if (!contactChannel) {
+        showNotification("Selecciona el medio por el que nos contactas (Paso 1).");
+        document.getElementById('contactChannel')?.focus();
+        return null;
+      }
+      if (!profileName) {
+        showNotification("Ingresa tu nombre de perfil o titular (Paso 1).");
+        document.getElementById('profileName')?.focus();
+        return null;
+      }
+      if (!phone) {
+        showNotification("Ingresa tu número de teléfono (Paso 1).");
+        document.getElementById('clientPhone')?.focus();
+        return null;
+      }
+      if (!eventDate) {
+        showNotification("Selecciona la fecha de tu evento (Paso 1).");
+        document.getElementById('eventDate')?.focus();
+        return null;
+      }
+      if (!productType) {
+        showNotification("Selecciona qué deseas contratar: Pastel Boda/XV o Pastel Social.");
         return null;
       }
 
       let coverage = "";
       if (productType === "Pastel") {
-        coverage = document.getElementById('coverageSelect').value;
+        coverage = document.getElementById('coverageSelect')?.value;
         if (!coverage) {
-          showNotification("Selecciona el tipo de cobertura.");
+          showNotification("Selecciona el tipo de cobertura en el Paso 2.");
+          document.getElementById('coverageSelect')?.focus();
           return null;
         }
-        if ((coverage === "Buttercream" || coverage === "Chantilly") && !document.getElementById('weatherAccepted').checked) {
+        if ((coverage === "Buttercream" || coverage === "Chantilly") && !document.getElementById('weatherAccepted')?.checked) {
           showNotification("Debes aceptar los riesgos por calor para continuar.");
+          document.getElementById('weatherAccepted')?.focus();
           return null;
         }
       }
@@ -1562,14 +1604,14 @@
       if (productType === "Pastel Boda o XV") {
         structure = document.querySelector('input[name="weddingStructure"]:checked')?.value;
         if (!structure) {
-          showNotification("Selecciona la modalidad de tu pastel de boda o XV.");
+          showNotification("Selecciona la modalidad deseada en el Paso 2 (Pastel Real, Solo Maqueta o Maqueta + Planchas).");
           return null;
         }
 
         // Si es maqueta o maqueta + planchas, validar que haya elegido una maqueta
         if (structure === "Maqueta" || structure === "Maqueta y planchas") {
-          maquetaId = document.getElementById('selectedMaquetaId').value;
-          maquetaName = document.getElementById('selectedMaquetaName').value;
+          maquetaId = document.getElementById('selectedMaquetaId')?.value;
+          maquetaName = document.getElementById('selectedMaquetaName')?.value;
           if (!maquetaId) {
             showNotification("Por favor selecciona un modelo de maqueta del catálogo.");
             return null;
@@ -1587,13 +1629,16 @@
       if (storePickup) {
         if (!storePickup.value) {
           showNotification("Selecciona el horario de recolección en tienda.");
+          storePickup.focus();
           return null;
         }
         logisticsInfo = `<p><strong>Recolección en Tienda:</strong> Av. Manuel J. Clouthier 7131 a las ${storePickup.value}</p>`;
         logisticsTextWhatsApp = `*Recolección en Tienda:* Av. Manuel J. Clouthier 7131 a las ${storePickup.value}\n`;
       } else if (venueInput && deliveryInput) {
         if (!venueInput.value || !deliveryInput.value) {
-          showNotification("Indica el lugar del evento y la hora estimada de entrega.");
+          showNotification("Indica el lugar del evento y la hora de entrega.");
+          if (!venueInput.value) venueInput.focus();
+          else deliveryInput.focus();
           return null;
         }
         logisticsInfo = `
@@ -1649,6 +1694,10 @@
       } else if (structure === "Maqueta") {
         flavorsSummary = "<p>Estructura de Maqueta (Sin pisos comestibles).</p>";
         flavorsWhatsApp = "Estructura de Maqueta (Sin pisos comestibles)\n";
+      } else if (productType && structure !== "Maqueta" && (!capSelect || !capSelect.value)) {
+        showNotification("Selecciona la cantidad de personas o invitados.");
+        capSelect?.focus();
+        return null;
       }
 
       // Degustación
