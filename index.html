@@ -270,6 +270,19 @@
               <p>Cargando catálogo de maquetas...</p>
             </div>
           </div>
+
+          <!-- Campo condicional para Maqueta Personalizada -->
+          <div id="customMaquetaDetailsWrapper" class="hidden p-4 rounded-2xl bg-brand-50/60 border border-brand-200 space-y-2">
+            <div class="flex items-center gap-2 text-xs font-bold text-brand-900">
+              <i class="ph-bold ph-paint-brush text-brand-600 text-base"></i>
+              <span>Detalles de tu Maqueta Personalizada</span>
+            </div>
+            <p class="text-[11px] text-stone-600">
+              Describe los pisos, colores, estilo o temática especial que deseas cotizar o acordaste previamente:
+            </p>
+            <textarea id="customMaquetaInput" rows="2" placeholder="Ej. Maqueta de 4 pisos estilo mármol blanco con bordes dorados y flores..." class="w-full px-3 py-2 rounded-xl border border-stone-200 text-xs bg-white outline-none focus:border-brand-500"></textarea>
+          </div>
+
           <input type="hidden" id="selectedMaquetaId">
           <input type="hidden" id="selectedMaquetaName">
         </div>
@@ -727,7 +740,48 @@
 
       grid.innerHTML = "";
 
-      // Días de fin de semana a evaluar
+      // 1. Tarjeta Especial: Maqueta Personalizada
+      const isCustomSelected = selectedId === 'MQ-CUSTOM';
+      const customCard = document.createElement('div');
+      customCard.className = `rounded-2xl border-2 p-3 transition-all relative overflow-hidden flex flex-col justify-between ${
+        isCustomSelected
+          ? 'border-brand-600 bg-brand-50/50 shadow-md ring-2 ring-brand-300'
+          : 'border-brand-200 bg-gradient-to-b from-white to-brand-50/30 hover:border-brand-400'
+      }`;
+
+      customCard.innerHTML = `
+        <div class="space-y-2">
+          <div class="w-full h-40 rounded-xl overflow-hidden bg-brand-100/70 border border-brand-200 flex flex-col items-center justify-center p-3 text-center relative group">
+            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-600 mb-2">
+              <i class="ph-bold ph-sparkle text-2xl"></i>
+            </div>
+            <p class="font-bold text-xs text-brand-950">Diseño a tu Medida</p>
+            <p class="text-[10px] text-brand-700 leading-tight mt-0.5">Creación exclusiva o acordada por mensaje</p>
+            
+            ${isCustomSelected ? `
+              <div class="absolute top-2 right-2 bg-brand-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow">
+                <i class="ph-bold ph-check"></i>
+              </div>
+            ` : ''}
+          </div>
+
+          <div>
+            <p class="font-bold text-xs text-brand-900 leading-tight">Maqueta Personalizada</p>
+            <p class="text-[10px] text-stone-500">Pisos y diseño especial bajo pedido</p>
+          </div>
+        </div>
+
+        <button type="button" onclick="selectMaqueta('MQ-CUSTOM', 'Maqueta Personalizada')" class="mt-2.5 w-full py-2 px-3 rounded-xl text-xs font-bold transition ${
+          isCustomSelected 
+            ? 'bg-brand-600 text-white shadow-sm' 
+            : 'bg-brand-600/10 text-brand-700 hover:bg-brand-600 hover:text-white'
+        }">
+          ${isCustomSelected ? '✓ Seleccionada' : 'Elegir Personalizada'}
+        </button>
+      `;
+      grid.appendChild(customCard);
+
+      // Días de fin de semana a evaluar para los modelos del catálogo
       const currentWeekendDays = eventDateVal ? getWeekendDatesArray(eventDateVal) : [];
 
       MAQUETAS_CATALOG.forEach(mq => {
@@ -795,6 +849,17 @@
     function selectMaqueta(id, name) {
       document.getElementById('selectedMaquetaId').value = id;
       document.getElementById('selectedMaquetaName').value = name;
+      
+      const customWrapper = document.getElementById('customMaquetaDetailsWrapper');
+      if (customWrapper) {
+        if (id === 'MQ-CUSTOM') {
+          customWrapper.classList.remove('hidden');
+          document.getElementById('customMaquetaInput')?.focus();
+        } else {
+          customWrapper.classList.add('hidden');
+        }
+      }
+
       renderMaquetasCards();
       showNotification(`Maqueta elegida: ${name}`);
     }
@@ -1557,6 +1622,7 @@
 
         ${data.coverage ? `<p><strong>Cobertura:</strong> ${data.coverage}</p>` : ''}
         ${data.structure ? `<p><strong>Modalidad:</strong> ${data.structure} ${data.maquetaName ? `(${data.maquetaName} - ${data.maquetaId})` : ''}</p>` : ''}
+        ${data.customMaquetaNotes ? `<p class="p-2 rounded-xl bg-brand-50 text-[11px] text-brand-900"><strong>Detalles de diseño personalizado:</strong> ${data.customMaquetaNotes}</p>` : ''}
         ${data.capacityText ? `<p><strong>Tamaño / Personas:</strong> ${data.capacityText}</p>` : ''}
 
         ${data.logisticsInfo}
@@ -1633,6 +1699,7 @@
       let structure = "";
       let maquetaId = "";
       let maquetaName = "";
+      let customMaquetaNotes = "";
       if (productType === "Pastel Boda o XV") {
         structure = document.querySelector('input[name="weddingStructure"]:checked')?.value;
         if (!structure) {
@@ -1645,8 +1712,17 @@
           maquetaId = document.getElementById('selectedMaquetaId')?.value;
           maquetaName = document.getElementById('selectedMaquetaName')?.value;
           if (!maquetaId) {
-            showNotification("Por favor selecciona un modelo de maqueta del catálogo.");
+            showNotification("Por favor selecciona un modelo de maqueta del catálogo o la opción Personalizada.");
             return null;
+          }
+
+          if (maquetaId === 'MQ-CUSTOM') {
+            customMaquetaNotes = document.getElementById('customMaquetaInput')?.value.trim();
+            if (!customMaquetaNotes) {
+              showNotification("Por favor describe brevemente los detalles de tu maqueta personalizada.");
+              document.getElementById('customMaquetaInput')?.focus();
+              return null;
+            }
           }
         }
       }
@@ -1803,6 +1879,7 @@
         structure,
         maquetaId,
         maquetaName,
+        customMaquetaNotes,
         capacityText,
         logisticsInfo,
         logisticsTextWhatsApp,
@@ -1843,7 +1920,11 @@
       plainText += `Fecha del Evento:   ${data.eventDate}\n`;
       plainText += `Servicio:           ${data.productType}\n`;
       if (data.coverage) plainText += `Cobertura:          ${data.coverage}\n`;
-      if (data.structure) plainText += `Modalidad:          ${data.structure}\n`;
+      if (data.structure) {
+        plainText += `Modalidad:          ${data.structure}\n`;
+        if (data.maquetaName) plainText += `Maqueta:            ${data.maquetaName} [${data.maquetaId}]\n`;
+        if (data.customMaquetaNotes) plainText += `Diseño Maqueta:     ${data.customMaquetaNotes}\n`;
+      }
       if (data.capacityText) plainText += `Capacidad:          ${data.capacityText}\n`;
 
       plainText += `\nLOGÍSTICA DE ENTREGA:\n`;
@@ -1901,6 +1982,7 @@
         structure: data.structure || "Pastel Estándar",
         maquetaId: data.maquetaId || "",
         maquetaName: data.maquetaName || "",
+        customMaquetaNotes: data.customMaquetaNotes || "",
         capacityText: data.capacityText || "",
         paxNumber: data.paxNumber || 0,
         coverage: data.coverage || "N/A",
@@ -1955,6 +2037,9 @@
         msg += `*Modalidad:* ${data.structure}\n`;
         if (data.maquetaName) {
           msg += `*Maqueta Elegida:* ${data.maquetaName} (ID: ${data.maquetaId})\n`;
+          if (data.customMaquetaNotes) {
+            msg += `*Detalles de Maqueta Personalizada:* ${data.customMaquetaNotes}\n`;
+          }
         }
       }
       if (data.capacityText) msg += `*Capacidad:* ${data.capacityText}\n`;
