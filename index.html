@@ -57,7 +57,6 @@
       border-color: #db2777;
       background-color: #fdf2f8;
     }
-    /* Suavizado en transiciones */
     .smooth-transition {
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -106,7 +105,7 @@
           <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
             Medio por el que nos contactas <span class="text-brand-600">*</span>
           </label>
-          <select id="contactChannel" required onchange="handleContactChannelChange()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-stone-50/50">
+          <select id="contactChannel" required class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-stone-50/50">
             <option value="">Selecciona una opción...</option>
             <option value="Facebook Star Cake / Instagram">Facebook Star Cake / Instagram</option>
             <option value="WhatsApp">WhatsApp</option>
@@ -148,7 +147,7 @@
           <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
             ¿Qué deseas contratar? <span class="text-brand-600">*</span>
           </label>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <label class="relative cursor-pointer">
               <input type="radio" name="productType" value="Pastel Boda o XV" required onchange="handleProductTypeChange()" class="sr-only peer">
               <div class="p-3.5 rounded-2xl border border-stone-200 peer-checked:border-brand-600 peer-checked:bg-brand-50/60 peer-checked:text-brand-800 text-stone-700 text-xs sm:text-sm font-semibold flex items-center justify-between transition">
@@ -164,19 +163,11 @@
                 <i class="ph-bold ph-cake text-base text-brand-600"></i>
               </div>
             </label>
-
-            <label class="relative cursor-pointer">
-              <input type="radio" name="productType" value="Cupcakes" onchange="handleProductTypeChange()" class="sr-only peer">
-              <div class="p-3.5 rounded-2xl border border-stone-200 peer-checked:border-brand-600 peer-checked:bg-brand-50/60 peer-checked:text-brand-800 text-stone-700 text-xs sm:text-sm font-semibold flex items-center justify-between transition">
-                <span>Cupcakes</span>
-                <i class="ph-bold ph-cookie text-base text-brand-600"></i>
-              </div>
-            </label>
           </div>
         </div>
       </section>
 
-      <!-- PASO 2: Cobertura y Riesgos por Calor (SOLO para Pastel y Cupcakes) -->
+      <!-- PASO 2: Cobertura y Riesgos por Calor (SOLO para Pastel Social) -->
       <section id="coverageSection" class="hidden bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-5">
         <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
           <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
@@ -195,7 +186,7 @@
           </select>
         </div>
 
-        <!-- Advertencia de calor condicional para Buttercream o Chantilly -->
+        <!-- Advertencia de calor condicional -->
         <div id="weatherNotice" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-2.5">
           <div class="flex items-center gap-2 text-amber-900 font-bold text-xs">
             <i class="ph-bold ph-sun-dim text-base text-amber-600"></i>
@@ -210,7 +201,7 @@
           <p class="text-[11px] text-amber-700 italic">Nosotros trabajamos en disminuir los riesgos, más como cliente es indispensable que los conozcas y aceptes.</p>
 
           <label class="mt-2 pt-2 border-t border-amber-200/80 flex items-start gap-2.5 cursor-pointer">
-            <input type="checkbox" id="weatherAccepted" onchange="validateStepCompletion()" class="mt-0.5 rounded text-brand-600 focus:ring-brand-500 h-4 w-4">
+            <input type="checkbox" id="weatherAccepted" class="mt-0.5 rounded text-brand-600 focus:ring-brand-500 h-4 w-4">
             <span class="text-xs font-bold text-amber-950">Acepto y conozco los riesgos de la cobertura en temporada de calor *</span>
           </label>
         </div>
@@ -292,10 +283,10 @@
             <p class="text-xs text-stone-500 mt-0.5">Toca el piso que deseas configurar para personalizar su pan y relleno de uno por uno.</p>
           </div>
 
-          <!-- Diagrama Visual de Capas (Piso 1 más pequeño arriba hasta Piso N base) -->
+          <!-- Diagrama Visual de Capas (Piso 1 cima hasta Piso N base) -->
           <div class="p-6 rounded-2xl bg-gradient-to-b from-stone-50 to-brand-50/30 border border-stone-200 flex flex-col items-center justify-center">
             <div id="cakeDiagramVisual" class="w-full max-w-sm flex flex-col items-center gap-2 py-2"></div>
-            <!-- Base o Plato de Presentación -->
+            <!-- Base o Plato -->
             <div class="w-64 sm:w-80 h-3 rounded-full bg-stone-300/80 shadow-inner mt-2"></div>
           </div>
 
@@ -413,7 +404,7 @@
         </button>
       </div>
 
-      <!-- Buscador y botones -->
+      <!-- Buscador y visor -->
       <div class="p-5 space-y-3">
         <div class="flex gap-2">
           <input type="text" id="mapSearchInput" placeholder="Nombre de salón o dirección (ej. Terraza Rubí)" class="flex-1 px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs sm:text-sm">
@@ -488,9 +479,9 @@
         <i class="ph-bold ph-check-circle"></i>
       </div>
       <div>
-        <h3 class="font-serif text-lg font-bold text-stone-900">¡Pedido Enviado a WhatsApp!</h3>
+        <h3 class="font-serif text-lg font-bold text-stone-900">¡Pedido Registrado y Enviado!</h3>
         <p class="text-xs text-stone-600 mt-1 leading-relaxed">
-          Tu mensaje de contrato se ha transferido al chat de WhatsApp con <strong>Star Cake (656 302 9797)</strong>. Asegúrate de presionar "Enviar" en la aplicación de WhatsApp.
+          Los datos se han transferido a la agenda de pedidos y al chat de WhatsApp con <strong>Star Cake (656 302 9797)</strong>. Asegúrate de presionar "Enviar" en WhatsApp para entregar tu mensaje.
         </p>
       </div>
       <div class="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 text-left text-xs text-stone-700 space-y-1.5">
@@ -522,6 +513,9 @@
 
   <!-- JAVASCRIPT DEL CONTRATO INTERACTIVO -->
   <script>
+    // URL de tu Webhook de Google Apps Script (Pega aquí la URL que obtienes al Implementar Code.gs)
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhWAPf14RtYFLEWyW2paOKT_6id7awBcMbITYpusAITK_SXRHgKAf1-OnC8Jg4Bopi/exec";
+
     // Catálogos Oficiales de Star Cake
     const CAKE_FLAVORS = [
       "Fresa", "Vainilla", "Chocolate", "Vainilla- fresa", "Vainilla-choco",
@@ -594,7 +588,7 @@
       }
     }
 
-    // Notificaciones Toast (reemplazo de alert)
+    // Notificaciones Toast
     function showNotification(message) {
       const toast = document.getElementById('toastNotification');
       const text = document.getElementById('toastMessage');
@@ -618,7 +612,6 @@
       const sizeSec = document.getElementById('sizeAndFlavorsSection');
       const tastingSec = document.getElementById('tastingSection');
 
-      // Resetear visualización
       coverageSec.classList.add('hidden');
       weddingSec.classList.add('hidden');
       sizeSec.classList.add('hidden');
@@ -626,7 +619,7 @@
 
       if (productType === "Pastel Boda o XV") {
         weddingSec.classList.remove('hidden');
-      } else if (productType === "Pastel" || productType === "Cupcakes") {
+      } else if (productType === "Pastel") {
         coverageSec.classList.remove('hidden');
       }
     }
@@ -673,7 +666,6 @@
         sizeSec.classList.remove('hidden');
         tastingSec.classList.remove('hidden');
       } else if (structure === "Maqueta") {
-        // En solo maqueta no hay comida/tamaños
         sizeSec.classList.remove('hidden');
         document.getElementById('capacityGroup').classList.add('hidden');
         renderLogisticsFields('delivery');
@@ -681,7 +673,7 @@
       }
     }
 
-    // Configuración del dropdown de capacidades
+    // Configuración del selector de personas
     function setupCapacityDropdown(mode) {
       const select = document.getElementById('capacitySelect');
       const group = document.getElementById('capacityGroup');
@@ -755,7 +747,7 @@
       }
     }
 
-    // Renderizar campos de logística según entrega o recolección
+    // Renderizar logística (Tienda vs Domicilio)
     function renderLogisticsFields(type) {
       const container = document.getElementById('logisticsContainer');
       if (type === 'store') {
@@ -836,7 +828,6 @@
       }
     }
 
-    // Funciones de ubicación manual / por confirmar
     function setVenuePending() {
       const input = document.getElementById('venueInput');
       if (input) {
@@ -864,7 +855,7 @@
       }
     }
 
-    // Renderizar Diagrama de Pisos (1 a N: de menor tamaño arriba a mayor abajo con selección de uno por uno)
+    // Renderizar Diagrama de Pisos (1 a N: cima más pequeño a base más ancha)
     function renderCakeTiers(numTiers) {
       const visualContainer = document.getElementById('cakeDiagramVisual');
       visualContainer.innerHTML = '';
@@ -873,7 +864,6 @@
       tierSelections = {};
       currentActiveTier = 1;
 
-      // Generar diagrama de arriba hacia abajo (Piso 1 es el más pequeño)
       for (let i = 1; i <= numTiers; i++) {
         tierSelections[i] = { flavor: '', filling: '' };
         const widthPercent = Math.min(100, 35 + ((i - 1) * (65 / Math.max(1, numTiers - 1))));
@@ -899,7 +889,6 @@
     function selectActiveTier(tierIndex) {
       currentActiveTier = tierIndex;
 
-      // Actualizar estilos activos en el diagrama
       for (let i = 1; i <= totalActiveTiers; i++) {
         const visual = document.getElementById(`visualTier_${i}`);
         if (visual) {
@@ -911,7 +900,6 @@
         }
       }
 
-      // Renderizar el editor exclusivo para el piso seleccionado
       const editor = document.getElementById('activeTierEditor');
       const current = tierSelections[tierIndex] || { flavor: '', filling: '' };
 
@@ -987,7 +975,6 @@
 
       let sheetCounter = 1;
 
-      // Renderizar planchas enteras
       for (let i = 1; i <= fullSheets; i++) {
         const id = sheetCounter;
         sheetSelections[id] = { flavor: '', filling: '', name: `Plancha Entera #${i} (100 pax)` };
@@ -1007,7 +994,6 @@
         sheetCounter++;
       }
 
-      // Renderizar media plancha si aplica
       if (halfSheets === 1) {
         const id = sheetCounter;
         sheetSelections[id] = { flavor: '', filling: '', name: 'Media Plancha (50 pax)' };
@@ -1106,7 +1092,6 @@
       }
     }
 
-    // Sincronizar de forma forzada el piso o plancha actualmente visible antes de procesar el formulario
     function syncCurrentInputsToState() {
       const flavorInput = document.getElementById('flavorTierInput');
       const fillingInput = document.getElementById('fillingTierInput');
@@ -1123,7 +1108,7 @@
       }
     }
 
-    // 5. Manejo de Degustación
+    // 5. Degustación
     function handleTastingOptionChange() {
       const val = document.querySelector('input[name="tastingOption"]:checked')?.value;
       const dateGroup = document.getElementById('tastingDateGroup');
@@ -1146,18 +1131,17 @@
       tastingDateInput.min = tomorrow.toISOString().split('T')[0];
 
       if (eventDateVal) {
-        // Calcular fecha máxima permitida: exactamente 14 días (2 semanas) antes del evento
         const eventDateObj = new Date(eventDateVal + 'T12:00:00');
         const maxTastingDate = new Date(eventDateObj);
         maxTastingDate.setDate(maxTastingDate.getDate() - 14);
 
         if (maxTastingDate < tomorrow) {
-          showNotification("Tu evento es en menos de 2 semanas; no es posible agendar degustación con ese margen.");
+          showNotification("Tu evento es en menos de 2 semanas; no es posible agendar degustación.");
           tastingDateInput.value = "";
           tastingDateInput.max = "";
           const notice = document.getElementById('tastingDayNotice');
           if (notice) {
-            notice.textContent = "Tu evento no cuenta con las 2 semanas mínimas previas requeridas para degustación.";
+            notice.textContent = "Tu evento no cuenta con las 2 semanas mínimas requeridas.";
             notice.className = "text-[11px] text-rose-600 font-semibold";
           }
           return;
@@ -1182,7 +1166,7 @@
       if (!input.value) return;
 
       if (!eventDateVal) {
-        showNotification("Por favor ingresa primero la fecha de tu evento en el Paso 1.");
+        showNotification("Ingresa primero la fecha de tu evento en el Paso 1.");
         input.value = "";
         return;
       }
@@ -1190,19 +1174,18 @@
       const tastingDateObj = new Date(input.value + 'T12:00:00');
       const eventDateObj = new Date(eventDateVal + 'T12:00:00');
 
-      // Validar diferencia mínima de 14 días
       const diffTime = eventDateObj.getTime() - tastingDateObj.getTime();
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
       if (diffDays < 14) {
-        showNotification("La degustación debe agendarse al menos 2 semanas (14 días) antes del evento.");
+        showNotification("La degustación debe agendarse al menos 2 semanas antes del evento.");
         input.value = "";
         notice.textContent = "La fecha seleccionada debe ser mínimo 2 semanas previas al evento.";
         notice.className = "text-[11px] text-rose-600 font-semibold";
         return;
       }
 
-      const day = tastingDateObj.getDay(); // 0 Dom, 1 Lun, 2 Mar, 3 Mie, 4 Jue, 5 Vie, 6 Sab
+      const day = tastingDateObj.getDay();
       if (day !== 3 && day !== 4) {
         showNotification("Las degustaciones son únicamente en Miércoles o Jueves.");
         input.value = "";
@@ -1210,7 +1193,7 @@
         notice.className = "text-[11px] text-rose-600 font-semibold";
       } else {
         const dayName = day === 3 ? "Miércoles" : "Jueves";
-        notice.textContent = `Válido: ${dayName} (${diffDays} días antes de tu evento).`;
+        notice.textContent = `Válido: ${dayName} (${diffDays} días antes del evento).`;
         notice.className = "text-[11px] text-emerald-700 font-semibold";
       }
     }
@@ -1325,7 +1308,6 @@
 
     // Recolectar datos y validar
     function collectFormData() {
-      // Aseguramos que los inputs que el usuario tenga abiertos en ese instante se guarden
       syncCurrentInputsToState();
 
       const contactChannel = document.getElementById('contactChannel').value;
@@ -1340,7 +1322,7 @@
       }
 
       let coverage = "";
-      if (productType === "Pastel" || productType === "Cupcakes") {
+      if (productType === "Pastel") {
         coverage = document.getElementById('coverageSelect').value;
         if (!coverage) {
           showNotification("Selecciona el tipo de cobertura.");
@@ -1438,6 +1420,8 @@
       // Degustación
       let tastingInfo = "";
       let tastingWhatsApp = "";
+      let tDate = "";
+      let tTime = "";
       if (productType === "Pastel Boda o XV" && structure !== "Maqueta") {
         const tastingOpt = document.querySelector('input[name="tastingOption"]:checked')?.value;
         if (!tastingOpt) {
@@ -1445,14 +1429,13 @@
           return null;
         }
         if (tastingOpt === 'Si') {
-          const tDate = document.getElementById('tastingDate').value;
-          const tTime = document.getElementById('tastingTime').value;
+          tDate = document.getElementById('tastingDate')?.value || "";
+          tTime = document.getElementById('tastingTime')?.value || "";
           if (!tDate || !tTime) {
             showNotification("Completa la fecha y horario de tu degustación.");
             return null;
           }
 
-          // Validación estricta final de 2 semanas antes del evento
           const tastingDateObj = new Date(tDate + 'T12:00:00');
           const eventDateObj = new Date(eventDate + 'T12:00:00');
           const diffDays = Math.ceil((eventDateObj.getTime() - tastingDateObj.getTime()) / (1000 * 60 * 60 * 24));
@@ -1469,6 +1452,32 @@
         }
       }
 
+      // Extracción de datos para Google Apps Script
+      let paxNumber = 0;
+      let fullSheetsCount = 0;
+      let halfSheetsCount = 0;
+      let modeType = "floors";
+
+      if (capSelect && capSelect.value) {
+        try {
+          const parsedCap = JSON.parse(capSelect.value);
+          paxNumber = parsedCap.pax || 0;
+          fullSheetsCount = parsedCap.fullSheets || 0;
+          halfSheetsCount = parsedCap.halfSheets || 0;
+          modeType = parsedCap.mode || "floors";
+        } catch(e) {}
+      }
+
+      let venueOrStoreText = "";
+      let pickupOrDeliveryTimeText = "";
+      if (storePickup && storePickup.value) {
+        venueOrStoreText = "Tienda Star Cake (Av. Manuel J. Clouthier 7131)";
+        pickupOrDeliveryTimeText = storePickup.value;
+      } else if (venueInput && deliveryInput) {
+        venueOrStoreText = venueInput.value;
+        pickupOrDeliveryTimeText = deliveryInput.value;
+      }
+
       return {
         contactChannel,
         profileName,
@@ -1483,19 +1492,30 @@
         flavorsSummary,
         flavorsWhatsApp,
         tastingInfo,
-        tastingWhatsApp
+        tastingWhatsApp,
+        tastingDate: tDate,
+        tastingTime: tTime,
+        paxNumber,
+        fullSheets: fullSheetsCount,
+        halfSheets: halfSheetsCount,
+        mode: modeType,
+        tierSelections: tierSelections,
+        sheetSelections: sheetSelections,
+        venueOrStore: venueOrStoreText,
+        pickupOrDeliveryTime: pickupOrDeliveryTimeText,
+        mapsUrl: selectedMapData.mapsUrl || ""
       };
     }
 
-    // Descargar copia digital del contrato
+    // Descargar copia digital
     function downloadContractCopy() {
       const data = collectFormData();
       if (!data) return;
 
       let plainText = `========================================================\n`;
-      plainText += `             CONTRATO Y REGISTRO STAR CAKE             \n`;
-      plainText += `           Pastelería Boutique - Ciudad Juárez         \n`;
-      plainText += `             WhatsApp Oficial: 656 302 9797            \n`;
+      plainText += `              CONTRATO Y REGISTRO STAR CAKE             \n`;
+      plainText += `            Pastelería Boutique - Ciudad Juárez         \n`;
+      plainText += `              WhatsApp Oficial: 656 302 9797            \n`;
       plainText += `========================================================\n\n`;
 
       plainText += `DATOS DEL CLIENTE Y EVENTO:\n`;
@@ -1548,12 +1568,61 @@
       document.getElementById('confirmationSuccessModal').classList.add('hidden');
     }
 
-    // Enviar a WhatsApp oficial
+    // Enviar datos en segundo plano a Google Apps Script (Sheets + Calendar)
+    async function sendDataToGoogleAppsScript(data) {
+      if (!GOOGLE_APPS_SCRIPT_URL) {
+        console.log("Aviso: Falta configurar GOOGLE_APPS_SCRIPT_URL. Los datos se envían a WhatsApp normalmente.");
+        return;
+      }
+
+      const payload = {
+        profileName: data.profileName,
+        phone: data.phone,
+        contactChannel: data.contactChannel,
+        eventDate: data.eventDate,
+        productType: data.productType,
+        structure: data.structure || "Pastel Estándar",
+        capacityText: data.capacityText || "",
+        paxNumber: data.paxNumber || 0,
+        coverage: data.coverage || "N/A",
+        venueOrStore: data.venueOrStore,
+        pickupOrDeliveryTime: data.pickupOrDeliveryTime,
+        mapsUrl: data.mapsUrl || "",
+        flavorsSummaryText: data.flavorsWhatsApp,
+        tastingInfo: data.tastingInfo || "N/A",
+        tastingDate: data.tastingDate || "",
+        tastingTime: data.tastingTime || "",
+        mode: data.mode,
+        fullSheets: data.fullSheets,
+        halfSheets: data.halfSheets,
+        tierSelections: data.tierSelections,
+        sheetSelections: data.sheetSelections
+      };
+
+      try {
+        await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+        console.log("Datos sincronizados con éxito a Google Apps Script.");
+      } catch (err) {
+        console.warn("No se pudo completar el envío a Google Apps Script:", err);
+      }
+    }
+
+    // Enviar a WhatsApp oficial y guardar en Google
     function submitToWhatsApp() {
       const data = collectFormData();
       if (!data) return;
 
-      const PHONE_STAR_CAKE = "526563029797"; // Número oficial de Star Cake
+      // Envío en segundo plano a Google Apps Script
+      sendDataToGoogleAppsScript(data);
+
+      const PHONE_STAR_CAKE = "526563029797";
 
       let msg = `*CONTRATO Y REGISTRO STAR CAKE*\n`;
       msg += `------------------------------------\n`;
@@ -1580,12 +1649,10 @@
       msg += `------------------------------------\n`;
       msg += `_Entendido y aceptado: liquidación formal 1 semana antes del evento._`;
 
-      // encodeURIComponent previene que WhatsApp corte líneas o pierda pisos
       const whatsappURL = `https://wa.me/${PHONE_STAR_CAKE}?text=${encodeURIComponent(msg)}`;
       window.open(whatsappURL, '_blank');
       closePreviewModal();
 
-      // Abrir modal de confirmación con opción de descarga
       document.getElementById('confirmationSuccessModal').classList.remove('hidden');
     }
   </script>
