@@ -253,6 +253,29 @@
             </label>
           </div>
         </div>
+
+        <!-- CATÁLOGO VISUAL DE MAQUETAS (Se activa si eligen Maqueta o Maqueta + Planchas) -->
+        <div id="maquetaSelectorWrapper" class="hidden pt-4 border-t border-stone-100 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Selecciona el Modelo de Maqueta</span>
+              <p class="text-[11px] text-stone-500">Toca la maqueta que deseas rentar para tu evento.</p>
+            </div>
+            <span id="dateFilterBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 hidden">
+              ✓ Filtro por fecha activo
+            </span>
+          </div>
+
+          <!-- Grid de maquetas cargadas dinámicamente -->
+          <div id="maquetasGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="col-span-full py-6 text-center text-stone-400 text-xs">
+              <i class="ph-bold ph-spinner animate-spin text-lg mb-1 inline-block"></i>
+              <p>Cargando catálogo de maquetas...</p>
+            </div>
+          </div>
+          <input type="hidden" id="selectedMaquetaId">
+          <input type="hidden" id="selectedMaquetaName">
+        </div>
       </section>
 
       <!-- PASO 4: Tamaño, Pisos / Planchas y Sabores -->
@@ -516,6 +539,14 @@
     // URL de tu Webhook de Google Apps Script (Pega aquí la URL que obtienes al Implementar Code.gs)
     const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhWAPf14RtYFLEWyW2paOKT_6id7awBcMbITYpusAITK_SXRHgKAf1-OnC8Jg4Bopi/exec";
 
+    // Catálogo local de respaldo si no hay conexión inmediata con Apps Script
+    let MAQUETAS_CATALOG = [
+      { id: "MQ-01", name: "Maqueta Imperial Perlas", floors: "4 Pisos", photo: "https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=600" },
+      { id: "MQ-02", name: "Maqueta Floral Romántica", floors: "3 Pisos", photo: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=600" },
+      { id: "MQ-03", name: "Maqueta Minimalista Oro", floors: "5 Pisos", photo: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600" }
+    ];
+    let BOOKED_MAQUETAS = []; // Fechas y maquetas reservadas
+
     // Catálogos Oficiales de Star Cake
     const CAKE_FLAVORS = [
       "Fresa", "Vainilla", "Chocolate", "Vainilla- fresa", "Vainilla-choco",
@@ -570,7 +601,98 @@
     // Inicialización al cargar la página
     window.onload = function() {
       setupDateRestrictions();
+      fetchMaquetasFromBackend();
     };
+
+    // Consultar maquetas y fechas ocupadas desde Google Sheets / Apps Script
+    async function fetchMaquetasFromBackend() {
+      if (!GOOGLE_APPS_SCRIPT_URL) {
+        renderMaquetasCards();
+        return;
+      }
+      try {
+        const res = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?action=getMaquetas`);
+        const json = await res.json();
+        if (json && json.status === "success" && json.maquetas && json.maquetas.length > 0) {
+          MAQUETAS_CATALOG = json.maquetas;
+          BOOKED_MAQUETAS = json.booked || [];
+        }
+      } catch (err) {
+        console.warn("Usando catálogo local de maquetas:", err);
+      } finally {
+        renderMaquetasCards();
+      }
+    }
+
+    // Renderizar tarjetas de maquetas con foto
+    function renderMaquetasCards() {
+      const grid = document.getElementById('maquetasGrid');
+      if (!grid) return;
+
+      const eventDateVal = document.getElementById('eventDate')?.value;
+      const selectedId = document.getElementById('selectedMaquetaId')?.value;
+
+      grid.innerHTML = "";
+
+      MAQUETAS_CATALOG.forEach(mq => {
+        // Verificar si está ocupada en la fecha del evento
+        const isOccupied = eventDateVal && BOOKED_MAQUETAS.some(b => b.date === eventDateVal && b.info.includes(mq.id));
+        const isSelected = selectedId === mq.id;
+
+        const card = document.createElement('div');
+        card.className = `rounded-2xl border-2 p-3 transition-all relative overflow-hidden flex flex-col justify-between ${
+          isOccupied 
+            ? 'opacity-50 border-stone-200 bg-stone-100 cursor-not-allowed' 
+            : isSelected 
+              ? 'border-brand-600 bg-brand-50/50 shadow-md cursor-pointer' 
+              : 'border-stone-200 bg-white hover:border-brand-300 cursor-pointer'
+        }`;
+
+        if (!isOccupied) {
+          card.onclick = () => selectMaqueta(mq.id, mq.name);
+        }
+
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="w-full h-36 rounded-xl overflow-hidden bg-stone-100 border border-stone-100 relative">
+              <img src="${mq.photo}" alt="${mq.name}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300/fce7f3/db2777?text=Star+Cake+Maqueta'">
+              ${isOccupied ? `
+                <div class="absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex items-center justify-center p-2 text-center">
+                  <span class="text-white text-[11px] font-bold bg-rose-600 px-2 py-1 rounded-lg">Reservada en esta fecha</span>
+                </div>
+              ` : ''}
+              ${isSelected ? `
+                <div class="absolute top-2 right-2 bg-brand-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow">
+                  <i class="ph-bold ph-check"></i>
+                </div>
+              ` : ''}
+            </div>
+            <div>
+              <p class="font-bold text-xs text-stone-900 leading-tight">${mq.name}</p>
+              <p class="text-[10px] text-stone-500">${mq.floors} • ID: ${mq.id}</p>
+            </div>
+          </div>
+          <button type="button" class="mt-2.5 w-full py-1.5 px-3 rounded-lg text-xs font-bold transition ${
+            isOccupied 
+              ? 'bg-stone-200 text-stone-400 cursor-not-allowed' 
+              : isSelected 
+                ? 'bg-brand-600 text-white' 
+                : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+          }">
+            ${isOccupied ? 'No disponible' : isSelected ? '✓ Seleccionada' : 'Elegir esta maqueta'}
+          </button>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function selectMaqueta(id, name) {
+      document.getElementById('selectedMaquetaId').value = id;
+      document.getElementById('selectedMaquetaName').value = name;
+      renderMaquetasCards();
+      showNotification(`Maqueta seleccionada: ${name}`);
+    }
 
     // Restricciones de fecha (mínimo mañana, máximo 1 año al futuro)
     function setupDateRestrictions() {
@@ -653,19 +775,25 @@
       const tastingSec = document.getElementById('tastingSection');
       const cakeStackSec = document.getElementById('cakeStackSection');
       const sheetCakesSec = document.getElementById('sheetCakesSection');
+      const maquetaWrapper = document.getElementById('maquetaSelectorWrapper');
 
       cakeStackSec.classList.add('hidden');
       sheetCakesSec.classList.add('hidden');
 
       if (structure === "Pastel real") {
+        maquetaWrapper.classList.add('hidden');
         setupCapacityDropdown("WeddingReal");
         sizeSec.classList.remove('hidden');
         tastingSec.classList.remove('hidden');
       } else if (structure === "Maqueta y planchas") {
+        maquetaWrapper.classList.remove('hidden');
+        renderMaquetasCards();
         setupCapacityDropdown("Sheets");
         sizeSec.classList.remove('hidden');
         tastingSec.classList.remove('hidden');
       } else if (structure === "Maqueta") {
+        maquetaWrapper.classList.remove('hidden');
+        renderMaquetasCards();
         sizeSec.classList.remove('hidden');
         document.getElementById('capacityGroup').classList.add('hidden');
         renderLogisticsFields('delivery');
@@ -1153,6 +1281,7 @@
 
     function handleEventDateChange() {
       setupTastingDateRestrictions();
+      renderMaquetasCards(); // Actualizar disponibilidad de maquetas según la nueva fecha
       const tastingInput = document.getElementById('tastingDate');
       if (tastingInput && tastingInput.value) {
         handleTastingDateValidation();
@@ -1335,11 +1464,23 @@
       }
 
       let structure = "";
+      let maquetaId = "";
+      let maquetaName = "";
       if (productType === "Pastel Boda o XV") {
         structure = document.querySelector('input[name="weddingStructure"]:checked')?.value;
         if (!structure) {
           showNotification("Selecciona la modalidad de tu pastel de boda o XV.");
           return null;
+        }
+
+        // Si es maqueta o maqueta + planchas, validar que haya elegido una maqueta
+        if (structure === "Maqueta" || structure === "Maqueta y planchas") {
+          maquetaId = document.getElementById('selectedMaquetaId').value;
+          maquetaName = document.getElementById('selectedMaquetaName').value;
+          if (!maquetaId) {
+            showNotification("Por favor selecciona un modelo de maqueta del catálogo.");
+            return null;
+          }
         }
       }
 
@@ -1486,6 +1627,8 @@
         productType,
         coverage,
         structure,
+        maquetaId,
+        maquetaName,
         capacityText,
         logisticsInfo,
         logisticsTextWhatsApp,
@@ -1571,7 +1714,7 @@
     // Enviar datos en segundo plano a Google Apps Script (Sheets + Calendar)
     async function sendDataToGoogleAppsScript(data) {
       if (!GOOGLE_APPS_SCRIPT_URL) {
-        console.log("Aviso: Falta configurar GOOGLE_APPS_SCRIPT_URL. Los datos se envían a WhatsApp normalmente.");
+        console.log("Aviso: Falta configurar GOOGLE_APPS_SCRIPT_URL.");
         return;
       }
 
@@ -1582,6 +1725,8 @@
         eventDate: data.eventDate,
         productType: data.productType,
         structure: data.structure || "Pastel Estándar",
+        maquetaId: data.maquetaId || "",
+        maquetaName: data.maquetaName || "",
         capacityText: data.capacityText || "",
         paxNumber: data.paxNumber || 0,
         coverage: data.coverage || "N/A",
@@ -1602,7 +1747,6 @@
       try {
         await fetch(GOOGLE_APPS_SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors",
           headers: {
             "Content-Type": "text/plain;charset=utf-8"
           },
@@ -1633,7 +1777,12 @@
       msg += `*Servicio:* ${data.productType}\n`;
 
       if (data.coverage) msg += `*Cobertura:* ${data.coverage}\n`;
-      if (data.structure) msg += `*Modalidad:* ${data.structure}\n`;
+      if (data.structure) {
+        msg += `*Modalidad:* ${data.structure}\n`;
+        if (data.maquetaName) {
+          msg += `*Maqueta Elegida:* ${data.maquetaName} (ID: ${data.maquetaId})\n`;
+        }
+      }
       if (data.capacityText) msg += `*Capacidad:* ${data.capacityText}\n`;
 
       msg += `------------------------------------\n`;
