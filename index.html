@@ -1106,6 +1106,23 @@
       }
     }
 
+    // Sincronizar de forma forzada el piso o plancha actualmente visible antes de procesar el formulario
+    function syncCurrentInputsToState() {
+      const flavorInput = document.getElementById('flavorTierInput');
+      const fillingInput = document.getElementById('fillingTierInput');
+      if (flavorInput && fillingInput && currentActiveTier && tierSelections[currentActiveTier]) {
+        if (flavorInput.value) tierSelections[currentActiveTier].flavor = flavorInput.value;
+        if (fillingInput.value) tierSelections[currentActiveTier].filling = fillingInput.value;
+      }
+
+      const sheetFlavor = document.getElementById('sheetFlavorInput');
+      const sheetFilling = document.getElementById('sheetFillingInput');
+      if (sheetFlavor && sheetFilling && currentActiveSheet && sheetSelections[currentActiveSheet]) {
+        if (sheetFlavor.value) sheetSelections[currentActiveSheet].flavor = sheetFlavor.value;
+        if (sheetFilling.value) sheetSelections[currentActiveSheet].filling = sheetFilling.value;
+      }
+    }
+
     // 5. Manejo de Degustación
     function handleTastingOptionChange() {
       const val = document.querySelector('input[name="tastingOption"]:checked')?.value;
@@ -1308,6 +1325,9 @@
 
     // Recolectar datos y validar
     function collectFormData() {
+      // Aseguramos que los inputs que el usuario tenga abiertos en ese instante se guarden
+      syncCurrentInputsToState();
+
       const contactChannel = document.getElementById('contactChannel').value;
       const profileName = document.getElementById('profileName').value.trim();
       const phone = document.getElementById('clientPhone').value.trim();
@@ -1354,7 +1374,7 @@
           return null;
         }
         logisticsInfo = `<p><strong>Recolección en Tienda:</strong> Av. Manuel J. Clouthier 7131 a las ${storePickup.value}</p>`;
-        logisticsTextWhatsApp = `*Recolección en Tienda:* Av. Manuel J. Clouthier 7131 a las ${storePickup.value}%0A`;
+        logisticsTextWhatsApp = `*Recolección en Tienda:* Av. Manuel J. Clouthier 7131 a las ${storePickup.value}\n`;
       } else if (venueInput && deliveryInput) {
         if (!venueInput.value || !deliveryInput.value) {
           showNotification("Indica el lugar del evento y la hora estimada de entrega.");
@@ -1365,9 +1385,9 @@
           <p><strong>Hora de Entrega:</strong> ${deliveryInput.value}</p>
           ${selectedMapData.mapsUrl ? `<p><strong>Maps:</strong> <a href="${selectedMapData.mapsUrl}" target="_blank" class="underline text-brand-600">Ver punto</a></p>` : ''}
         `;
-        logisticsTextWhatsApp = `*Lugar del Evento:* ${venueInput.value}%0A*Hora de Entrega:* ${deliveryInput.value}%0A`;
+        logisticsTextWhatsApp = `*Lugar del Evento:* ${venueInput.value}\n*Hora de Entrega:* ${deliveryInput.value}\n`;
         if (selectedMapData.mapsUrl) {
-          logisticsTextWhatsApp += `*Ubicación Maps:* ${selectedMapData.mapsUrl}%0A`;
+          logisticsTextWhatsApp += `*Ubicación Maps:* ${selectedMapData.mapsUrl}\n`;
         }
       }
 
@@ -1391,8 +1411,9 @@
               showNotification(`Selecciona sabor y relleno para la Plancha #${i}.`);
               return null;
             }
-            flavorsSummary += `<p>• ${item.name || `Plancha #${i}`}: Pan ${f} con Relleno de ${r}</p>`;
-            flavorsWhatsApp += `• ${item.name || `Plancha #${i}`}: Pan ${f} / Relleno ${r}%0A`;
+            const nameLabel = item.name || `Plancha #${i}`;
+            flavorsSummary += `<p>• <strong>${nameLabel}:</strong> Pan ${f} con Relleno de ${r}</p>`;
+            flavorsWhatsApp += `• ${nameLabel}: Pan ${f} / Relleno ${r}\n`;
           }
         } else {
           for (let i = 1; i <= capData.floors; i++) {
@@ -1404,13 +1425,14 @@
               showNotification(`Selecciona sabor y relleno para el Piso #${i}.`);
               return null;
             }
-            flavorsSummary += `<p>• Piso #${i} ${i === 1 ? '(Arriba)' : ''}: Pan ${f} con Relleno de ${r}</p>`;
-            flavorsWhatsApp += `• Piso #${i} ${i === 1 ? '(Arriba)' : ''}: Pan ${f} / Relleno ${r}%0A`;
+            const tierPosition = i === 1 ? ' (Cima)' : i === capData.floors ? ' (Base)' : '';
+            flavorsSummary += `<p>• <strong>Piso #${i}${tierPosition}:</strong> Pan ${f} con Relleno de ${r}</p>`;
+            flavorsWhatsApp += `• Piso #${i}${tierPosition}: Pan ${f} / Relleno ${r}\n`;
           }
         }
       } else if (structure === "Maqueta") {
         flavorsSummary = "<p>Estructura de Maqueta (Sin pisos comestibles).</p>";
-        flavorsWhatsApp = "Estructura de Maqueta (Sin pisos comestibles)%0A";
+        flavorsWhatsApp = "Estructura de Maqueta (Sin pisos comestibles)\n";
       }
 
       // Degustación
@@ -1440,10 +1462,10 @@
           }
 
           tastingInfo = `Agendada para el ${tDate} a las ${tTime}`;
-          tastingWhatsApp = `*Degustación Agendada:* ${tDate} a las ${tTime} (${diffDays} días antes del evento)%0A`;
+          tastingWhatsApp = `*Degustación Agendada:* ${tDate} a las ${tTime} (${diffDays} días antes del evento)\n`;
         } else {
           tastingInfo = "No agendada";
-          tastingWhatsApp = "*Degustación:* No solicitada por ahora%0A";
+          tastingWhatsApp = "*Degustación:* No solicitada por ahora\n";
         }
       }
 
@@ -1489,19 +1511,16 @@
 
       plainText += `\nLOGÍSTICA DE ENTREGA:\n`;
       plainText += `--------------------------------------------------------\n`;
-      const cleanLogistics = data.logisticsTextWhatsApp.replace(/%0A/g, '\n').replace(/\*/g, '');
-      plainText += cleanLogistics;
+      plainText += data.logisticsTextWhatsApp.replace(/\*/g, '');
 
       plainText += `\nCONFIGURACIÓN DE SABORES:\n`;
       plainText += `--------------------------------------------------------\n`;
-      const cleanFlavors = data.flavorsWhatsApp.replace(/%0A/g, '\n').replace(/\*/g, '');
-      plainText += cleanFlavors;
+      plainText += data.flavorsWhatsApp.replace(/\*/g, '');
 
       if (data.tastingWhatsApp) {
         plainText += `\nAGENDA DE DEGUSTACIÓN:\n`;
         plainText += `--------------------------------------------------------\n`;
-        const cleanTasting = data.tastingWhatsApp.replace(/%0A/g, '\n').replace(/\*/g, '');
-        plainText += cleanTasting;
+        plainText += data.tastingWhatsApp.replace(/\*/g, '');
       }
 
       plainText += `\n========================================================\n`;
@@ -1536,32 +1555,33 @@
 
       const PHONE_STAR_CAKE = "526563029797"; // Número oficial de Star Cake
 
-      let msg = `*CONTRATO Y REGISTRO STAR CAKE*%0A`;
-      msg += `------------------------------------%0A`;
-      msg += `*Titular:* ${data.profileName}%0A`;
-      msg += `*Teléfono:* ${data.phone}%0A`;
-      msg += `*Medio:* ${data.contactChannel}%0A`;
-      msg += `*Fecha del Evento:* ${data.eventDate}%0A`;
-      msg += `*Servicio:* ${data.productType}%0A`;
+      let msg = `*CONTRATO Y REGISTRO STAR CAKE*\n`;
+      msg += `------------------------------------\n`;
+      msg += `*Titular:* ${data.profileName}\n`;
+      msg += `*Teléfono:* ${data.phone}\n`;
+      msg += `*Medio:* ${data.contactChannel}\n`;
+      msg += `*Fecha del Evento:* ${data.eventDate}\n`;
+      msg += `*Servicio:* ${data.productType}\n`;
 
-      if (data.coverage) msg += `*Cobertura:* ${data.coverage}%0A`;
-      if (data.structure) msg += `*Modalidad:* ${data.structure}%0A`;
-      if (data.capacityText) msg += `*Capacidad:* ${data.capacityText}%0A`;
+      if (data.coverage) msg += `*Cobertura:* ${data.coverage}\n`;
+      if (data.structure) msg += `*Modalidad:* ${data.structure}\n`;
+      if (data.capacityText) msg += `*Capacidad:* ${data.capacityText}\n`;
 
-      msg += `------------------------------------%0A`;
-      msg += `*LOGÍSTICA:*%0A${data.logisticsTextWhatsApp}`;
-      msg += `------------------------------------%0A`;
-      msg += `*CONFIGURACIÓN DE SABORES:*%0A${data.flavorsWhatsApp}`;
+      msg += `------------------------------------\n`;
+      msg += `*LOGÍSTICA:*\n${data.logisticsTextWhatsApp}`;
+      msg += `------------------------------------\n`;
+      msg += `*CONFIGURACIÓN DE SABORES:*\n${data.flavorsWhatsApp}`;
 
       if (data.tastingWhatsApp) {
-        msg += `------------------------------------%0A`;
+        msg += `------------------------------------\n`;
         msg += data.tastingWhatsApp;
       }
 
-      msg += `------------------------------------%0A`;
+      msg += `------------------------------------\n`;
       msg += `_Entendido y aceptado: liquidación formal 1 semana antes del evento._`;
 
-      const whatsappURL = `https://wa.me/${PHONE_STAR_CAKE}?text=${msg}`;
+      // encodeURIComponent previene que WhatsApp corte líneas o pierda pisos
+      const whatsappURL = `https://wa.me/${PHONE_STAR_CAKE}?text=${encodeURIComponent(msg)}`;
       window.open(whatsappURL, '_blank');
       closePreviewModal();
 
