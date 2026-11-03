@@ -41,7 +41,6 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <style>
-    /* Estilos personalizados para animaciones y diagramas */
     .cake-tier-active {
       box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.45);
       border-color: #db2777 !important;
@@ -172,11 +171,30 @@
         </div>
       </section>
 
-      <!-- PASO 2: Cobertura y Riesgos por Calor (SOLO para Pastel Social) -->
+      <!-- PASO 2: Cobertura, Festejado y Riesgos por Calor (SOLO para Pastel Social) -->
       <section id="coverageSection" class="hidden bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-5">
         <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
           <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
-          <h2 class="font-bold text-sm sm:text-base text-stone-900">Cobertura del Pastel</h2>
+          <h2 class="font-bold text-sm sm:text-base text-stone-900">Detalles del Festejado y Cobertura</h2>
+        </div>
+
+        <!-- Nombre del cumpleañero y edad (Opcionales) -->
+        <div class="p-4 rounded-2xl bg-brand-50/40 border border-brand-100 space-y-3">
+          <div class="flex items-center gap-2 text-brand-900 font-bold text-xs">
+            <i class="ph-bold ph-balloon text-base text-brand-600"></i>
+            <span>Datos del Cumpleañero / Festejado (Opcional)</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="sm:col-span-2 space-y-1">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-700">Nombre del Cumpleañero(a)</label>
+              <input type="text" id="birthdayName" placeholder="Ej. Mateo / Sofía" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-white">
+            </div>
+            <div class="space-y-1">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-700">Edad a Cumplir</label>
+              <input type="text" id="birthdayAge" placeholder="Ej. 5 años" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-white">
+            </div>
+          </div>
+          <p class="text-[10px] text-stone-500">Opcional. Útil si tu pastel llevará topper personalizado o letrero temático.</p>
         </div>
 
         <div class="space-y-1.5">
@@ -408,16 +426,30 @@
         </div>
       </section>
 
-      <!-- Botones de Acción -->
-      <div class="pt-4 flex flex-col sm:flex-row gap-3">
-        <button type="button" onclick="openPreviewModal()" class="w-full sm:w-1/2 py-3.5 px-5 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition">
-          <i class="ph-bold ph-file-text text-base"></i>
-          <span>Revisar Resumen</span>
-        </button>
+      <!-- SECCIÓN: Comentarios extras y notas (Común para Boda/XV y Social) -->
+      <section class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-4">
+        <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">
+            <i class="ph-bold ph-note-pencil text-xs"></i>
+          </span>
+          <h2 class="font-bold text-sm sm:text-base text-stone-900">Comentarios Extras o Notas Especiales</h2>
+          <span class="text-[11px] text-stone-400 font-medium ml-auto">(Opcional)</span>
+        </div>
 
-        <button type="submit" class="w-full sm:w-1/2 py-3.5 px-5 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 transition">
-          <i class="ph-bold ph-whatsapp-logo text-base"></i>
-          <span>Finalizar y Enviar a WhatsApp</span>
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+            Detalles de diseño, colores o especificaciones
+          </label>
+          <textarea id="orderNotes" rows="3" placeholder="Ej. Colores del betún, si llevará flores naturales provistas por el cliente, temática, letrero especial, instrucciones de entrega..." class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-xs sm:text-sm bg-white"></textarea>
+          <p class="text-[10px] text-stone-500">Agrega cualquier detalle adicional que quieras que tengamos en cuenta para tu pedido.</p>
+        </div>
+      </section>
+
+      <!-- Botón Único de Acción: Revisar y Confirmar -->
+      <div class="pt-2">
+        <button type="button" onclick="openPreviewModal()" class="w-full py-4 px-6 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white text-sm sm:text-base font-bold flex items-center justify-center gap-2.5 shadow-lg shadow-brand-500/25 transition active:scale-[0.99]">
+          <i class="ph-bold ph-file-text text-lg"></i>
+          <span>Revisar Resumen del Pedido</span>
         </button>
       </div>
 
@@ -446,11 +478,11 @@
       <div class="p-5 space-y-3">
         <div class="flex gap-2">
           <input type="text" id="mapSearchInput" placeholder="Nombre de salón o dirección (ej. Terraza Rubí)" class="flex-1 px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-brand-500 outline-none text-xs sm:text-sm">
+          <button type="button" onclick="searchLocationOnMap()" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center gap-1.5 transition">
+            <i class="ph-bold ph-magnifying-glass"></i>
+            <span>Buscar</span>
+          </button>
         </div>
-        <button type="button" onclick="searchLocationOnMap()" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center gap-1.5 transition">
-          <i class="ph-bold ph-magnifying-glass"></i>
-          <span>Buscar</span>
-        </button>
 
         <p class="text-[11px] text-stone-500">
           Si el salón no se localiza automáticamente en el mapa, puedes hacer clic en <strong>"Usar solo como texto"</strong> o escribir <em>"Por confirmar"</em>.
@@ -476,14 +508,14 @@
     </div>
   </div>
 
-  <!-- MODAL: Resumen y Confirmación Previa -->
+  <!-- MODAL: Resumen y Confirmación Final (Confirmar y Enviar directo a Sheets, Calendar y WhatsApp) -->
   <div id="previewModal" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
     <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl border border-stone-200 flex flex-col max-h-[90vh]">
       
       <div class="p-5 border-b border-stone-100 flex items-center justify-between">
         <h3 class="font-bold text-sm sm:text-base text-stone-900 flex items-center gap-2">
           <i class="ph-bold ph-file-text text-brand-600 text-lg"></i>
-          <span>Resumen de tu Contrato</span>
+          <span>Resumen de tu Pedido</span>
         </h3>
         <button type="button" onclick="closePreviewModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center">
           <i class="ph-bold ph-x text-sm"></i>
@@ -492,18 +524,14 @@
 
       <div id="previewContent" class="p-5 overflow-y-auto space-y-4 text-xs text-stone-700"></div>
 
-      <div class="p-4 bg-stone-50 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-end gap-2.5">
-        <button type="button" onclick="downloadContractCopy()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
-          <i class="ph-bold ph-download-simple"></i>
-          <span>Descargar Copia (.txt)</span>
+      <!-- Footer con botón de Confirmar y Enviar Todo -->
+      <div class="p-4 bg-stone-50 border-t border-stone-100 flex items-center justify-end gap-2.5">
+        <button type="button" onclick="closePreviewModal()" class="px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs transition">
+          Volver a editar
         </button>
-        <button type="button" onclick="window.print()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
-          <i class="ph-bold ph-printer"></i>
-          <span>Imprimir / PDF</span>
-        </button>
-        <button type="button" onclick="submitToWhatsApp()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm">
-          <i class="ph-bold ph-whatsapp-logo text-base"></i>
-          <span>Confirmar y Enviar a WhatsApp</span>
+        <button type="button" id="confirmAndSendBtn" onclick="confirmAndSubmitEverything()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-sm">
+          <i class="ph-bold ph-paper-plane-tilt text-base"></i>
+          <span>Confirmar y Enviar Pedido</span>
         </button>
       </div>
 
@@ -513,17 +541,14 @@
   <!-- MODAL: Visor de Foto de Maqueta en Pantalla Completa (Zoom / Lightbox) -->
   <div id="imageLightboxModal" class="fixed inset-0 z-50 bg-stone-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6" onclick="closeImageLightbox(event)">
     <div class="relative max-w-2xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-stone-100 flex flex-col" onclick="event.stopPropagation()">
-      <!-- Botón cerrar flotante -->
       <button type="button" onclick="closeImageLightbox()" class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-stone-900/70 hover:bg-stone-900 text-white flex items-center justify-center transition">
         <i class="ph-bold ph-x text-base"></i>
       </button>
 
-      <!-- Foto expandida en HD -->
       <div class="w-full bg-stone-100 max-h-[70vh] flex items-center justify-center overflow-hidden">
         <img id="lightboxImg" src="" alt="Maqueta Star Cake" class="w-full h-full object-contain max-h-[70vh]">
       </div>
 
-      <!-- Pie con detalles y botón para elegir -->
       <div class="p-4 sm:p-5 bg-white border-t border-stone-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
           <h4 id="lightboxTitle" class="font-bold text-base text-stone-900">Nombre de Maqueta</h4>
@@ -532,39 +557,6 @@
         <button type="button" id="lightboxSelectBtn" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm">
           <i class="ph-bold ph-check"></i>
           <span>Seleccionar esta maqueta</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Confirmación Posterior al Envío -->
-  <div id="confirmationSuccessModal" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border border-stone-200 p-6 text-center space-y-4">
-      <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
-        <i class="ph-bold ph-check-circle"></i>
-      </div>
-      <div>
-        <h3 class="font-serif text-lg font-bold text-stone-900">¡Pedido Registrado y Enviado!</h3>
-        <p class="text-xs text-stone-600 mt-1 leading-relaxed">
-          Los datos se han transferido a la agenda de pedidos y al chat de WhatsApp con <strong>Star Cake (656 302 9797)</strong>. Asegúrate de presionar "Enviar" en WhatsApp para entregar tu mensaje.
-        </p>
-      </div>
-      <div class="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 text-left text-xs text-stone-700 space-y-1.5">
-        <p class="font-bold text-stone-800 flex items-center gap-1.5">
-          <i class="ph-bold ph-shield-check text-brand-600"></i>
-          <span>Copia de Respaldo</span>
-        </p>
-        <p class="text-[11px] text-stone-500">
-          Puedes descargar una copia digital del contrato para guardarla en tu dispositivo o imprimirla.
-        </p>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-2 pt-1">
-        <button type="button" onclick="downloadContractCopy()" class="flex-1 py-2.5 px-4 rounded-xl border border-stone-300 hover:bg-stone-50 font-bold text-xs text-stone-800 flex items-center justify-center gap-1.5 transition">
-          <i class="ph-bold ph-download-simple text-sm"></i>
-          <span>Descargar Copia</span>
-        </button>
-        <button type="button" onclick="closeConfirmationModal()" class="flex-1 py-2.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 font-bold text-xs text-white transition shadow-sm">
-          Entendido
         </button>
       </div>
     </div>
@@ -599,14 +591,13 @@
       }
 
       if (fileId) {
-        // Enlace CDN directo de Google Drive con tamaño ampliado a 1000px
         return `https://lh3.googleusercontent.com/d/${fileId}=s1000`;
       }
 
       return str;
     }
 
-    // Catálogo inicial con tus 22 maquetas (se actualiza automáticamente con tus fotos de Drive/Sheets)
+    // Catálogo inicial con 22 maquetas
     let MAQUETAS_CATALOG = Array.from({ length: 22 }, (_, idx) => {
       const num = idx + 1;
       const id = "MQ-" + (num < 10 ? "0" + num : num);
@@ -617,7 +608,7 @@
         photo: `https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=800`
       };
     });
-    let BOOKED_MAQUETAS = []; // Fechas y maquetas reservadas
+    let BOOKED_MAQUETAS = [];
 
     // Catálogos Oficiales de Star Cake
     const CAKE_FLAVORS = [
@@ -664,11 +655,11 @@
     };
     let currentActiveTier = 1;
     let totalActiveTiers = 0;
-    let tierSelections = {}; // { 1: { flavor: '', filling: '' } }
+    let tierSelections = {};
 
     let currentActiveSheet = 1;
     let totalActiveSheets = 0;
-    let sheetSelections = {}; // { 1: { flavor: '', filling: '' } }
+    let sheetSelections = {};
 
     // Inicialización al cargar la página
     window.onload = function() {
@@ -706,7 +697,7 @@
       if (parts.length < 3) return [dateStr];
 
       const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
-      const day = d.getDay(); // 0 Dom, 1 Lun, 2 Mar, 3 Mie, 4 Jue, 5 Vie, 6 Sab
+      const day = d.getDay();
 
       let friday = new Date(d);
       if (day === 5) {
@@ -716,7 +707,6 @@
       } else if (day === 0) {
         friday.setDate(d.getDate() - 2);
       } else {
-        // Lun-Jue
         friday.setDate(d.getDate() + (5 - day));
       }
 
@@ -745,7 +735,6 @@
 
       grid.innerHTML = "";
 
-      // Días de fin de semana a evaluar para los modelos del catálogo
       const currentWeekendDays = eventDateVal ? getWeekendDatesArray(eventDateVal) : [];
 
       // 1. Catálogo regular de las 22 Maquetas
@@ -768,11 +757,9 @@
 
         card.innerHTML = `
           <div class="space-y-2">
-            <!-- Contenedor de foto con botón de Zoom -->
             <div class="w-full h-40 rounded-xl overflow-hidden bg-stone-100 border border-stone-100 relative group">
               <img src="${formatDriveImageUrl(mq.photo)}" alt="${mq.name}" loading="lazy" class="w-full h-full object-cover transition duration-300 group-hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x300/fce7f3/db2777?text=Foto+Star+Cake';">
               
-              <!-- Botón flotante para expandir la imagen en grande -->
               <button type="button" onclick="openImageLightbox('${formatDriveImageUrl(mq.photo)}', '${mq.name}', '${mq.floors} • ID: ${mq.id}', '${mq.id}', ${isOccupied})" class="absolute bottom-2 right-2 bg-stone-900/70 hover:bg-stone-900 text-white px-2 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 shadow backdrop-blur-sm transition">
                 <i class="ph-bold ph-arrows-out-simple"></i>
                 <span>Ver grande</span>
@@ -913,7 +900,7 @@
       if (modal) modal.classList.add('hidden');
     }
 
-    // Restricciones de fecha (mínimo mañana, máximo 1 año al futuro)
+    // Restricciones de fecha
     function setupDateRestrictions() {
       const today = new Date();
       const tomorrow = new Date(today);
@@ -1202,7 +1189,7 @@
       }
     }
 
-    // Renderizar Diagrama de Pisos (1 a N: cima más pequeño a base más ancha)
+    // Renderizar Diagrama de Pisos
     function renderCakeTiers(numTiers) {
       const visualContainer = document.getElementById('cakeDiagramVisual');
       visualContainer.innerHTML = '';
@@ -1311,7 +1298,7 @@
       }
     }
 
-    // Renderizar Planchas de Pastel con Selección de una por una
+    // Renderizar Planchas de Pastel
     function renderSheetCakes(fullSheets, halfSheets) {
       const diagram = document.getElementById('sheetCakesDiagram');
       diagram.innerHTML = '';
@@ -1500,7 +1487,7 @@
 
     function handleEventDateChange() {
       setupTastingDateRestrictions();
-      renderMaquetasCards(); // Actualizar disponibilidad de maquetas según la nueva fecha
+      renderMaquetasCards();
       const tastingInput = document.getElementById('tastingDate');
       if (tastingInput && tastingInput.value) {
         handleTastingDateValidation();
@@ -1629,6 +1616,13 @@
           <p class="text-stone-600">Fecha del evento: <strong>${data.eventDate}</strong></p>
         </div>
 
+        ${(data.birthdayName || data.birthdayAge) ? `
+          <div class="p-3 rounded-2xl bg-brand-50/60 border border-brand-200 text-stone-800 space-y-0.5">
+            <p class="font-bold text-xs text-brand-900">🎂 Festejado(a):</p>
+            <p class="text-xs">${data.birthdayName ? `Nombre: <strong>${data.birthdayName}</strong>` : ''} ${data.birthdayAge ? `(${data.birthdayAge})` : ''}</p>
+          </div>
+        ` : ''}
+
         ${data.coverage ? `<p><strong>Cobertura:</strong> ${data.coverage}</p>` : ''}
         ${data.structure ? `<p><strong>Modalidad:</strong> ${data.structure} ${data.maquetaName ? `(${data.maquetaName} - ${data.maquetaId})` : ''}</p>` : ''}
         ${data.customMaquetaNotes ? `<p class="p-2 rounded-xl bg-brand-50 text-[11px] text-brand-900"><strong>Detalles de diseño personalizado:</strong> ${data.customMaquetaNotes}</p>` : ''}
@@ -1644,6 +1638,13 @@
         ${data.tastingInfo ? `
           <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900">
             <strong>Degustación:</strong> ${data.tastingInfo}
+          </div>
+        ` : ''}
+
+        ${data.orderNotes ? `
+          <div class="p-3 rounded-2xl bg-stone-50 border border-stone-200 text-stone-800 space-y-0.5">
+            <p class="font-bold text-xs text-stone-900">📝 Notas o Comentarios Extras:</p>
+            <p class="text-xs text-stone-700 whitespace-pre-line">${data.orderNotes}</p>
           </div>
         ` : ''}
 
@@ -1668,6 +1669,7 @@
       const phone = document.getElementById('clientPhone')?.value.trim();
       const eventDate = document.getElementById('eventDate')?.value;
       const productType = document.querySelector('input[name="productType"]:checked')?.value;
+      const orderNotes = document.getElementById('orderNotes')?.value.trim() || "";
 
       if (!contactChannel) {
         showNotification("Selecciona el medio por el que nos contactas (Paso 1).");
@@ -1695,7 +1697,12 @@
       }
 
       let coverage = "";
+      let birthdayName = "";
+      let birthdayAge = "";
       if (productType === "Pastel") {
+        birthdayName = document.getElementById('birthdayName')?.value.trim() || "";
+        birthdayAge = document.getElementById('birthdayAge')?.value.trim() || "";
+
         coverage = document.getElementById('coverageSelect')?.value;
         if (!coverage) {
           showNotification("Selecciona el tipo de cobertura en el Paso 2.");
@@ -1720,7 +1727,6 @@
           return null;
         }
 
-        // Si es maqueta o maqueta + planchas, validar que haya elegido una maqueta
         if (structure === "Maqueta" || structure === "Maqueta y planchas") {
           maquetaId = document.getElementById('selectedMaquetaId')?.value;
           maquetaName = document.getElementById('selectedMaquetaName')?.value;
@@ -1888,6 +1894,9 @@
         phone,
         eventDate,
         productType,
+        birthdayName,
+        birthdayAge,
+        orderNotes,
         coverage,
         structure,
         maquetaId,
@@ -1914,72 +1923,6 @@
       };
     }
 
-    // Descargar copia digital
-    function downloadContractCopy() {
-      const data = collectFormData();
-      if (!data) return;
-
-      let plainText = `========================================================\n`;
-      plainText += `              CONTRATO Y REGISTRO STAR CAKE             \n`;
-      plainText += `            Pastelería Boutique - Ciudad Juárez         \n`;
-      plainText += `              WhatsApp Oficial: 656 302 9797            \n`;
-      plainText += `========================================================\n\n`;
-
-      plainText += `DATOS DEL CLIENTE Y EVENTO:\n`;
-      plainText += `--------------------------------------------------------\n`;
-      plainText += `Titular:            ${data.profileName}\n`;
-      plainText += `Teléfono:           ${data.phone}\n`;
-      plainText += `Medio de contacto:  ${data.contactChannel}\n`;
-      plainText += `Fecha del Evento:   ${data.eventDate}\n`;
-      plainText += `Servicio:           ${data.productType}\n`;
-      if (data.coverage) plainText += `Cobertura:          ${data.coverage}\n`;
-      if (data.structure) {
-        plainText += `Modalidad:          ${data.structure}\n`;
-        if (data.maquetaName) plainText += `Maqueta:            ${data.maquetaName} [${data.maquetaId}]\n`;
-        if (data.customMaquetaNotes) plainText += `Diseño Maqueta:     ${data.customMaquetaNotes}\n`;
-      }
-      if (data.capacityText) plainText += `Capacidad:          ${data.capacityText}\n`;
-
-      plainText += `\nLOGÍSTICA DE ENTREGA:\n`;
-      plainText += `--------------------------------------------------------\n`;
-      plainText += data.logisticsTextWhatsApp.replace(/\*/g, '');
-
-      plainText += `\nCONFIGURACIÓN DE SABORES:\n`;
-      plainText += `--------------------------------------------------------\n`;
-      plainText += data.flavorsWhatsApp.replace(/\*/g, '');
-
-      if (data.tastingWhatsApp) {
-        plainText += `\nAGENDA DE DEGUSTACIÓN:\n`;
-        plainText += `--------------------------------------------------------\n`;
-        plainText += data.tastingWhatsApp.replace(/\*/g, '');
-      }
-
-      plainText += `\n========================================================\n`;
-      plainText += `POLÍTICAS Y CONDICIONES:\n`;
-      plainText += `- En la cancelación de tu evento no habrá devolución de anticipo ni pagos subsecuentes.\n`;
-      plainText += `- El pastel debe estar liquidado a más tardar una semana antes del evento.\n`;
-      plainText += `- En pasteles de crema (Buttercream/Chantilly), el cliente reconoce y acepta\n`;
-      plainText += `  la sensibilidad y riesgos ante altas temperaturas.\n`;
-      plainText += `Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}\n`;
-      plainText += `========================================================\n`;
-
-      const blob = new Blob([plainText], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const anchor = document.createElement('a');
-      anchor.href = url;
-      anchor.download = `Contrato_Star_Cake_${data.profileName.replace(/\s+/g, '_')}_${data.eventDate}.txt`;
-      document.body.appendChild(anchor);
-      anchor.click();
-      document.body.removeChild(anchor);
-      URL.revokeObjectURL(url);
-
-      showNotification("Copia del contrato descargada con éxito.");
-    }
-
-    function closeConfirmationModal() {
-      document.getElementById('confirmationSuccessModal').classList.add('hidden');
-    }
-
     // Enviar datos en segundo plano a Google Apps Script (Sheets + Calendar)
     async function sendDataToGoogleAppsScript(data) {
       if (!GOOGLE_APPS_SCRIPT_URL) {
@@ -1993,6 +1936,9 @@
         contactChannel: data.contactChannel,
         eventDate: data.eventDate,
         productType: data.productType,
+        birthdayName: data.birthdayName || "",
+        birthdayAge: data.birthdayAge || "",
+        orderNotes: data.orderNotes || "",
         structure: data.structure || "Pastel Estándar",
         maquetaId: data.maquetaId || "",
         maquetaName: data.maquetaName || "",
@@ -2022,20 +1968,27 @@
           },
           body: JSON.stringify(payload)
         });
-        console.log("Datos sincronizados con éxito a Google Apps Script.");
+        console.log("Datos sincronizados con éxito a Google Apps Script (Sheets + Calendar).");
       } catch (err) {
         console.warn("No se pudo completar el envío a Google Apps Script:", err);
       }
     }
 
-    // Enviar a WhatsApp oficial y guardar en Google
-    function submitToWhatsApp() {
+    // Función que CONFIRMA y ENVÍA TODO a Google Sheets, Calendar y abre WhatsApp
+    function confirmAndSubmitEverything() {
       const data = collectFormData();
       if (!data) return;
 
-      // Envío en segundo plano a Google Apps Script
+      const btn = document.getElementById('confirmAndSendBtn');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i class="ph-bold ph-spinner animate-spin text-base"></i><span>Procesando...</span>`;
+      }
+
+      // 1. Enviar a Google Apps Script (Sheets + Calendar)
       sendDataToGoogleAppsScript(data);
 
+      // 2. Construir mensaje oficial para WhatsApp
       const PHONE_STAR_CAKE = "526563029797";
 
       let msg = `*CONTRATO Y REGISTRO STAR CAKE*\n`;
@@ -2045,6 +1998,10 @@
       msg += `*Medio:* ${data.contactChannel}\n`;
       msg += `*Fecha del Evento:* ${data.eventDate}\n`;
       msg += `*Servicio:* ${data.productType}\n`;
+
+      if (data.birthdayName || data.birthdayAge) {
+        msg += `*Cumpleañero(a):* ${data.birthdayName || 'N/A'}${data.birthdayAge ? ` (${data.birthdayAge})` : ''}\n`;
+      }
 
       if (data.coverage) msg += `*Cobertura:* ${data.coverage}\n`;
       if (data.structure) {
@@ -2068,15 +2025,26 @@
         msg += data.tastingWhatsApp;
       }
 
+      if (data.orderNotes) {
+        msg += `------------------------------------\n`;
+        msg += `*Notas / Comentarios:* ${data.orderNotes}\n`;
+      }
+
       msg += `------------------------------------\n`;
       msg += `_Entendido y aceptado: en la cancelación de tu evento no habrá devolución de anticipo ni pagos subsecuentes._\n`;
       msg += `_Liquidación formal 1 semana antes del evento._`;
 
+      // 3. Abrir WhatsApp y cerrar modal
       const whatsappURL = `https://wa.me/${PHONE_STAR_CAKE}?text=${encodeURIComponent(msg)}`;
       window.open(whatsappURL, '_blank');
       closePreviewModal();
 
-      document.getElementById('confirmationSuccessModal').classList.remove('hidden');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="ph-bold ph-paper-plane-tilt text-base"></i><span>Confirmar y Enviar Pedido</span>`;
+      }
+
+      showNotification("¡Pedido confirmado y enviado!");
     }
   </script>
 </body>
